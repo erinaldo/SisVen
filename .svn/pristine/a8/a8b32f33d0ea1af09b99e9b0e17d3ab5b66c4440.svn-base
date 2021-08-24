@@ -1,0 +1,206 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class EnviarDTE
+    Inherits System.Windows.Forms.Form
+
+    'Form reemplaza a Dispose para limpiar la lista de componentes.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Requerido por el Diseñador de Windows Forms
+    Private components As System.ComponentModel.IContainer
+
+    'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
+    'Se puede modificar usando el Diseñador de Windows Forms.  
+    'No lo modifique con el editor de código.
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(EnviarDTE))
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.xNumero = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.cTipoDoc = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.cLocal = New System.Windows.Forms.ComboBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Enviar = New System.Windows.Forms.Button()
+        Me.Salir = New System.Windows.Forms.Button()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.xStatus = New System.Windows.Forms.TextBox()
+        Me.bConsultar = New System.Windows.Forms.Button()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.SuspendLayout()
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox1.Controls.Add(Me.xNumero)
+        Me.GroupBox1.Controls.Add(Me.Label3)
+        Me.GroupBox1.Controls.Add(Me.cTipoDoc)
+        Me.GroupBox1.Controls.Add(Me.Label2)
+        Me.GroupBox1.Controls.Add(Me.cLocal)
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Location = New System.Drawing.Point(2, 3)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(307, 106)
+        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabStop = False
+        '
+        'xNumero
+        '
+        Me.xNumero.Location = New System.Drawing.Point(121, 72)
+        Me.xNumero.Name = "xNumero"
+        Me.xNumero.Size = New System.Drawing.Size(100, 20)
+        Me.xNumero.TabIndex = 2
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(10, 75)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(77, 13)
+        Me.Label3.TabIndex = 4
+        Me.Label3.Text = "N° Documento"
+        '
+        'cTipoDoc
+        '
+        Me.cTipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cTipoDoc.FormattingEnabled = True
+        Me.cTipoDoc.Location = New System.Drawing.Point(121, 43)
+        Me.cTipoDoc.Name = "cTipoDoc"
+        Me.cTipoDoc.Size = New System.Drawing.Size(179, 21)
+        Me.cTipoDoc.TabIndex = 1
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(10, 46)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(86, 13)
+        Me.Label2.TabIndex = 2
+        Me.Label2.Text = "Tipo Documento"
+        '
+        'cLocal
+        '
+        Me.cLocal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cLocal.FormattingEnabled = True
+        Me.cLocal.Location = New System.Drawing.Point(121, 13)
+        Me.cLocal.Name = "cLocal"
+        Me.cLocal.Size = New System.Drawing.Size(179, 21)
+        Me.cLocal.TabIndex = 0
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(10, 16)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(33, 13)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Local"
+        '
+        'Enviar
+        '
+        Me.Enviar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Enviar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Enviar.Location = New System.Drawing.Point(123, 232)
+        Me.Enviar.Name = "Enviar"
+        Me.Enviar.Size = New System.Drawing.Size(90, 39)
+        Me.Enviar.TabIndex = 5
+        Me.Enviar.Text = "Enviar"
+        Me.Enviar.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Enviar.UseVisualStyleBackColor = True
+        '
+        'Salir
+        '
+        Me.Salir.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Salir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Salir.Location = New System.Drawing.Point(219, 232)
+        Me.Salir.Name = "Salir"
+        Me.Salir.Size = New System.Drawing.Size(90, 39)
+        Me.Salir.TabIndex = 6
+        Me.Salir.Text = "Salir"
+        Me.Salir.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Salir.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Controls.Add(Me.xStatus)
+        Me.GroupBox2.Location = New System.Drawing.Point(2, 115)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(307, 111)
+        Me.GroupBox2.TabIndex = 7
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Resultado"
+        '
+        'xStatus
+        '
+        Me.xStatus.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.xStatus.Location = New System.Drawing.Point(6, 19)
+        Me.xStatus.Multiline = True
+        Me.xStatus.Name = "xStatus"
+        Me.xStatus.ReadOnly = True
+        Me.xStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.xStatus.Size = New System.Drawing.Size(294, 86)
+        Me.xStatus.TabIndex = 6
+        '
+        'bConsultar
+        '
+        Me.bConsultar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.bConsultar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.bConsultar.Location = New System.Drawing.Point(27, 232)
+        Me.bConsultar.Name = "bConsultar"
+        Me.bConsultar.Size = New System.Drawing.Size(90, 39)
+        Me.bConsultar.TabIndex = 8
+        Me.bConsultar.Text = "Consultar"
+        Me.bConsultar.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.bConsultar.UseVisualStyleBackColor = True
+        '
+        'EnviarDTE
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(314, 277)
+        Me.Controls.Add(Me.bConsultar)
+        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.Enviar)
+        Me.Controls.Add(Me.Salir)
+        Me.Controls.Add(Me.GroupBox1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Name = "EnviarDTE"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "Enviar Documento al DTE"
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        Me.ResumeLayout(False)
+
+    End Sub
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents Enviar As System.Windows.Forms.Button
+    Friend WithEvents Salir As System.Windows.Forms.Button
+    Friend WithEvents xNumero As System.Windows.Forms.TextBox
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents cTipoDoc As System.Windows.Forms.ComboBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents cLocal As System.Windows.Forms.ComboBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents bConsultar As System.Windows.Forms.Button
+    Friend WithEvents xStatus As System.Windows.Forms.TextBox
+End Class

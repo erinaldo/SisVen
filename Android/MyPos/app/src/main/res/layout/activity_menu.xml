@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/mMenuPrincipal"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="15sp"
+                android:textColor="@color/Blanco"
+                android:layout_marginStart="15sp"
+                android:background="@drawable/botonazulrectangular"/>
+
+            <Button
+                android:text="VENTAS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bMenuVentas"
+                android:textColor="@color/Blanco"
+                android:textSize="20sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="15sp"
+                android:layout_marginStart="15sp"
+                android:onClick="Ventas"
+                android:drawableLeft="@drawable/ventas"
+                android:gravity="center"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:background="@drawable/botonazulrectangular"/>
+
+            <Button
+                android:text="ANULACIONES"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bMenuAnulaciones"
+                android:textColor="@color/Blanco"
+                android:textSize="20sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="15sp"
+                android:layout_marginStart="15sp"
+                android:onClick="Anulaciones"
+                android:drawableLeft="@drawable/anular"
+                android:gravity="center"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:background="@drawable/botonazulrectangular"/>
+
+            <Button
+                android:text="CORRELATIVOS (CAF)"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bMenuCorrelativos"
+                android:textColor="@color/Blanco"
+                android:textSize="20sp"
+                android:onClick="Correlativos"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="15sp"
+                android:layout_marginStart="15sp"
+                android:drawableLeft="@drawable/consulta_tracking"
+                android:gravity="center"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:background="@drawable/botonazulrectangular"/>
+
+            <Button
+                android:text="PRECIOS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bMenuPrecios"
+                android:textColor="@color/Blanco"
+                android:textSize="20sp"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="15sp"
+                android:layout_marginStart="15sp"
+                android:onClick="Precios"
+                android:drawableLeft="@drawable/precio"
+                android:gravity="center"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:background="@drawable/botonazulrectangular"/>
+
+            <Button
+                android:text="CLIENTES"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bMenuClientes"
+                android:textColor="@color/Blanco"
+                android:textSize="20sp"
+                android:onClick="Clientes"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="15sp"
+                android:layout_marginStart="15sp"
+                android:drawableLeft="@drawable/cliente"
+                android:gravity="center"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:background="@drawable/botonazulrectangular"/>
+
+            <Button
+                android:text="CONSULTAS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bMenuConsultas"
+                android:textColor="@color/Blanco"
+                android:textSize="20sp"
+                android:onClick="Consultas"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="15sp"
+                android:layout_marginStart="15sp"
+                android:drawableLeft="@drawable/consulta_articulo"
+                android:gravity="center"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:background="@drawable/botonazulrectangular"/>
+
+            <Button
+                android:text="ENVÍO DE DOCUMENTOS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bMenuEnvio"
+                android:textColor="@color/Blanco"
+                android:textSize="20sp"
+                android:onClick="EnvioDocumentos"
+                android:layout_marginTop="10sp"
+                android:layout_marginEnd="15sp"
+                android:layout_marginStart="15sp"
+                android:drawableLeft="@drawable/estado_pedido"
+                android:gravity="center"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:background="@drawable/botonazulrectangular"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/bSalir"
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/botonrojorectangular"
+                    android:text="SALIR"
+                    android:textColor="@color/Blanco"
+                    android:textSize="20sp"
+                    android:onClick="Salir"
+                    android:layout_marginTop="10sp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15sp"
+                    android:drawableLeft="@drawable/salir"
+                    android:gravity="center"
+                    android:paddingLeft="10sp"
+                    android:layout_marginBottom="10dp"
+                    android:paddingRight="10sp"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,29 @@
+﻿Public Class LiquidacionesReporte
+    Public Funcionario As String
+    Public Base As Double
+    Public Dia As Double
+    Public TGratificacion As Double
+    Public TImponible As Double
+    Public TColacion As Double
+    Public TMovilizacion As Double
+    Public TCargas As Double
+    Public TVariables As Double
+    Public TBonos As Double
+    Public TAguinaldos As Double
+    Public THaberes As Double
+    Public TAFP As Double
+    Public TSalud As Double
+    Public Anticipos As Double
+    Public Descuentos As Double
+    Public Creditos As Double
+    Public Seguros As Double
+    Public AFC As Double
+    Public Ahorro As Double
+    Public TDescuentos As Double
+    Public TLiquido As Double
+    Public DescModoPago As String
+    Public Fecha As Date
+    Public Mes As Date
+    Public Año As Date
+    Public ModoPago As String
+End Class

@@ -1,0 +1,166 @@
+﻿Imports System.ComponentModel
+
+Public Class ManCorrelativos
+    Implements iFormulario
+    Private Sub ManCorrelativos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Limpiar()
+        bGuardar.Text = "Guardar"
+        LoadItems(cLocal, "Locales", "NombreLocal")
+        LoadItems(cLocal, "TipoDoc", "DescTipoDoc")
+        xLocal.Focus()
+        Auditoria(Me.Text, PR_INGRESAR, "", 0)
+    End Sub
+    Private Sub xLocal_KeyPress(sender As Object, e As KeyPressEventArgs) Handles xLocal.KeyPress
+        ValidarDigitos(e)
+        e.NextControl(xCaja)
+    End Sub
+
+    Private Sub xLocal_Validating(Optional sender As Object = Nothing, Optional e As CancelEventArgs = Nothing) Handles xLocal.Validating
+        Try
+            If xLocal.Text.Trim <> "" Then
+                Dim sl = SQL("SELECT * FROM Locales WHERE Local = '" & Val(xLocal.Text) & "'")
+                If sl.RecordCount > 0 Then
+                    cLocal.Text = sl.Fields("NombreLocal").Text.Trim
+                End If
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub bGuardar_Click(sender As Object, e As EventArgs) Handles bGuardar.Click
+        Dim wAuditoria = ""
+        If xLocal.Text = "" Then
+            MsgError("Ingrese Numero de Local")
+            xLocal.Focus()
+            Exit Sub
+        End If
+        If xCaja.Text = "" Then
+            MsgError("Ingrese Nombre de Caja")
+            xCaja.Focus()
+            Exit Sub
+        End If
+        If cTipoDoc.Text = "" Then
+            MsgError("Ingrese Tipo de Documento")
+            cTipoDoc.Focus()
+            Exit Sub
+        End If
+        If xCorrelativo.Text = "" Then
+            MsgError("Ingrese Correlativo")
+            xCorrelativo.Focus()
+            Exit Sub
+        End If
+        Dim wMensaje As String
+        Dim sl = SQL("SELECT * FROM Correlativos WHERE Local = '" & Val(xLocal.Text.Trim) & "' AND Caja = '" & xCaja.Text & "'" &
+                     " AND TipoDoc = '" & BuscarTipoDoc(cTipoDoc.Text) & "'")
+        If sl.RecordCount = 0 Then
+            sl.AddNew()
+            wMensaje = "Correlativo guardado corretamente"
+            wAuditoria = PR_GUARDAR
+        Else
+            wMensaje = "Correlativo modificado correctamente"
+            wAuditoria = PR_MODIFICAR
+        End If
+
+        sl.Fields("Correlativo").Value = Val(xCorrelativo.Text)
+        sl.Update()
+        MsgBox(wMensaje)
+        Auditoria(Me.Text, wAuditoria, "", 0)
+        Limpiar()
+    End Sub
+
+    Public Function BuscarTipoDoc(ByVal wTipoDoc As String) As String
+        Dim td = SQL("SELECT TipoDoc FROm TipoDoc WHERE DesctTipoDoc = '" & wTipoDoc & "'")
+        Return td.Fields("TipoDoc").Text
+    End Function
+    Public Function BuscaNombrerTipoDoc(ByVal wTipoDoc As String) As String
+        Dim td = SQL("SELECT DescTipoDoc FROm TipoDoc WHERE TipoDoc = '" & wTipoDoc & "'")
+        Return td.Fields("DescTipoDoc").Text
+    End Function
+    Private Sub Limpiar()
+        xID.Clear()
+        xLocal.Clear()
+        cLocal.SelectedIndex = -1
+        xCorrelativo.Clear()
+        xCaja.Clear()
+        bGuardar.Text = "Guardar"
+        cTipoDoc.SelectedIndex = -1
+        xLocal.Focus()
+    End Sub
+
+    Private Sub bLimpiar_Click(sender As Object, e As EventArgs) Handles bLimpiar.Click
+        Limpiar()
+    End Sub
+
+    Private Sub bSalir_Click(sender As Object, e As EventArgs) Handles bSalir.Click
+        Close()
+    End Sub
+    'Private Sub bEliminar_Click(sender As Object, e As EventArgs) Handles bEliminar.Click
+    '    Try
+    '        If xLocal.Text.Trim <> "" Then
+    '            If ValidarEliminar("AFP", xLocal.Text.Trim, "AFP") Then
+    '                MsgError("No se puede eliminar el AFP")
+    '            Else
+    '                SQL("DELETE FROM AFPs WHERE AFP = '" & Val(xLocal.Text) & "'")
+    '                MsgBox("AFP eliminado correctamente")
+    '                Limpiar()
+    '                xLocal.Focus()
+    '            End If
+    '        End If
+    '    Catch ex As Exception
+    '        MsgError(ex.Message)
+    '    End Try
+    'End Sub
+
+    Private Sub xCaja_KeyPress(sender As Object, e As KeyPressEventArgs) Handles xCaja.KeyPress
+        e.NextControl(cTipoDoc)
+    End Sub
+    Public Sub CargarRegistro(ByVal wControl As Control, ByVal wValor As String) Implements iFormulario.CargarRegistro
+        wControl.Text = wValor
+        wControl.Validate
+    End Sub
+    Private Sub ManTipoMov_Validating(sender As Object, e As CancelEventArgs) Handles Me.Validating
+        xLocal.Focus()
+    End Sub
+    Private Sub cLocal_KeyPress(sender As Object, e As KeyPressEventArgs)
+        e.NextControl(bGuardar)
+    End Sub
+    Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs)
+        ValidarDigitos(e)
+        e.NextControl(bGuardar)
+    End Sub
+
+    Private Sub Button39_Click(sender As Object, e As EventArgs) Handles Button39.Click
+        xID.Text = SiguienteCorrelativo("Correlativos")
+        xLocal.Focus()
+        bGuardar.Text = "Guardar"
+    End Sub
+
+    Private Sub xID_KeyPress(sender As Object, e As KeyPressEventArgs) Handles xID.KeyPress
+        ValidarDigitos(e)
+        If e.KeyChar = vbCr Then
+            xLocal.Focus()
+        End If
+    End Sub
+
+    Private Sub xID_Validating(Optional sender As Object = Nothing, Optional e As CancelEventArgs = Nothing) Handles xID.Validating
+        If xID.Text <> "" Then
+            Dim dt = SQL("SELECT * FROM CORRELATIVOS WHERE ID = " & Val(xID.Text) & "")
+            If dt.RecordCount = 1 Then
+                xLocal.Text = dt.Fields("Local").Text
+                xLocal_Validating()
+                xCaja.Text = dt.Fields("Caja").Text
+                cTipoDoc.Text = BuscaNombrerTipoDoc(dt.Fields("TipoDoc").Text)
+                xCorrelativo.Text = dt.Fields("Correlativo").Text
+                bGuardar.Text = "Modificar"
+            Else
+                MsgError("ID de Correlativo no encontrado")
+                Limpiar()
+            End If
+        End If
+    End Sub
+
+    Private Sub bEliminar_Click(sender As Object, e As EventArgs) Handles bEliminar.Click
+        Auditoria(Me.Text, PR_ELIMINAR, "", 0)
+    End Sub
+End Class

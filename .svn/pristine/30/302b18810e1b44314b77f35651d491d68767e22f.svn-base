@@ -1,0 +1,781 @@
+﻿Imports System
+Imports System.IO
+Imports System.Text
+Imports IDAutomation
+Imports DTEBoxCliente
+
+Module DTE
+    Public FE_IP As String
+    Public FE_Local As Boolean
+    Public FE_Ambiente As String
+    Public FE_Rut_Emisor As String
+    Public FE_Razon_Social As String
+    Public FE_Giro As String
+    Public FE_Direccion As String
+    Public FE_Comuna As String
+    Public FE_Ciudad As String
+    Public FE_Ateco As Double
+    Public FE_Llave As String
+    Public FE_NResolucion As Double
+    Public FE_FResolucion As Date
+    Public FE_DTE As String
+    Public FE_PDFColumnas As Integer
+    Public FE_PDFNivel As Integer
+    Public FE_PDFTruncado As Boolean
+    Public FE_TipoDTE As Double
+    Public FE_CodigoDTE As Double
+    Public FE_FV As Boolean
+    Public FE_GD As Boolean
+    Public FE_NC As Boolean
+    Public FE_FE As Boolean
+    Public FE_ND As Boolean
+    Public FE_BO As Boolean
+    Public FE_BE As Boolean
+    Public FE_FC As Boolean
+
+    Public DEMO_DTE As Boolean = False
+
+    Public Directorio_CAF As String
+    Public Directorio_TED As String
+
+    Public Function Parametros_DTE(wLocal As Double) As Boolean
+        Parametros_DTE = False
+        Try
+            Loc = SQL("Select * from Locales WHERE Local = " + wLocal.ToString)
+            If Loc.RecordCount > 0 Then
+                FE_IP = Loc.Fields("IP_DTE").Value.ToString.Trim
+                FE_Local = Loc.Fields("FElectronica").Value
+                FE_Rut_Emisor = Rut_DTE(Loc.Fields("RutLocal").Value)
+                FE_Ambiente = IIf(DEMO_DTE, DTEBoxCliente.Ambiente.Homologacion, DTEBoxCliente.Ambiente.Produccion)
+                FE_Razon_Social = Formatea_Texto(Mid(Loc.Fields("RazonLocal").Value, 1, 100))
+                FE_Giro = Formatea_Texto(Mid(Loc.Fields("GiroLocal").Value, 1, 80))
+                FE_Direccion = Formatea_Texto(Mid(Loc.Fields("DirLocal").Value, 1, 60))
+                FE_Comuna = Formatea_Texto(Saca_Comuna(Loc.Fields("Comuna").Value))
+                FE_Ciudad = Formatea_Texto(Saca_Ciudad(Loc.Fields("Ciudad").Value))
+                FE_Ateco = Loc.Fields("Ateco").Value.ToString.Trim
+                FE_Llave = Loc.Fields("Llave").Value.ToString.Trim
+                FE_NResolucion = Loc.Fields("NResolucion").Value
+                FE_FResolucion = Loc.Fields("FResolucion").Value
+                FE_DTE = "http://" + FE_IP + "/api/Core.svc/Core"
+                FE_FV = Loc.Fields("FV_Elect").Value
+                FE_GD = Loc.Fields("GD_Elect").Value
+                FE_NC = Loc.Fields("NC_Elect").Value
+                FE_FE = Loc.Fields("FE_Elect").Value
+                FE_ND = Loc.Fields("ND_Elect").Value
+                FE_BO = Loc.Fields("BO_Elect").Value
+                FE_BE = Loc.Fields("BE_Elect").Value
+                FE_FC = Loc.Fields("FC_Elect").Value
+                Directorio_CAF = Application.StartupPath + "\CAF\"
+                Directorio_TED = Application.StartupPath + "\TED\"
+                Parametros_DTE = True
+            Else
+                FE_IP = "127.0.0.1"
+                FE_Local = False
+                FE_Ambiente = DTEBoxCliente.Ambiente.Homologacion
+                FE_Rut_Emisor = "00.000.000.0"
+                FE_Razon_Social = ""
+                FE_Giro = ""
+                FE_Direccion = ""
+                FE_Comuna = ""
+                FE_Ciudad = ""
+                FE_Ateco = "0000"
+                FE_Llave = ""
+                FE_NResolucion = 0
+                FE_FResolucion = "2000-01-01"
+                FE_DTE = "http://" + FE_IP + "/api/Core.svc/Core"
+                FE_FV = False
+                FE_GD = False
+                FE_NC = False
+                FE_FE = False
+                FE_ND = False
+                FE_BO = False
+                FE_BE = False
+                FE_FC = False
+                Directorio_CAF = ""
+                Directorio_TED = ""
+            End If
+        Catch ex As Exception
+            Parametros_DTE = False
+        End Try
+    End Function
+
+    Public Function Emitir_DTE(wLocal As Double, wTipoDoc As String, wNumDoc As Double) As Boolean
+        Dim wPrimeraLinea As String, wUnidad As String, wArticulo As String, Referencias As Double
+
+        If wTipoDoc = "BO" Then
+            'Las Boletas Tienen tratamiento especial
+            Respuesta = Emitir_Boleta(wLocal, wTipoDoc, wNumDoc)
+            Emitir_DTE = Respuesta
+            Return Respuesta
+        End If
+
+        Dim dte As DocumentoDTE.SiiDte.DTEDefType
+        dte = New DocumentoDTE.SiiDte.DTEDefType()
+        dte.DTE_Choice = New DocumentoDTE.SiiDte.DTE_Choice()
+
+        'Documento
+        dte.DTE_Choice.Documento = New DocumentoDTE.SiiDte.Documento()
+        Dim doc As DocumentoDTE.SiiDte.Documento
+        doc = dte.DTE_Choice.Documento
+
+        'Documento/Encabezado
+        doc.Encabezado = New DocumentoDTE.SiiDte.Encabezado()
+        doc.Encabezado.IdDoc = New DocumentoDTE.SiiDte.IdDoc()
+
+        'Recuperar Documento
+        DocG = SQL("Select * from DocumentosG WHERE Local = " + wLocal.ToString + " and TipoDoc = '" + wTipoDoc + "' and NumDoc = " + wNumDoc.ToString)
+        If DocG.RecordCount = 0 Then
+            Emitir_DTE = False
+            Exit Function
+        End If
+
+        DocD = SQL("Select * from DocumentosD WHERE Local = " + wLocal.ToString + " and TipoDoc = '" + wTipoDoc + "' and NumDoc = " + wNumDoc.ToString)
+        If DocD.RecordCount = 0 Then
+            Emitir_DTE = False
+            Exit Function
+        End If
+
+        Cli = SQL("Select * from Clientes WHERE Cliente = " + DocG.Fields("Cliente").Value.ToString)
+        If Cli.RecordCount = 0 Then
+            Emitir_DTE = False
+            Exit Function
+        End If
+
+        'Documento/Encabezado/IdDoc
+        doc.Encabezado.IdDoc.TipoDTE = Codigo_DTE(wTipoDoc)
+        doc.Encabezado.IdDoc.Folio = CInt(wNumDoc)
+        doc.Encabezado.IdDoc.FchEmis = New LiquidTechnologies.Runtime.Net20.XmlDateTime(New DateTime(Year(DocG.Fields("Fecha").Value), Month(DocG.Fields("Fecha").Value), Microsoft.VisualBasic.DateAndTime.Day(DocG.Fields("Fecha").Value)))
+        doc.Encabezado.IdDoc.FmaPago = IIf(DocG.Fields("FPago").Value.ToString.Trim.ToUpper = "E", DocumentoDTE.SiiDte.Enumerations.IdDoc_FmaPago.n1, DocumentoDTE.SiiDte.Enumerations.IdDoc_FmaPago.n2)
+
+        If wTipoDoc = "GD" Then
+            doc.Encabezado.IdDoc.TipoDespacho = DocumentoDTE.SiiDte.Enumerations.IdDoc_TipoDespacho.n1
+            doc.Encabezado.IdDoc.IndTraslado = Codigo_Referencia(wTipoDoc, DocG.Fields("Motivo").Value.ToString.Trim)
+            doc.Encabezado.IdDoc.IndServicio = DocumentoDTE.SiiDte.Enumerations.IdDoc_IndServicio.n1
+            doc.Encabezado.IdDoc.FchVenc = New LiquidTechnologies.Runtime.Net20.XmlDateTime(New DateTime(Year(DocG.Fields("Fecha").Value), Month(DocG.Fields("Fecha").Value), Microsoft.VisualBasic.DateAndTime.Day(DocG.Fields("Fecha").Value)))
+        End If
+
+        If wTipoDoc = "NC" Or wTipoDoc = "ND" Then
+            doc.Encabezado.IdDoc.FmaPago = DocumentoDTE.SiiDte.Enumerations.IdDoc_FmaPago.n1
+            doc.Encabezado.IdDoc.FchVenc = New LiquidTechnologies.Runtime.Net20.XmlDateTime(New DateTime(Year(DocG.Fields("FechaDocReferencia").Value), Month(DocG.Fields("FechaDocReferencia").Value), Microsoft.VisualBasic.DateAndTime.Day(DocG.Fields("FechaDocReferencia").Value)))
+        End If
+
+
+        'Documento/Encabezado/Emisor
+        doc.Encabezado.Emisor = New DocumentoDTE.SiiDte.Emisor()
+        doc.Encabezado.Emisor.RUTEmisor = FE_Rut_Emisor
+        doc.Encabezado.Emisor.RznSoc = FE_Razon_Social
+        doc.Encabezado.Emisor.GiroEmis = FE_Giro
+        doc.Encabezado.Emisor.Acteco.Add(CInt(FE_Ateco))
+        doc.Encabezado.Emisor.DirOrigen = FE_Direccion
+        doc.Encabezado.Emisor.CmnaOrigen = FE_Comuna
+        doc.Encabezado.Emisor.CiudadOrigen = FE_Ciudad
+
+        'Documento/Encabezado/Receptor
+        doc.Encabezado.Receptor = New DocumentoDTE.SiiDte.Receptor()
+        doc.Encabezado.Receptor.RUTRecep = Rut_DTE(DocG.Fields("Rut").Value)
+        doc.Encabezado.Receptor.RznSocRecep = Formatea_Texto(Mid(Cli.Fields("Nombre").Value, 1, 100))
+        doc.Encabezado.Receptor.CdgIntRecep = Cli.Fields("Cliente").Value
+        doc.Encabezado.Receptor.GiroRecep = Formatea_Texto(Mid(Cli.Fields("Giro").Value, 1, 40))
+        doc.Encabezado.Receptor.Contacto = Formatea_Texto(Mid(Cli.Fields("Contacto").Value, 1, 80))
+        doc.Encabezado.Receptor.DirRecep = Formatea_Texto(Mid(Cli.Fields("Direccion").Value, 1, 70))
+        doc.Encabezado.Receptor.CmnaRecep = Formatea_Texto(Mid(Saca_Comuna(Cli.Fields("Comuna").Value), 1, 20))
+        doc.Encabezado.Receptor.CiudadRecep = Formatea_Texto(Mid(Saca_Ciudad(Cli.Fields("Comuna").Value), 1, 20))
+
+        'Documento/Encabezado/Totales
+        doc.Encabezado.Totales = New DocumentoDTE.SiiDte.Totales()
+        doc.Encabezado.Totales.MntTotal = CInt(DocG.Fields("Total").Value)
+        doc.Encabezado.Totales.MntNeto = CInt(DocG.Fields("Neto").Value)
+        doc.Encabezado.Totales.TasaIVA = CInt(gIVA)
+        doc.Encabezado.Totales.IVA = CInt(DocG.Fields("IVA").Value)
+
+        'Documento/Detalle
+        Dim det As DocumentoDTE.SiiDte.Detalle
+
+        Lineas = 1
+        DocD.MoveFirst()
+        wPrimeraLinea = "ARTICULO"
+        While Not DocD.EOF
+            det = New DocumentoDTE.SiiDte.Detalle()
+
+            wUnidad = "UN"
+            Art = SQL("Select * from Articulos WHERE Articulo = '" + DocD.Fields("Articulo").Value.ToString + "'")
+            If Art.RecordCount > 0 Then
+                wUnidad = Trim(Art.Fields("Unidad").Value.ToString.Trim)
+            End If
+
+            wArticulo = Trim(Mid(DocD.Fields("Glosa").Value, 1, 80))
+            If wPrimeraLinea = "ARTICULO" Then
+                wPrimeraLinea = Trim(Mid(Formatea_Texto(wArticulo), 1, 80))
+                wArticulo = wPrimeraLinea
+            End If
+
+            det.NroLinDet = Lineas
+            If Lineas = 1 Then
+                det.NmbItem = wPrimeraLinea
+            Else
+                det.NmbItem = wArticulo
+            End If
+            det.MontoItem = CInt(Math.Round(DocD.Fields("Cantidad").Value * DocD.Fields("Precio").Value, 0))
+            det.DscItem = wArticulo
+            det.QtyItem = DocD.Fields("Cantidad").Value
+            det.UnmdItem = wUnidad
+            If DocD.Fields("Precio").Value > 0 Then
+                det.PrcItem = DocD.Fields("Precio").Value
+            End If
+
+            'Para agregar codigo de producto 
+            ''Documento/Detalle/CdgItem
+            'Dim cdgItem As DocumentoDTE.SiiDte.CdgItem
+            'cdgItem = New DocumentoDTE.SiiDte.CdgItem()
+            'cdgItem.TpoCodigo = "INT"  'Intenro
+            'cdgItem.VlrCodigo = "BUR-BURSTA"
+            'det.CdgItem.Add(cdgItem)
+
+            doc.Detalle.Add(det)
+            DocD.MoveNext()
+            Lineas += 1
+        End While
+
+
+        'Documento/Referencia
+        If wTipoDoc <> "BO" Then
+            If (DocG.Fields("TipoDocReferencia").Value.ToString.Trim <> "" And (wTipoDoc = "NC" Or wTipoDoc = "ND")) Or DocG.Fields("OC").Value.ToString.Trim <> "" Then
+                Dim reference As DocumentoDTE.SiiDte.Referencia
+                reference = New DocumentoDTE.SiiDte.Referencia()
+
+                Referencias = 1
+                If wTipoDoc = "NC" Or wTipoDoc = "ND" Then
+                    reference.NroLinRef = CInt(Referencias)
+                    reference.TpoDocRef = Codigo_SII(DocG.Fields("TipoDocReferencia").Value.ToString.Trim)
+                    reference.FolioRef = CInt(DocG.Fields("NumDocReferencia").Value)
+                    reference.FchRef = New LiquidTechnologies.Runtime.Net20.XmlDateTime(New DateTime(Year(DocG.Fields("FechaDocReferencia").Value), Month(DocG.Fields("FechaDocReferencia").Value), Microsoft.VisualBasic.DateAndTime.Day(DocG.Fields("FechaDocReferencia").Value)))
+                    reference.CodRef = Codigo_Referencia(wTipoDoc, DocG.Fields("Motivo").Value.ToString.Trim)
+                    reference.RazonRef = Formatea_Texto(Descripcion_Referencia(DocG.Fields("Motivo").Value.ToString.Trim))
+                    doc.Referencia.Add(reference)
+                    Referencias = Referencias + 1
+                End If
+                If wTipoDoc <> "BO" Then
+                    If DocG.Fields("OC").Value.ToString.Trim <> "" And Referencias = 1 Then
+                        reference.NroLinRef = CInt(Referencias)
+                        reference.TpoDocRef = Codigo_SII("OC")
+                        reference.FolioRef = Trim(DocG.Fields("OC").Value)
+                        reference.FchRef = New LiquidTechnologies.Runtime.Net20.XmlDateTime(New DateTime(Year(DocG.Fields("Fecha").Value), Month(DocG.Fields("Fecha").Value), Microsoft.VisualBasic.DateAndTime.Day(DocG.Fields("Fecha").Value)))
+                        'reference.RazonRef = Formatea_Texto("ORDEN DE COMPRA")
+                        doc.Referencia.Add(reference)
+                        Referencias = Referencias + 1
+                    End If
+                End If
+            End If
+        End If
+
+        'Llamada al Servicio
+        Dim ambiente As DTEBoxCliente.Ambiente
+        ambiente = FE_Ambiente
+        Dim fechaResolucion As Date
+        fechaResolucion = New DateTime(FE_FResolucion.Year, FE_FResolucion.Month, FE_FResolucion.Day)
+        Dim numeroResolucion As Integer
+        numeroResolucion = FE_NResolucion
+        Dim tipoPdf417 As DTEBoxCliente.TipoPdf417
+        tipoPdf417 = DTEBoxCliente.TipoPdf417.Fuente
+
+        Dim generarFolio As Boolean
+        generarFolio = False   'Es para que el DTE genere correlativo automatico o no
+
+        Dim apiURL As String
+        Dim apiAuth As String
+        apiURL = FE_DTE
+        apiAuth = FE_Llave
+
+        Dim servicio As DTEBoxCliente.Servicio
+        servicio = New DTEBoxCliente.Servicio(apiURL, apiAuth)
+
+        Dim resultado As DTEBoxCliente.ResultadoEnvioDte
+        resultado = servicio.EnviarDocumento(dte, ambiente, fechaResolucion, numeroResolucion, tipoPdf417, generarFolio)
+
+        'Procesar Resultado del Servicio
+        If (resultado.ResultadoServicio.Estado = DTEBoxCliente.EstadoResultado.Ok) Then
+            'Usar el data que viene en el resultado de la llamada
+            Dim ted As String
+            ted = resultado.TED 'Xml que representa el elemento TED generado
+            'Si tipoPdf417 = DTEBoxCliente.TipoPdf417.Fuente viene el código, 
+            ' si es DTEBoxCliente.TipoPdf417.Grafico , Entonces arreglo de bytes codigificado en base64, 
+            ' usar método result.Pdf417ComoArregloBytes()
+            Dim pdf417 As String
+            pdf417 = resultado.Pdf417
+
+            If DocG.Fields("Status_DTE").Value <> 1 Then
+                'Grabar Cambio de Estado
+                DocG.Fields("Status_DTE").Value = 1
+                DocG.Fields("Firma").Value = Leer_JPG(Directorio_TED + wTipoDoc + "(" + Llena0(wLocal, 2) + ")" + Llena0(wNumDoc, 8) + ".jpg")
+                DocG.Fields("TED").Value = resultado.TED
+                DocG.Update()
+            End If
+
+            Emitir_DTE = True
+
+        Else
+            Dim description As String
+            description = resultado.ResultadoServicio.Descripcion
+
+            'Grabar Cambio de Status
+            If DocG.Fields("Status_DTE").Value = 0 Then
+                'Grabar Cambio de Estado
+                DocG.Fields("Status_DTE").Value = 2
+                DocG.Update()
+            End If
+
+            Emitir_DTE = False
+            MsgError(description)
+        End If
+
+    End Function
+
+    Function Emitir_Boleta(wLocal As Double, wTipoDoc As String, wNumDoc As Double) As Boolean
+        Dim wPrimeraLinea As String, wUnidad As String, wArticulo As String
+
+        'MODULO SIMILAR A LA EMICION DE FACTURAS PERO ES ESPECIFICO PARA BOLETAS YA QUE TIENN TRATAMIENTO DISTINTO
+
+        If wTipoDoc <> "BO" Then
+            'No correspode módulo
+            Return False
+        End If
+
+        Dim Boleta As DocumentoBoleta.SiiDte.BOLETADefType
+        Boleta = New DocumentoBoleta.SiiDte.BOLETADefType()
+
+        'Boleta/Documento
+        Boleta.Documento = New DocumentoBoleta.SiiDte.Documento()
+        Dim doc As DocumentoBoleta.SiiDte.Documento
+        doc = Boleta.Documento
+
+        'Boleta/Documento/Encabezado
+        doc.Encabezado = New DocumentoBoleta.SiiDte.Encabezado()
+        doc.Encabezado.IdDoc = New DocumentoBoleta.SiiDte.IdDoc()
+
+        'Boleta/Recuperar Documento
+        DocG = SQL("Select * from DocumentosG WHERE Local = " + wLocal.ToString + " and TipoDoc = '" + wTipoDoc + "' and NumDoc = " + wNumDoc.ToString)
+        If DocG.RecordCount = 0 Then
+            Emitir_Boleta = False
+            Exit Function
+        End If
+
+        DocD = SQL("Select * from DocumentosD WHERE Local = " + wLocal.ToString + " and TipoDoc = '" + wTipoDoc + "' and NumDoc = " + wNumDoc.ToString)
+        If DocD.RecordCount = 0 Then
+            Emitir_Boleta = False
+            Exit Function
+        End If
+
+        Cli = SQL("Select * from Clientes WHERE Cliente = " + DocG.Fields("Cliente").Value.ToString)
+        If Cli.RecordCount = 0 Then
+            Emitir_Boleta = False
+            Exit Function
+        End If
+
+        'Documento/Encabezado/IdDoc
+        doc.Encabezado.IdDoc.TipoDTE = DocumentoBoleta.SiiDte.Enumerations.DTEType.n39
+        doc.Encabezado.IdDoc.Folio = CInt(wNumDoc)
+        doc.Encabezado.IdDoc.FchEmis = New LiquidTechnologies.Runtime.Net20.XmlDateTime(New DateTime(Year(DocG.Fields("Fecha").Value), Month(DocG.Fields("Fecha").Value), Microsoft.VisualBasic.DateAndTime.Day(DocG.Fields("Fecha").Value)))
+        doc.Encabezado.IdDoc.IndServicio = DocumentoBoleta.SiiDte.Enumerations.IdDoc_IndServicio.n1
+
+        'Boleta/Documento/Encabezado/Emisor
+        doc.Encabezado.Emisor = New DocumentoBoleta.SiiDte.Emisor()
+        doc.Encabezado.Emisor.RUTEmisor = FE_Rut_Emisor
+
+        'Boleta/Documento/Encabezado/Receptor
+        doc.Encabezado.Receptor = New DocumentoBoleta.SiiDte.Receptor()
+        doc.Encabezado.Receptor.RUTRecep = Rut_DTE(DocG.Fields("Rut").Value)
+        doc.Encabezado.Receptor.RznSocRecep = Formatea_Texto(Mid(Cli.Fields("Nombre").Value, 1, 100))
+        doc.Encabezado.Receptor.CdgIntRecep = Cli.Fields("Cliente").Value
+        doc.Encabezado.Receptor.Contacto = Formatea_Texto(Mid(Cli.Fields("Contacto").Value, 1, 80))
+        doc.Encabezado.Receptor.DirRecep = Formatea_Texto(Mid(Cli.Fields("Direccion").Value, 1, 70))
+        doc.Encabezado.Receptor.CmnaRecep = Formatea_Texto(Mid(Saca_Comuna(Cli.Fields("Comuna").Value), 1, 20))
+        doc.Encabezado.Receptor.CiudadRecep = Formatea_Texto(Mid(Saca_Ciudad(Cli.Fields("Comuna").Value), 1, 20))
+
+        'Boleta/Documento/Encabezado/Totales
+        doc.Encabezado.Totales = New DocumentoBoleta.SiiDte.Totales()
+        doc.Encabezado.Totales.MntTotal = CInt(DocG.Fields("Total").Value)
+
+
+        'Documento/Detalle
+        Dim det As DocumentoBoleta.SiiDte.Detalle
+
+        Lineas = 1
+        DocD.MoveFirst()
+        wPrimeraLinea = "ARTICULO"
+        While Not DocD.EOF
+            det = New DocumentoBoleta.SiiDte.Detalle()
+
+            wUnidad = "UN"
+            Art = SQL("Select * from Articulos WHERE Articulo = '" + DocD.Fields("Articulo").Value.ToString + "'")
+            If Art.RecordCount > 0 Then
+                wUnidad = Trim(Art.Fields("Unidad").Value.ToString.Trim)
+            End If
+
+            wArticulo = Trim(Mid(DocD.Fields("Glosa").Value, 1, 80))
+            If wPrimeraLinea = "ARTICULO" Then
+                wPrimeraLinea = Trim(Mid(Formatea_Texto(wArticulo), 1, 80))
+                wArticulo = wPrimeraLinea
+            End If
+
+            det.NroLinDet = Lineas
+
+            If Lineas = 1 Then
+                det.NmbItem = wPrimeraLinea
+            Else
+                det.NmbItem = wArticulo
+            End If
+
+            det.MontoItem = CInt(Math.Round(DocD.Fields("Cantidad").Value * DocD.Fields("Precio").Value * (1 + (gIVA / 100)), 0))
+            det.DscItem = wArticulo
+            det.QtyItem = DocD.Fields("Cantidad").Value
+            det.UnmdItem = wUnidad
+            If DocD.Fields("Precio").Value > 0 Then
+                det.PrcItem = CInt(Math.Round(DocD.Fields("Precio").Value * (1 + (gIVA / 100)), 0))
+            End If
+
+            'Para agregar codigo de producto 
+            ''Documento/Detalle/CdgItem
+            'Dim cdgItem As DocumentoDTE.SiiDte.CdgItem
+            'cdgItem = New DocumentoDTE.SiiDte.CdgItem()
+            'cdgItem.TpoCodigo = "INT"  'Intenro
+            'cdgItem.VlrCodigo = "BUR-BURSTA"
+            'det.CdgItem.Add(cdgItem)
+
+            doc.Detalle.Add(det)
+            DocD.MoveNext()
+            Lineas += 1
+        End While
+
+
+        'Llamada al Servicio
+        Dim ambiente As DTEBoxCliente.Ambiente
+        ambiente = FE_Ambiente
+        Dim fechaResolucion As Date
+        fechaResolucion = New DateTime(FE_FResolucion.Year, FE_FResolucion.Month, FE_FResolucion.Day)
+        Dim numeroResolucion As Integer
+        numeroResolucion = FE_NResolucion
+        Dim tipoPdf417 As DTEBoxCliente.TipoPdf417
+        tipoPdf417 = DTEBoxCliente.TipoPdf417.Fuente
+
+        Dim generarFolio As Boolean
+        generarFolio = False   'Es para que el DTE genere correlativo automatico o no
+
+        Dim apiURL As String
+        Dim apiAuth As String
+        apiURL = FE_DTE
+        apiAuth = FE_Llave
+
+        Dim servicio As DTEBoxCliente.Servicio
+        servicio = New DTEBoxCliente.Servicio(apiURL, apiAuth)
+
+        Dim resultado As DTEBoxCliente.ResultadoEnvioBoleta
+        resultado = servicio.EnviarDocumento(Boleta, ambiente, fechaResolucion, numeroResolucion, tipoPdf417, generarFolio)
+
+        'Procesar Resultado del Servicio
+        If (resultado.ResultadoServicio.Estado = DTEBoxCliente.EstadoResultado.Ok) Then
+            'Usar el data que viene en el resultado de la llamada
+            Dim ted As String
+            ted = resultado.TED 'Xml que representa el elemento TED generado
+            'Si tipoPdf417 = DTEBoxCliente.TipoPdf417.Fuente viene el código, 
+            ' si es DTEBoxCliente.TipoPdf417.Grafico , Entonces arreglo de bytes codigificado en base64, 
+            ' usar método result.Pdf417ComoArregloBytes()
+            Dim pdf417 As String
+            pdf417 = resultado.Pdf417
+
+            If DocG.Fields("Status_DTE").Value <> 1 Then
+                'Grabar Cambio de Estado
+                DocG.Fields("Status_DTE").Value = 1
+                DocG.Fields("Firma").Value = Leer_JPG(Directorio_TED + wTipoDoc + "(" + Llena0(wLocal, 2) + ")" + Llena0(wNumDoc, 8) + ".jpg")
+                DocG.Fields("TED").Value = resultado.TED
+                DocG.Update()
+            End If
+
+            Emitir_Boleta = True
+
+        Else
+            Dim description As String
+            description = resultado.ResultadoServicio.Descripcion
+
+            'Grabar Cambio de Status
+            If DocG.Fields("Status_DTE").Value = 0 Then
+                'Grabar Cambio de Estado
+                DocG.Fields("Status_DTE").Value = 2
+                DocG.Update()
+            End If
+
+            Emitir_Boleta = False
+            MsgError(description)
+        End If
+
+    End Function
+
+    Public Function Rut_DTE(pRut As String) As String
+        Rut_DTE = UCase(Trim(pRut))
+        Rut_DTE = Replace(Rut_DTE, "_", "")
+        Rut_DTE = Replace(Rut_DTE, ".", "")
+    End Function
+
+    Public Function Formatea_Texto(wTexto As String) As String
+        Dim Car As String, i As Integer, Texto_Resultado As String
+
+        Formatea_Texto = UCase(Trim(wTexto))
+        Formatea_Texto = Replace(Formatea_Texto, "Á", "A")
+        Formatea_Texto = Replace(Formatea_Texto, "Ä", "A")
+        Formatea_Texto = Replace(Formatea_Texto, "É", "E")
+        Formatea_Texto = Replace(Formatea_Texto, "Í", "I")
+        Formatea_Texto = Replace(Formatea_Texto, "Ó", "O")
+        Formatea_Texto = Replace(Formatea_Texto, "Ö", "O")
+        Formatea_Texto = Replace(Formatea_Texto, "Ú", "U")
+        Formatea_Texto = Replace(Formatea_Texto, "Ü", "U")
+        Formatea_Texto = Replace(Formatea_Texto, "Ñ", "N")
+        Formatea_Texto = Replace(Formatea_Texto, "²", "2")
+        Formatea_Texto = Replace(Formatea_Texto, "º", "")
+        Formatea_Texto = Replace(Formatea_Texto, "°", "")
+        Formatea_Texto = Replace(Formatea_Texto, "°", "")
+        Formatea_Texto = Replace(Formatea_Texto, "°", "")
+        Formatea_Texto = Replace(Formatea_Texto, "º", "")
+        Formatea_Texto = Replace(Formatea_Texto, "ª", "")
+        Formatea_Texto = Replace(Formatea_Texto, "ª", "")
+        Formatea_Texto = Replace(Formatea_Texto, "%", "")
+        Formatea_Texto = Replace(Formatea_Texto, "$", "")
+        Formatea_Texto = Replace(Formatea_Texto, "&", "")
+        Formatea_Texto = Replace(Formatea_Texto, "*", "")
+        Formatea_Texto = Replace(Formatea_Texto, "^", "")
+        Formatea_Texto = Replace(Formatea_Texto, "~", "")
+        Formatea_Texto = Replace(Formatea_Texto, "#", "")
+        Formatea_Texto = Replace(Formatea_Texto, Chr(34), "")
+        Formatea_Texto = Replace(Formatea_Texto, Chr(39), "")
+        Formatea_Texto = Replace(Formatea_Texto, Chr(96), "")
+        Formatea_Texto = Replace(Formatea_Texto, Chr(176), "")
+        Formatea_Texto = Replace(Formatea_Texto, Chr(186), "")
+
+        Texto_Resultado = ""
+        'Sacar los caracteres no imprimibles despues de la limpieza de letras
+        For i = 1 To Len(Formatea_Texto)
+            Car = Mid(Formatea_Texto, i, 1)
+            If Asc(Car) < 32 Or Asc(Car) > 122 Then
+                'Eliminar si no es Imprimible
+                Car = ""
+            End If
+
+            Car = Cambia_Car(Car, 34)   '"
+            Car = Cambia_Car(Car, 35)   '#
+            Car = Cambia_Car(Car, 39)   ''
+            Car = Cambia_Car(Car, 58)   ':
+            Car = Cambia_Car(Car, 59)   ';
+            Car = Cambia_Car(Car, 64)   '@
+            Car = Cambia_Car(Car, 94)   '^
+            Car = Cambia_Car(Car, 96)   '´
+            Car = Cambia_Car(Car, 60)   '<
+            Car = Cambia_Car(Car, 61)   '=
+            Car = Cambia_Car(Car, 62)   '>
+
+            Texto_Resultado = Texto_Resultado + Car
+        Next i
+
+        Formatea_Texto = Texto_Resultado
+
+        If Trim(Formatea_Texto) = "" Then
+            Formatea_Texto = ""
+        End If
+
+    End Function
+
+    Public Function Cambia_Car(wCar As String, wAsc As Integer) As String
+        Cambia_Car = wCar
+        If Trim(wCar) <> "" Then
+            If Asc(wCar) = wAsc Then
+                Cambia_Car = ""
+            End If
+        End If
+    End Function
+
+    Public Function Codigo_DTE(wTipoDoc As String) As Integer
+        Codigo_DTE = 0
+        If wTipoDoc = "FV" Then
+            Codigo_DTE = DocumentoDTE.SiiDte.Enumerations.DTEType.n33
+        End If
+        If wTipoDoc = "GD" Then
+            Codigo_DTE = DocumentoDTE.SiiDte.Enumerations.DTEType.n52
+        End If
+        If wTipoDoc = "NC" Then
+            Codigo_DTE = DocumentoDTE.SiiDte.Enumerations.DTEType.n61
+        End If
+        If wTipoDoc = "ND" Then
+            Codigo_DTE = DocumentoDTE.SiiDte.Enumerations.DTEType.n56
+        End If
+        If wTipoDoc = "FE" Then
+            Codigo_DTE = DocumentoDTE.SiiDte.Enumerations.DTEType.n34
+        End If
+        If wTipoDoc = "BO" Then
+            Codigo_DTE = 39
+        End If
+        If wTipoDoc = "FC" Then
+            Codigo_DTE = DocumentoDTE.SiiDte.Enumerations.DTEType.n46
+        End If
+    End Function
+
+    Public Function Codigo_SII(wTipoDoc As String) As String
+        Codigo_SII = "0"
+        wTipoDoc = Trim(UCase(wTipoDoc))
+        TDo = SQL("Select Cod_SII from TipoDocs WHERE TipoDoc = '" + wTipoDoc + "'")
+        If TDo.RecordCount > 0 Then
+            Codigo_SII = TDo.Fields("Cod_SII").Value
+        End If
+    End Function
+
+    Public Function Generar_TED(wLocal As Integer, wTipoDoc As String, wNumDoc As Double, wFecha As Date, wRut As String, wNombre As String, wMonto As Double, wPrimeraLinea As String) As Boolean
+        Generar_TED = False
+
+        Try
+            'Datos del TED
+            Dim tipoDocumento As TipoDocumento
+            tipoDocumento = Nothing
+            If wTipoDoc = "FV" Then
+                tipoDocumento = GDEGateway.Timbre.TipoDocumento.FacturaElectronica
+            End If
+            If wTipoDoc = "GD" Then
+                tipoDocumento = GDEGateway.Timbre.TipoDocumento.GuiaDespachoElectronica
+            End If
+            If wTipoDoc = "NC" Then
+                tipoDocumento = GDEGateway.Timbre.TipoDocumento.NotaCreditoElectronica
+            End If
+            If wTipoDoc = "ND" Then
+                tipoDocumento = GDEGateway.Timbre.TipoDocumento.NotaDebitoElectronica
+            End If
+            If wTipoDoc = "BO" Then
+                tipoDocumento = GDEGateway.Timbre.TipoDocumento.BoletaElectronica
+            End If
+            If wTipoDoc = "FC" Then
+                tipoDocumento = GDEGateway.Timbre.TipoDocumento.FacturaCompraElectronica
+            End If
+
+            Dim CAF() As Byte
+
+            Try
+                CAF = System.IO.File.ReadAllBytes(Directorio_CAF + wTipoDoc + Llena0(wLocal, 2) + ".xml")
+            Catch ex As Exception
+                MsgError("Error al recuperar CAF")
+                Return False
+            End Try
+
+            'Datos del PDF417
+            Dim pdfTipo As GDEGateway.Timbre.TipoPdf417
+                pdfTipo = GDEGateway.Timbre.TipoPdf417.Grafico
+                Dim pdfColumnas As Integer
+                pdfColumnas = 13
+                Dim pdfNivelCorreccion As Integer
+                pdfNivelCorreccion = 5
+                Dim pdfTruncado As Boolean
+                pdfTruncado = False
+                Dim pdfFormato As GDEGateway.Timbre.FormatoPdf417
+                pdfFormato = GDEGateway.Timbre.FormatoPdf417.Jpeg
+                Dim directorioTemporal As String
+                directorioTemporal = Directorio_TED
+
+            Dim tedGenerado As GDEGateway.Timbre.TED
+            tedGenerado = GDEGateway.Timbre.Generador.GenerarTimbre(
+                FE_Rut_Emisor,
+                tipoDocumento,
+                wFecha,
+                wNumDoc,
+                wRut,
+                wNombre,
+                wMonto,
+                wPrimeraLinea,
+                CAF,
+                pdfTipo,
+                pdfColumnas,
+                pdfNivelCorreccion,
+                pdfTruncado,
+                pdfFormato,
+                directorioTemporal)
+
+            'Valor
+            Dim tedValor As String
+            tedValor = tedGenerado.Valor
+
+            'Guardar el pdf417 en disco como imagen
+            Dim pdf417CaminoFichero As String
+            pdf417CaminoFichero = Directorio_TED + wTipoDoc + "(" + Llena0(wLocal, 2) + ")" + Llena0(wNumDoc, 8) + ".jpg"
+            System.IO.File.WriteAllBytes(pdf417CaminoFichero, tedGenerado.CodigoComoBytes())
+
+            'Guardar el XML en disco como archivo
+            Dim ArchivoXML As String
+            ArchivoXML = Directorio_TED + wTipoDoc + "(" + Llena0(wLocal, 2) + ")" + Llena0(wNumDoc, 8) + ".xml"
+            System.IO.File.WriteAllText(ArchivoXML, tedValor)
+            Generar_TED = True
+        Catch ex As Exception
+            MsgError(ex.Message.ToString.Trim)
+            Return False
+        End Try
+
+    End Function
+
+    Public Function Leer_JPG(pArchivo As String) As Object
+        Try
+            Dim wArchivo As New FileStream(pArchivo, FileMode.Open, FileAccess.Read)
+            Dim Lectura As New BinaryReader(wArchivo)
+            Dim Imagen(wArchivo.Length) As Byte
+            Lectura.Read(Imagen, 0, wArchivo.Length)
+            wArchivo.Close()
+            Leer_JPG = Imagen
+        Catch ex As Exception
+            Mensaje(ex.Message.ToString)
+        End Try
+    End Function
+
+    Public Function Es_Electronico(wTipoDoc As String) As Boolean
+        Es_Electronico = False
+        If FE_FV And wTipoDoc = "FV" Then Es_Electronico = True
+        If FE_GD And wTipoDoc = "GD" Then Es_Electronico = True
+        If FE_NC And wTipoDoc = "NC" Then Es_Electronico = True
+        If FE_FE And wTipoDoc = "FE" Then Es_Electronico = True
+        If FE_ND And wTipoDoc = "ND" Then Es_Electronico = True
+        If FE_BO And wTipoDoc = "BO" Then Es_Electronico = True
+        If FE_BE And wTipoDoc = "BE" Then Es_Electronico = True
+        If FE_FC And wTipoDoc = "FV" Then Es_Electronico = True
+    End Function
+
+    Public Function Codigo_Referencia(wTipoDoc As String, wMotivo As String) As Integer
+        wMotivo = UCase(Trim(wMotivo))
+        Codigo_Referencia = 0
+        If wTipoDoc = "NC" Or wTipoDoc = "ND" Then
+            If wMotivo = "A" Then
+                Codigo_Referencia = DocumentoDTE.SiiDte.Enumerations.Referencia_CodRef.n1
+            End If
+            If wMotivo = "D" Then
+                Codigo_Referencia = DocumentoDTE.SiiDte.Enumerations.Referencia_CodRef.n2
+            End If
+            If wMotivo = "O" Or wMotivo = "P" Then
+                Codigo_Referencia = DocumentoDTE.SiiDte.Enumerations.Referencia_CodRef.n3
+            End If
+        End If
+
+        If wTipoDoc = "GD" Then
+            If Trim(UCase(wMotivo)) = "O" Then  'DEVOLUCION
+                Codigo_Referencia = DocumentoDTE.SiiDte.Enumerations.IdDoc_IndTraslado.n7
+            End If
+            If Trim(UCase(wMotivo)) = "S" Then  'TRANSITO
+                Codigo_Referencia = DocumentoDTE.SiiDte.Enumerations.IdDoc_IndTraslado.n5
+            End If
+            If Trim(UCase(wMotivo)) = "M" Then  'MERMA
+                Codigo_Referencia = DocumentoDTE.SiiDte.Enumerations.IdDoc_IndTraslado.n6
+            End If
+            If Trim(UCase(wMotivo)) = "V" Then  'VENTA
+                Codigo_Referencia = DocumentoDTE.SiiDte.Enumerations.IdDoc_IndTraslado.n1
+            End If
+            If Trim(UCase(wMotivo)) = "T" Then 'TRASPASO
+                Codigo_Referencia = DocumentoDTE.SiiDte.Enumerations.IdDoc_IndTraslado.n5
+            End If
+        End If
+    End Function
+
+    Public Function Descripcion_Referencia(wMotivo) As String
+        Descripcion_Referencia = ""
+        Mot = SQL("Select DescMotivoDoc from MotivosDoc WHERE MotivoDoc ='" + wMotivo.ToString.Trim + "'")
+        If Mot.RecordCount > 0 Then
+            Descripcion_Referencia = Mid(Mot.Fields("DescMotivoDoc").Value.ToString.Trim, 1, 50)
+        End If
+    End Function
+End Module

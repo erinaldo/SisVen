@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+            <section name="SisVen.My.MySettings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false"/>
+        </sectionGroup>
+    </configSections>
+    <connectionStrings>
+        <add name="SisVen.My.MySettings.SisVenConnectionString" connectionString="Data Source=192.168.10.11;Initial Catalog=SisVen;User ID=wikets;Password=software"
+            providerName="System.Data.SqlClient" />
+    </connectionStrings>
+    <system.diagnostics>
+        <sources>
+            <!-- En esta sección se define la configuración del registro para My.Application.Log -->
+            <source name="DefaultSource" switchName="DefaultSwitch">
+                <listeners>
+                    <add name="FileLog"/>
+                    <!-- Quite los comentarios de la sección posterior para escribir en el registro de eventos de la aplicación -->
+                    <!--<add name="EventLog"/>-->
+                </listeners>
+            </source>
+        </sources>
+        <switches>
+            <add name="DefaultSwitch" value="Information"/>
+        </switches>
+        <sharedListeners>
+            <add name="FileLog" type="Microsoft.VisualBasic.Logging.FileLogTraceListener, Microsoft.VisualBasic, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" initializeData="FileLogWriter"/>
+            <!-- Quite los comentarios de la sección posterior y reemplace APPLICATION_NAME con el nombre de su aplicación para escribir en el registro de eventos de la aplicación -->
+            <!--<add name="EventLog" type="System.Diagnostics.EventLogTraceListener" initializeData="APPLICATION_NAME"/> -->
+        </sharedListeners>
+    </system.diagnostics>
+    <userSettings>
+        <SisVen.My.MySettings>
+            <setting name="P_SERVIDOR" serializeAs="String">
+                <value>192.168.10.11</value>
+            </setting>
+            <setting name="Caja" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="P_MES_CALENDARIO" serializeAs="String">
+                <value>3</value>
+            </setting>
+            <setting name="P_HORA_ENTRADA" serializeAs="String">
+                <value>09:00</value>
+            </setting>
+            <setting name="P_HORA_SALIDA" serializeAs="String">
+                <value>18:00</value>
+            </setting>
+            <setting name="P_INTERVALO_HORA" serializeAs="String">
+                <value>15</value>
+            </setting>
+            <setting name="P_DIAS_HABILES" serializeAs="String">
+                <value>1,2,3,4,5</value>
+            </setting>
+            <setting name="P_RUTA_ARCHIVOS" serializeAs="String">
+                <value>C:\Users\Miguel\Desktop</value>
+            </setting>
+        </SisVen.My.MySettings>
+    </userSettings>
+  <startup useLegacyV2RuntimeActivationPolicy="true">
+  <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5"/></startup>
+</configuration>

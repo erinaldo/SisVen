@@ -1,0 +1,54 @@
+﻿Public Class ImprimirPlanillaRem
+    Private Sub ImprimirPlanillaRem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cAño.AñosMes("A")
+        cMes.AñosMes("M")
+        LoadCombobox(cEmpresa, "Clientes", "Cliente", "Nombre", " WHERE cliente IN (SELECT DISTINCT  empresa FROM usuarios WHERE funcionario=1)")
+        Auditoria(Me.Text, PR_INGRESAR, "", 0)
+    End Sub
+
+    Private Sub bLimpiar_Click(sender As Object, e As EventArgs) Handles bLimpiar.Click
+        LimpiarCampos(Me)
+        cAño.Focus()
+    End Sub
+
+    Private Sub bCancelar_Click(sender As Object, e As EventArgs) Handles bCancelar.Click
+        Close()
+    End Sub
+
+    Private Sub bImprimir_Click(sender As Object, e As EventArgs) Handles bImprimir.Click
+        If Not ValidarCombo(cAño) Then
+            MsgError("Indique Año")
+            cAño.Focus()
+            Exit Sub
+        End If
+        If Not ValidarCombo(cMes) Then
+            MsgError("Indique Mes")
+            cMes.Focus()
+            Exit Sub
+        End If
+        If Not ValidarCombo(cEmpresa) Then
+            MsgError("Indique Empresa")
+            cEmpresa.Focus()
+            Exit Sub
+        End If
+
+        Dim wQuery = "SELECT S.*, M.ModoPago,M.DescModoPago,U.NombreUsr FROM Sueldos S JOIN ModoPagos M ON S.ModoPago = M.ModoPago JOIN Usuarios U ON S.Usuario = U.Usuario " &
+                     "  WHERE S.Año = " & cAño.Text.Trim & " AND S.Mes = " & cMes.SelectedValue & " AND S.Empresa = " & cEmpresa.SelectedValue
+
+        Swap = SQL(wQuery)
+
+        If Swap.RecordCount > 0 Then
+            Dim wReporte As New ReporteLiquidaciones
+
+            ModuloReporte = "ReporteLiquidaciones"
+            VisorReportes.VisorParametros(wQuery, wReporte)
+            VisorReportes.WinDeco1.TituloVentana = "Reporte de Liquidaciones"
+            VisorReportes.Show()
+        Else
+            MsgError("No se encuentra registro")
+            Exit Sub
+        End If
+
+        Auditoria(Me.Text, PR_IMPRIMIR, "", 0)
+    End Sub
+End Class

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/xFecha"
+        android:textAlignment="textEnd"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_height="44dp">
+
+        <TextView
+            android:text="Facturas:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView16"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/xFacturas"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textEnd" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_height="44dp">
+
+        <TextView
+            android:text="Boletas:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lBoleta"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/xBoletas"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textEnd" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_height="44dp">
+
+        <TextView
+            android:text="Notas de Crédito:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notasdecredito"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/xNDC"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textEnd" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_height="44dp">
+
+        <TextView
+            android:text="Notas de Débito:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notasdedebito"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/xNDD"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textEnd" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp">
+
+        <TextView
+            android:text="Facturas Exentas:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/factutasexentas"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/xFacturasExentas"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textEnd" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp">
+
+        <TextView
+            android:text="Guías de Despacho:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guiasdedespacho"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/xGuias"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textEnd" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="15dp"
+android:layout_marginStart="15sp"
+    android:layout_marginEnd="15sp">
+
+        <TextView
+            android:text="Total del Día:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/totaldia"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/holo_green_dark" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/xTotal"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/holo_green_dark" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/bEmitirBoleta"
+        android:layout_alignParentStart="true"
+        android:visibility="visible"
+        android:layout_weight="0.43">
+
+        <Button
+            android:id="@+id/bLimpiar"
+            style="@style/EstiloBotonAzul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="LIMPIAR"
+            android:visibility="invisible" />
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:text="VOLVER"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bVolver"
+            android:background="@drawable/botonrojorectangular"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:drawableLeft="@drawable/atras"
+            android:gravity="center"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:layout_marginEnd="15sp"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

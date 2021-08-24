@@ -1,0 +1,41 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Estilo Boton Azul -->
+    <style name="EstiloBotonAzul">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@color/colorButton</item>
+        <item name="android:layout_marginTop">10sp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- Estilo Texto Titulo -->
+    <style name="EstiloTextoTitulo">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_weight">0.10</item>
+    </style>
+
+    <!-- Estilo Boton Naranjo -->
+    <style name="buttonStyleOrange">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@color/colorOrange</item>
+        <item name="android:layout_marginTop">10sp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+
+</resources>

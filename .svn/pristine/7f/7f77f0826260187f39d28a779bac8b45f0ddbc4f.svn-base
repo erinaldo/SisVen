@@ -1,0 +1,297 @@
+﻿Public Class CalculoRem
+    Private Sub CalculoRem_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim i As Integer, nMes As Integer
+
+        Auditoria(Me.Text, PR_INGRESAR, "", 0)
+
+        For i = Year(Now) - 1 To Year(Now)
+            cAño.Items.Add(Num(i))
+        Next i
+
+        For i = 1 To 12
+            cMes.Items.Add(Trim(MES(i)))
+        Next i
+
+        nMes = Month(Now)
+
+        If nMes > 1 Then
+            nMes = nMes - 1
+        End If
+
+        cAño.Text = Num(Year(Now))
+        cMes.Text = Trim(MES(nMes))
+    End Sub
+
+    Private Sub bCalcular_Click(sender As Object, e As EventArgs) Handles bCalcular.Click
+        Dim xAño As Integer, xMes As Integer
+
+        xAño = Val(cAño.Text)
+        xMes = cMes.SelectedIndex + 1
+
+        Pregunta("Esta seguro de Liquidar" + vbCrLf + "Año: " + cAño.Text + vbCrLf + "Mes: " + cMes.Text)
+        If Respuesta <> vbOK Then
+            Exit Sub
+        End If
+
+        Call Auditoria(Me.Name, "Cálculo de Remuneración", cMes.Text, cAño.Text)
+
+        xMensaje.Text = ""
+        bCalcular.Enabled = False
+
+        Auditoria(Me.Text, "Remuneraciones", cAño.Text, Val(xMes))
+        Procesar_Remuneraciones(xAño, xMes)
+
+        bCalcular.Enabled = True
+
+        MsgBox("Proceso Finalizado")
+    End Sub
+
+    Sub Procesar_Remuneraciones(xAño As Integer, xMes As Integer)
+        Dim Dias_Trabajados As Integer, F1 As String, F2 As String
+        Dim TBase As Double, TGratificacion As Double, TAguinaldos As Double
+        Dim TVariables, TCesantia As Double, TBonos As Double, TBonos2 As Double, xUF As Double
+        Dim TAnticipos As Double, TCreditos As Double, TSeguros As Double, TDescuentos As Double, TAhorros As Double ', TCargas As Double
+        Dim TColacion As Double, TMovilizacion As Double
+
+        'Verificar que se haya in gresado la UF
+        Dim UFS = SQL("Select * from UFs where Año = " & Val(xAño) & " and Mes = " & Val(xMes))
+        If UFS.RecordCount = 0 Then
+            MsgError("No se pueden procesar remuneraciones por no existir el ingreso de la UF para ese mes.")
+            Exit Sub
+        End If
+
+        'Verificar actualización de AFP
+        'Set Afp = Sql("Select top 1 * from AFPs where Año = " + NUM(xAño) + " and Mes = " + NUM(xMes))
+        'If Afp.RecordCount = 0 Then
+        '    El_Error ("No se pueden procesar remuneraciones por no existir el ingreso de las AFPs para ese mes.")
+        '    Exit Sub
+        'End If
+
+        F1 = IniFecha(1, CDate("01/" + Num(xMes) + "/" + Num(xAño)))
+        F2 = IniFecha(2, CDate("01/" + Num(xMes) + "/" + Num(xAño)))
+
+        'Eliminar Remuneraciones no canceladas en el periodo
+        Swap = SQL("Delete Sueldos where Estado = 0 and Año = " & Val(xAño) + " and Mes = " & Val(xMes))
+
+        Usr = SQL("Select * from Usuarios where Funcionario = 1 Order by Usuario")
+        While Not Usr.EOF
+            DoEvents()
+
+            If Usr.Fields("Usuario").Text = "ESM" Then
+                'a = a
+            End If
+            'Saltarse el Funcionario que ya se le cancelo ese mes su liquidacion
+            Swap = SQL("Select Usuario from Sueldos where Estado=1 and Año = " & Val(xAño) & " and Mes = " & Val(xMes) & " and Usuario = '" & Usr.Fields("Usuario").Text & "'")
+            If Swap.RecordCount = 0 Then
+                Dias_Trabajados = 30
+                TVariables = 0 : TBonos = 0 : TBonos2 = 0 : TAguinaldos = 0 : TMovilizacion = 0 : TColacion = 0
+                TAnticipos = 0 : TDescuentos = 0 : TCreditos = 0 : TSeguros = 0 : TAhorros = 0 : TCesantia = 0 'se utilizará cargas desde el usuario: TCargas = 0
+                'Recorrer Eventos del Mes
+                Dim RmD = SQL("Select * from Sueldos_Detalles where Fecha >= '" & F1 & "' and Fecha <= '" & F2 & "' and Estado = 0 and Usuario = '" & Usr.Fields("Usuario").Text + "'")
+                If RmD.RecordCount > 0 Then
+                    While Not RmD.EOF
+                        DoEvents()
+
+                        If RmD.Fields("EventoRem").Text = 0 Then 'Sin Evento
+                            'Procedimiento es una Observacion
+                        End If
+                        If RmD.Fields("EventoRem").Text = 1 Then  'Orden de Transporte (Variable)
+                            TVariables = TVariables + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 2 Then 'Bono
+                            TBonos = TBonos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 3 Then 'Ajuste Sencillo
+                            TBonos2 = TBonos2 + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 4 Then 'Anticipo 1
+                            TAnticipos = TAnticipos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 5 Then 'Anticipo 2
+                            TAnticipos = TAnticipos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 6 Then 'Anticipo 3
+                            TAnticipos = TAnticipos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 7 Then 'Descuento 1
+                            TDescuentos = TDescuentos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 8 Then 'Descuento 2
+                            TDescuentos = TDescuentos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 9 Then 'Descuento 3
+                            TDescuentos = TDescuentos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 10 Then 'Prestamo 1
+                            TCreditos = TCreditos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 11 Then 'Prestamo 2
+                            TCreditos = TCreditos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 12 Then 'Prestamo 3
+                            TCreditos = TCreditos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 13 Then 'Otros Anticipos
+                            TAnticipos = TAnticipos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 14 Then 'Otros Descuentos
+                            TDescuentos = TDescuentos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 15 Then 'Otros Prestamos
+                            TCreditos = TCreditos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 16 Then 'Otros Bonos
+                            TBonos = TBonos + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 17 Then 'Ahorro Voluntario
+                            TAhorros = TAhorros + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 18 Then 'Seguro de Vida
+                            TSeguros = TSeguros + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 19 Then 'Seguro de Cesantia
+                            TCesantia = TCesantia + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 20 Then 'Descontar Dia
+                            Dias_Trabajados = Dias_Trabajados - RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 21 Then 'Aguinaldo
+                            TAguinaldos = TAguinaldos + RmD.Fields("Monto").Text
+                        End If
+
+                        '                   Se grabarán las cargas familiar en los datos del usuario y no como evento
+                        '                   If RmD("EventoRem").Text = 22 Then 'Asignacion Familiar}
+                        '                        TCargas = TCargas + RmD("Monto").Text
+                        '                    End If
+
+                        If RmD.Fields("EventoRem").Text = 23 Then 'Aguinaldo Especial
+                            TVariables = TVariables + RmD.Fields("Monto").Text
+                        End If
+
+
+                        If RmD.Fields("EventoRem").Text = 25 Then 'Bono de Movilizacion
+                            TMovilizacion = TMovilizacion + RmD.Fields("Monto").Text
+                        End If
+                        If RmD.Fields("EventoRem").Text = 26 Then 'Bono de Colacion
+                            TColacion = TColacion + RmD.Fields("Monto").Text
+                        End If
+
+
+                        RmD.MoveNext
+                    End While
+                End If
+
+                ' Crear Sueldo
+                If Dias_Trabajados >= 0 Then
+                    Dim RmG = SQL("Select Top 1 * from Sueldos")
+                    RmG.AddNew
+                    RmG.Fields("Año").Value = xAño
+                    RmG.Fields("Mes").Value = xMes
+                    RmG.Fields("Usuario").Value = Usr("Usuario").Text
+
+                    RmG.Fields("Estado").Value = 0
+                    If Dias_Trabajados > 0 Then
+                        RmG.Fields("Base").Value = Math.Round(Usr("Base").Text / 30 * Dias_Trabajados, 0)
+                    Else
+                        RmG.Fields("Base").Value = 0
+                    End If
+                    RmG.Fields("Bruto").Value = Usr.Fields("Bruto").Text
+                    RmG.Fields("Dias").Value = Dias_Trabajados
+                    TBase = ((Usr.Fields("Base").Text / 30) * Dias_Trabajados)
+                    TGratificacion = Math.Round((TBase * Usr.Fields("Gratificacion").Text / 100))
+                    RmG.Fields("TImponible").Value = TBase + TGratificacion + TBonos + TBonos2 + TAguinaldos
+                    RmG.Fields("Gratificacion").Value = Usr.Fields("Gratificacion").Text
+                    RmG.Fields("TGratificacion").Value = TGratificacion
+                    RmG.Fields("Colacion").Value = Usr.Fields("Colacion").Text
+                    RmG.Fields("TColacion").Value = (Usr.Fields("Colacion").Text * Dias_Trabajados) + TColacion
+                    RmG.Fields("Movilizacion").Value = Usr.Fields("Movilizacion").Text
+                    RmG.Fields("TMovilizacion").Value = (Usr.Fields("Movilizacion").Text * Dias_Trabajados) + TMovilizacion
+                    RmG.Fields("Cargas").Value = Usr.Fields("Cargas").Text
+                    RmG.Fields("TCargas").Value = Usr.Fields("MontoCargas").Text
+                    RmG.Fields("TVariables").Value = TVariables
+                    RmG.Fields("TBonos").Value = TBonos
+                    RmG.Fields("TBonos2").Value = TBonos2
+                    RmG.Fields("TAguinaldos").Value = TAguinaldos
+                    RmG.Fields("THaberes").Value = RmG.Fields("TImponible").Text & RmG.Fields("TColacion").Text & RmG.Fields("TMovilizacion").Text & RmG.Fields("TCargas").Text & TVariables
+
+                    RmG.Fields("AFP").Value = Usr.Fields("AFP").Text
+                    If Buscar("AFPs", "AFP", Usr.Fields("AFP").Text, "PorcentajeAFP,NombreAFP") Then
+                        RmG.Fields("PorcentajeAFP").Value = Swap.Fields("PorcentajeAFP").Text
+                        RmG.Fields("NAFP").Value = Swap.Fields("NombreAFP").Text
+                    Else
+                        RmG.Fields("PorcentajeAFP").Value = 0
+                    End If
+                    RmG.Fields("TAFP").Value = Math.Round(RmG.Fields("TImponible").Value * (RmG.Fields("PorcentajeAFP").Value / 100))
+                    RmG.Fields("Salud").Value = Usr.Fields("Salud").Text
+                    UFS = SQL("Select * from UFs where Año = " & Val(xAño) & " and Mes = " & Val(xMes))
+                    If UFS.RecordCount > 0 Then
+                        RmG.Fields("UF").Value = UFS.Fields("UF").Text
+                    End If
+
+                    RmG.Fields("SIS").Value = Usr.Fields("SIS").Text
+                    RmG.Fields("ImpuestoUnico").Value = Usr.Fields("ImpuestoUnico").Text
+
+                    If Usr.Fields("Pactado").Text > 0 Then
+                        xUF = 0
+                        UFS = SQL("Select * from UFs where Año = " & Val(xAño) & " and Mes = " & Val(xMes))
+                        If UFS.RecordCount > 0 Then
+                            xUF = UFS.Fields("UF").Text
+                        End If
+                        RmG.Fields("PorcentajeSalud").Value = Usr.Fields("Pactado").Text
+                        If Buscar("Salud", "Salud", Usr.Fields("Salud").Text, "PorcentajeSalud,NombreSalud") Then
+                            RmG.Fields("NSalud").Value = Swap.Fields("NombreSalud").Text
+                        End If
+
+                        'El valor pactado no depende de los dias trabajados
+                        'If Dias_Trabajados < 30 Then
+                        '    RmG.Fields("TSalud") = ((RmG.Fields("PorcentajeSalud") * xUF) / 30) * Dias_Trabajados
+                        'Else
+                        RmG.Fields("TSalud").Value = RmG.Fields("PorcentajeSalud").Value * xUF
+                        'End If
+                    Else
+                        If Buscar("Salud", "Salud", Usr.Fields("Salud").Text, "PorcentajeSalud,NombreSalud") Then
+                            RmG.Fields("PorcentajeSalud").Value = Swap.Fields("PorcentajeSalud").Text
+                            RmG.Fields("NSalud").Value = Swap.Fields("NombreSalud").Text
+                        Else
+                            RmG.Fields("PorcentajeSalud").Value = 0
+                        End If
+                        RmG.Fields("TSalud").Value = Math.Round(RmG.Fields("TImponible").Value * (RmG.Fields("PorcentajeSalud").Value / 100))
+                    End If
+
+                    RmG.Fields("Anticipos").Value = TAnticipos
+                    RmG.Fields("Descuentos").Value = TDescuentos
+                    RmG.Fields("Creditos").Value = TCreditos
+                    RmG.Fields("Seguros").Value = TSeguros
+                    If TCesantia > 0 Then
+                        RmG.Fields("Afc").Value = TCesantia
+                    Else
+                        If Format(Usr("vigencia"), "dd/mm/yyyy") = "01/01/3000" Then
+                            RmG.Fields("Afc").Value = Math.Round(RmG.Fields("Timponible").Value * 0.006)
+                        Else
+                            RmG.Fields("Afc").Value = 0
+                        End If
+                    End If
+                    RmG.Fields("Ahorros").Value = TAhorros
+                    RmG.Fields("TDescuentos").Value = RmG.Fields("TAFP").Value + RmG.Fields("TSalud").Value + TAnticipos + TCreditos + TDescuentos + TSeguros + TAhorros + RmG.Fields("Afc").Value & RmG.Fields("ImpuestoUnico").Value
+
+                    RmG.Fields("TLiquido").Value = RmG.Fields("THaberes").Text - RmG.Fields("TDescuentos").Text
+
+                    RmG.Fields("Cancelado").Value = False
+                    RmG.Fields("ModoPago").Value = ""
+                    RmG.Fields("FechaPago").Value = Now
+                    RmG.Fields("UsuarioPago").Value = UsuarioActual
+                    RmG.Fields("Empresa").Value = Usr.Fields("Empresa").Text
+                    RmG.Update
+
+                    xMensaje.Text = xMensaje.Text + Trim(Usr.Fields("NombreUsr").Text) & " $" & Format(RmG.Fields("TLiquido").Text, "###,###,###") & vbCrLf
+                Else
+                    MsgError("Error en días trabajados, la cantidad es negativa (Solucionar y recalcular Remuneraciones). Usuario:" & Usr.Fields("usuario").Text)
+                    Exit Sub
+                End If
+
+            End If
+            Usr.MoveNext()
+        End While
+
+    End Sub
+End Class

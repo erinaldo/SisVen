@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:text="EMITIR BOLETA POR:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11"
+        android:layout_weight="0.00"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:text="NETO $ 8.100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lnetopreview"
+        android:textAlignment="textEnd"
+        android:textSize="35sp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:singleLine="true"
+        android:lines="1"
+        android:maxLines="1" />
+
+    <TextView
+        android:text="IVA $ 1.900"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/livapreview"
+        android:textAlignment="textEnd"
+        android:textSize="35sp"
+        android:singleLine="true"
+        android:lines="1"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:maxLines="1" />
+
+    <TextView
+        android:text="TOTAL $ 10.000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ltotalpreview"
+        android:textAlignment="textEnd"
+        android:textSize="35sp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:singleLine="true"
+        android:lines="1"
+        android:maxLines="1" />
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="31dp" />
+
+    <RelativeLayout android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="81dp">
+
+        <Button
+            android:text="SI"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bSi"
+            android:layout_weight="0.03"
+            android:background="@drawable/botonazulrectangular"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:drawableLeft="@drawable/ok"
+            android:gravity="center"
+            android:paddingLeft="10sp"
+            android:layout_marginStart="15sp"
+            android:paddingRight="10sp" />
+
+        <Button
+            android:text="NO"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bNo"
+            android:layout_weight="0.03"
+            android:background="@drawable/botonrojorectangular"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:drawableLeft="@drawable/salir"
+            android:gravity="center"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp" />
+    </RelativeLayout>
+
+</LinearLayout>

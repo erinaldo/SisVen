@@ -1,0 +1,363 @@
+﻿Imports C1.Win.C1FlexGrid
+Imports IDAutomation
+Imports DTEBoxCliente
+
+Public Class ControlDTE_Proveedores
+    Const T_OK = 0
+    Const T_ESTADO = 1
+    Const T_TIPODOC = 2
+    Const T_DOC = 3
+    Const T_NUM = 4
+    Const T_FECHA = 5
+    Const T_FECHASII = 6
+    Const T_LOCAL = 7
+    Const T_NOMBRELOCAL = 8
+    Const T_CLIENTE = 9
+    Const T_RUT = 10
+    Const T_NOMBRE = 11
+    Const T_FPAGO = 12
+    Const T_MONTO = 13
+    Const T_APROBADO = 14
+    Const T_ANULADO = 15
+    Const T_CESION = 16
+    Const T_ELIMINADO = 17
+    Const T_DISTRIBUIDO = 18
+    Const T_RECIBIDO = 19
+    Const T_SEGUIMIENTO = 20
+
+    Const AP = "Aprobar"
+    Const RE = "Rechazar"
+
+    Dim wFila As Integer
+    Dim wLocal As Integer
+
+    Dim cEst As New ComboBox
+
+    Private Sub ControlDTE_Proveedores_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Loc = SQL("Select NombreLocal from Locales WHERE FElectronica = 1 Order by Local")
+        cLocal.Items.Add("")
+        While Not Loc.EOF
+            cLocal.Items.Add(Loc.Fields("NombreLocal").Value.ToString.Trim)
+            If gMonoLocal Then
+                cLocal.Text = Loc("NombreLocal").Value
+            End If
+            Loc.MoveNext()
+        End While
+
+        Titulos()
+
+        cEstados.Items.Add("")
+        cEstados.Items.Add(AP)
+        cEstados.Items.Add(RE)
+
+        cEst.Items.Add(AP)
+        cEst.Items.Add(RE)
+
+        xF1.Value = IniFecha(1, Now.Date)
+        xF2.Value = Now.Date
+    End Sub
+
+    Private Sub bDesmarcar_Click()
+        For i = 1 To xTabla.Rows.Count - 1
+            xTabla.SetData(i, T_OK, UNCHECK)
+        Next i
+    End Sub
+
+    Private Sub bEnviarM_Click()
+        Dim Hay As Boolean
+
+        Hay = False
+        Cursor = Cursors.WaitCursor
+        For i = 1 To xTabla.Rows.Count - 1
+            If xTabla.GetData(i, T_ESTADO) = AP Then
+                'El_Error ("Documento Electrónico ya enviado a SII, no se puede volver a enviar")
+            Else
+                If xTabla.GetData(i, T_OK) = CHECK Then
+                    Hay = True
+
+                End If
+            End If
+        Next i
+        Cursor = Cursors.Arrow
+        If Not Hay Then
+            MsgError("No hay documentos marcados para enviar")
+        Else
+            Mensaje("Los Datos enviados a SII, demoran en algunos casos tener respuestas, " + vbCrLf + "deberá consultar los documentos en unos minutos mas para conocer su estado.")
+            'Volver a Cargar los Datos
+            Consultar_Datos()
+        End If
+
+    End Sub
+
+    Private Sub bLimpiar_Click(sender As Object, e As EventArgs) Handles bLimpiar.Click
+        Titulos()
+        cLocal.Text = ""
+        cTipoDoc.Text = ""
+        cEstados.Text = ""
+
+        xF1.Value = IniFecha(1, Now.Date)
+        xF2.Value = Now.Date
+
+        cLocal.Focus()
+    End Sub
+
+    Private Sub bCancelar_Click(sender As Object, e As EventArgs) Handles bCancelar.Click
+        Close()
+    End Sub
+
+    Sub Titulos()
+        xTabla.Redraw = True
+
+        xTabla.Clear()
+        xTabla.Rows.Count = 1
+        xTabla.Cols.Count = 21
+
+        xTabla.SetData(0, T_OK, "Ok")
+        xTabla.SetData(0, T_ESTADO, "Estado")
+        xTabla.SetData(0, T_TIPODOC, "Tipo.Doc.")
+        xTabla.SetData(0, T_DOC, "Documento")
+        xTabla.SetData(0, T_NUM, "Número")
+        xTabla.SetData(0, T_FECHA, "Fecha")
+        xTabla.SetData(0, T_FECHASII, "Recepción SII")
+        xTabla.SetData(0, T_LOCAL, "Local")
+        xTabla.SetData(0, T_NOMBRELOCAL, "Local")
+        xTabla.SetData(0, T_CLIENTE, "Cliente")
+        xTabla.SetData(0, T_RUT, "Rut")
+        xTabla.SetData(0, T_NOMBRE, "Nombre")
+        xTabla.SetData(0, T_FPAGO, "F.Pago")
+        xTabla.SetData(0, T_MONTO, "Monto")
+        xTabla.SetData(0, T_APROBADO, "Aprobado")
+        xTabla.SetData(0, T_ANULADO, "Anulado")
+        xTabla.SetData(0, T_CESION, "Cesión")
+        xTabla.SetData(0, T_ELIMINADO, "Eliminado")
+        xTabla.SetData(0, T_DISTRIBUIDO, "Distribuido")
+        xTabla.SetData(0, T_RECIBIDO, "Recibido")
+        xTabla.SetData(0, T_SEGUIMIENTO, "Autorizado")
+
+        xTabla.Cols(T_OK).Width = 30
+        xTabla.Cols(T_ESTADO).Width = 100
+        xTabla.Cols(T_TIPODOC).Width = 0
+        xTabla.Cols(T_DOC).Width = 105
+        xTabla.Cols(T_NUM).Width = 70
+        xTabla.Cols(T_FECHA).Width = 75
+        xTabla.Cols(T_FECHASII).Width = 0
+        xTabla.Cols(T_LOCAL).Width = 0
+        xTabla.Cols(T_NOMBRELOCAL).Width = 0
+        xTabla.Cols(T_CLIENTE).Width = 60
+        xTabla.Cols(T_RUT).Width = 80
+        xTabla.Cols(T_NOMBRE).Width = 200
+        xTabla.Cols(T_FPAGO).Width = 0
+        xTabla.Cols(T_MONTO).Width = 80
+        xTabla.Cols(T_APROBADO).Width = 60
+        xTabla.Cols(T_ANULADO).Width = 60
+        xTabla.Cols(T_CESION).Width = 0
+        xTabla.Cols(T_ELIMINADO).Width = 60
+        xTabla.Cols(T_DISTRIBUIDO).Width = 60
+        xTabla.Cols(T_RECIBIDO).Width = 60
+        xTabla.Cols(T_SEGUIMIENTO).Width = 0
+
+        xTabla.Cols(T_OK).TextAlignFixed = TextAlignEnum.CenterCenter
+        xTabla.Cols(T_FECHA).TextAlignFixed = TextAlignEnum.CenterCenter
+        xTabla.Cols(T_FECHASII).TextAlignFixed = TextAlignEnum.CenterCenter
+        xTabla.Cols(T_MONTO).TextAlignFixed = TextAlignEnum.RightCenter
+        xTabla.Cols(T_NUM).TextAlignFixed = TextAlignEnum.RightCenter
+        xTabla.Cols(T_CLIENTE).TextAlignFixed = TextAlignEnum.RightCenter
+
+        xTabla.Cols(T_OK).TextAlign = TextAlignEnum.CenterCenter
+        xTabla.Cols(T_FECHA).TextAlign = TextAlignEnum.CenterCenter
+        xTabla.Cols(T_FECHASII).TextAlign = TextAlignEnum.CenterCenter
+        xTabla.Cols(T_NUM).TextAlign = TextAlignEnum.RightCenter
+        xTabla.Cols(T_CLIENTE).TextAlign = TextAlignEnum.RightCenter
+        xTabla.Cols(T_MONTO).TextAlign = TextAlignEnum.RightCenter
+
+        xTabla.Cols(T_OK).DataType = GetType(Boolean)
+        xTabla.Cols(T_MONTO).DataType = GetType(Double)
+        xTabla.Cols(T_MONTO).Format = "N0"
+        xTabla.Cols(T_ESTADO).DataType = GetType(ComboBox)
+
+        cEst.DropDownStyle = ComboBoxStyle.DropDownList
+        xTabla.Cols(T_ESTADO).Editor = cEst
+        AddHandler cEst.SelectedIndexChanged, AddressOf ComboGrilla_SelectedIndexChanged
+    End Sub
+
+    Private Sub ComboGrilla_SelectedIndexChanged(sender As Object, e As EventArgs)
+        If xTabla.Row > 0 And xTabla.Rows.Count > 0 Then
+            If cEst.SelectedIndex <> -1 Then
+
+            End If
+        End If
+    End Sub
+    Private Sub bConsultar_Click(sender As Object, e As EventArgs) Handles bConsultar.Click
+        Consultar_Datos()
+    End Sub
+
+    Sub Consultar_Datos()
+        Dim wReceptor As String
+        Dim PageSize As Integer = 300 'El tamaño máximo de página permitido es de 300 
+
+        lStatus.Text = ""
+        wFila = 0
+        Titulos()
+
+        wReceptor = FE_Rut_Emisor
+        If Trim(cLocal.Text) <> "" Then
+            If Buscar("Locales", "NombreLocal", Trim(cLocal.Text), "Local,RutLocal") Then
+                wLocal = Swap("Local").Value
+                wReceptor = Rut_DTE(Swap("RutLocal").Value)
+            End If
+        End If
+
+        Dim ServicioDTE As DTEBoxCliente.Servicio
+        ServicioDTE = New DTEBoxCliente.Servicio(FE_DTE, FE_Llave)
+
+        Dim AmbienteDTE As DTEBoxCliente.Ambiente
+        AmbienteDTE = FE_Ambiente
+
+        If xF2.Value > Date.Now Then
+            xF2.Value = Date.Now
+        End If
+        Dim FechaDesde As String = FE_Fecha(xF1.Value)
+        Dim FechaHasta As String = FE_Fecha(xF2.Value)
+
+        Cursor = Cursors.WaitCursor
+        'Esta Funcion es para verificar documentos en SII que NO estan en el DTE
+        'Dim ResultadoDTE As ResultadoDocumentos = ServicioDTE.ReconciliarDocumentos(FE_Ambiente, wReceptor, FechaDesde, FechaHasta)
+
+        Dim DTE_GrupoRecibidos As DTEBoxCliente.GrupoBusqueda = DTEBoxCliente.GrupoBusqueda.Recibidos
+
+        'DTE_Consulta = "(TipoDTE:33 or TipoDTE:34 or TipoDTE:39 or TipoDTE:52 or TipoDTE:56 or TipoDTE:61) "
+        'DTE_Consulta += " AND (FchEmis:[" + FechaDesde + " TO " + FechaHasta + "]) "
+        'DTE_Consulta += " AND (RUTRecep:" + FE_Rut_Emisor + ") "
+
+        DTE_Consulta = "(FchEmis:[" + FechaDesde + " TO " + FechaHasta + "] AND RUTRecep:" + FE_Rut_Emisor + ")"
+        ' DTE_Consulta = "(FchEmis:[" + FechaDesde + " TO " + FechaHasta + "] "
+
+        Dim ResultadoDTE As ResultadoDocumentos = ServicioDTE.BuscarDocumentos(AmbienteDTE, DTE_GrupoRecibidos, DTE_Consulta, 0, PageSize)
+        If (ResultadoDTE.ResultadoServicio.Estado = 0) Then
+            If (ResultadoDTE.TotalDocumentos > 0) Then
+
+                xTabla.Visible = False
+
+                Call Cargar_Datos(ResultadoDTE)
+
+                If xTabla.Rows.Count > 1 Then
+                    xTabla.Col = 1 : xTabla.Row = 1
+                End If
+
+                lStatus.Text = "Documentos: " + Num(wFila)
+                Cursor = Cursors.Arrow
+                xTabla.Visible = True
+
+            Else
+                Cursor = Cursors.Arrow
+                MsgError("No se encontraron documentos.")
+            End If
+        Else
+            ' Si la llamada no fue satisfactoria
+            Cursor = Cursors.Arrow
+            MsgError(ResultadoDTE.ResultadoServicio.Descripcion)
+        End If
+
+    End Sub
+
+    Sub Cargar_Datos(ResultadoDTE As ResultadoDocumentos)
+        Dim wRut As String, wTipoDoc As String
+
+        wFila = 0
+        For Each doc As ResumenDTE In ResultadoDTE.ResumenDtes
+            DoEvents()
+            If oTodos.Checked = False And (doc.TipoDTE = 39 Or doc.TipoDTE = 52 Or doc.TipoDTE = 46 Or doc.TipoDTE = 801) Then
+                'No considerar estos documentos
+            Else
+                wTipoDoc = BuscarCampo("TipoDoc", "DescTipoDoc", "Cod_SII", doc.TipoDTE)
+                If Trim(cTipoDoc.Text) = wTipoDoc Or wTipoDoc = "" Or Trim(cTipoDoc.Text) = "" Then
+                    xTabla.AddItem("")
+                    wFila = wFila + 1
+                    xTabla.SetData(wFila, T_OK, UNCHECK)
+                    xTabla.SetData(wFila, T_ESTADO, "")
+                    xTabla.SetData(wFila, T_TIPODOC, BuscarCampo("TipoDoc", "TipoDoc", "Cod_SII", doc.TipoDTE))
+                    xTabla.SetData(wFila, T_DOC, wTipoDoc)
+                    xTabla.SetData(wFila, T_NUM, doc.Folio)
+                    xTabla.SetData(wFila, T_FECHA, Format(doc.FchEmis, "dd/MM/yyyy"))
+                    xTabla.SetData(wFila, T_FECHASII, Format(doc.FchRecepSII, "dd/MM/yyyy"))
+                    wRut = Formatea_Rut(doc.RUTEmisor, 1)
+                    Cli = SQL("Select * from Clientes where Rut = '" + wRut + "'")
+                    If Cli.RecordCount > 0 Then
+                        xTabla.SetData(wFila, T_CLIENTE, Cli("Cliente").Value)
+                        xTabla.SetData(wFila, T_NOMBRE, Cli("Nombre").Value)
+                        xTabla.SetData(wFila, T_RUT, Cli("Rut").Value)
+                    Else
+                        xTabla.SetData(wFila, T_NOMBRE, doc.RznSoc)
+                        xTabla.SetData(wFila, T_RUT, doc.RUTEmisor)
+                    End If
+                    xTabla.SetData(wFila, T_MONTO, doc.MntTotal)
+                    xTabla.SetData(wFila, T_FPAGO, doc.Estructura)
+
+                    'xTabla.SetData(wFila, T_APROBADO, doc.Aprobado)
+                    xTabla.SetData(wFila, T_APROBADO, doc.AutorizadoSII)
+                    xTabla.SetData(wFila, T_ANULADO, doc.Anulado)
+                    xTabla.SetData(wFila, T_CESION, doc.Cesion)
+                    xTabla.SetData(wFila, T_ELIMINADO, doc.Eliminado)
+                    xTabla.SetData(wFila, T_DISTRIBUIDO, doc.Distribuido)
+                    xTabla.SetData(wFila, T_RECIBIDO, doc.Recibido)
+                    xTabla.SetData(wFila, T_SEGUIMIENTO, doc.Seguimiento)
+                End If
+            End If
+        Next
+    End Sub
+
+    Private Sub xTabla_Click(sender As Object, e As EventArgs) Handles xTabla.Click
+        If xTabla.Rows.Count > 1 Then
+            If xTabla.Col = T_OK Then
+                If xTabla.GetData(xTabla.Row, T_OK) = CHECK Then
+                    xTabla.SetData(xTabla.Row, T_OK, UNCHECK)
+                Else
+                    xTabla.SetData(xTabla.Row, T_OK, CHECK)
+                End If
+            End If
+            If xTabla.Col = T_ESTADO Then
+                xTabla.StartEditing(xTabla.Row, T_ESTADO)
+            End If
+        End If
+    End Sub
+
+    Private Sub xTabla_DoubleClick(sender As Object, e As EventArgs) Handles xTabla.DoubleClick
+        If xTabla.Row > 0 Then
+
+        End If
+    End Sub
+
+    Private Sub bProcesar_Click(sender As Object, e As EventArgs) Handles bProcesar.Click
+        Dim Hay As Boolean
+
+        Hay = False
+        Cursor = Cursors.WaitCursor
+        For i = 1 To xTabla.Rows.Count - 1
+            If xTabla.GetData(i, T_OK) = CHECK Then
+                If xTabla.GetData(i, T_ESTADO) = AP Or xTabla.GetData(i, T_ESTADO) = RE Then
+                    '
+                End If
+            End If
+        Next i
+        Cursor = Cursors.Arrow
+        If Not Hay Then
+            MsgError("No hay documentos marcados para enviar")
+        Else
+            Mensaje("Los Datos enviados a SII, demoran en algunos casos tener respuestas, " + vbCrLf + "deberá consultar los documentos en unos minutos mas para conocer su estado.")
+            'Volver a Cargar los Datos
+            Consultar_Datos()
+        End If
+    End Sub
+
+    Private Sub oConsultar_CheckedChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub gFiltro_Enter(sender As Object, e As EventArgs) Handles gFiltro.Enter
+
+    End Sub
+
+    Private Sub xTexto_TextChanged(sender As Object, e As EventArgs) Handles xTexto.TextChanged
+
+    End Sub
+End Class

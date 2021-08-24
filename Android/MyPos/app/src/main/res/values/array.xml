@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="tiposdoc">
+        <item>Factura</item>
+        <item>Boleta</item>
+        <item>Nota de Crédito</item>
+        <item>Nota de Débito</item>
+        <item>Factura Exenta</item>
+        <item>Guía de Despacho</item>
+    </string-array>
+
+    <string-array name="formasdepago">
+        <item>Efectivo</item>
+        <item>Red Compra</item>
+        <item>Tarjeta de Crédito</item>
+        <item>Cheque</item>
+        <item>Vale</item>
+        <item>Nota de Crédito</item>
+    </string-array>
+
+
+</resources>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/bEmitirBoleta"
+        android:layout_alignParentStart="true"
+        android:visibility="visible"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="Tipo Documento: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView10"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tipodocumento"
+            android:textColor="@color/colorPrimaryDark" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bEmitirBoleta"
+        android:layout_alignParentStart="true"
+        android:visibility="visible">
+
+        <TextView
+            android:text="Forma de Pago: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lFormaPago"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/formadepago"
+            android:textColor="@color/colorPrimaryDark" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
+
+
+    <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scrollHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ScrollView
+            android:id="@+id/scrollVertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/bEmitirBoleta"
+                android:layout_alignParentStart="true"
+                android:visibility="visible"
+                android:layout_weight="0.43">
+
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/consultaventa"
+                    android:layout_marginLeft="5dp" />
+            </LinearLayout>
+        </ScrollView>
+    </HorizontalScrollView>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <Button
+            android:text="Volver"
+            android:layout_width="185dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bVolver"
+            android:background="@drawable/botonrojorectangular"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_marginTop="10sp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15sp"
+            android:drawableLeft="@drawable/atras"
+            android:gravity="center"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:layout_marginBottom="15sp"/>
+    </RelativeLayout>
+</LinearLayout>

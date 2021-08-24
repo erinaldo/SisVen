@@ -1,0 +1,995 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wikets.cl/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://wikets.cl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://wikets.cl/">
+      <s:element name="Version_WebService">
+        <s:complexType />
+      </s:element>
+      <s:element name="Version_WebServiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Version_WebServiceResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Iniciar_Sesion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wIdUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wContrasena" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Iniciar_SesionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Iniciar_SesionResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Bodegas_Moviles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wLocal" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Bodegas_MovilesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Consultar_Bodegas_MovilesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Articulos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wLocal" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wBodega" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_ArticulosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Consultar_ArticulosResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Precios_ZPL">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Precios_ZPLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Consultar_Precios_ZPLResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Stock_ZPL">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wLocal" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wBodega" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Stock_ZPLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Consultar_Stock_ZPLResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Clientes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_ClientesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Consultar_ClientesResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Ingresar_Cliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wClienteRef" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="wRut" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wRazonSocial" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wFantasia" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wDireccion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wCiudad" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wComuna" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wGiro" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wEmail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wNuevo" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Ingresar_ClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Ingresar_ClienteResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Anular_Documento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wLocal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="wTipoDoc" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wNumero" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wFechaAnulacion" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="wMotivo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Anular_DocumentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Anular_DocumentoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Emitir_Documento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wClienteEmisor" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wPOS" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCaja" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="wUsuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wVendedor" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wLocal" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="wTipoDoc" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wNumero" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wFecha" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="wElectronico" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="wTipoDocRef" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wNumDocRef" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wFechaDocRef" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="wClienteRef" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="wBodega" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wFormaPago" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wObservacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wMotivo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wSubTotal" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wNeto" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wDescuento" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wIVA" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wTotal" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="xMIN" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="xBEB" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="xVIN" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="xCER" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="xLIC" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="xCAR" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="xHAR" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="xTAB" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="xFEP" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="xOTRO" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="wDetalle" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Emitir_DocumentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Emitir_DocumentoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Enviar_Documentos_DTE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wLocal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="wTipoDoc" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wNumero" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Enviar_Documentos_DTEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Enviar_Documentos_DTEResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Documentos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wFechaIni" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="wFechaFin" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="wTipoDoc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_DocumentosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Consultar_DocumentosResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Obtener_Documento">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wLocal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="wTipoDoc" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wNumero" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wModo" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Obtener_DocumentoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Obtener_DocumentoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Documento_DTE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wLocal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="wTipoDoc" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wNumero" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Documento_DTEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Consultar_Documento_DTEResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Emitir_TED">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wLocal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="wTipoDoc" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wNumero" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Emitir_TEDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Emitir_TEDResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_TED">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wLocal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="wTipoDoc" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wNumero" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_TEDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Consultar_TEDResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_Correlativo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIdKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="wLocal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="wTipoDoc" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wFecha" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCaja" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Consultar_CorrelativoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Consultar_CorrelativoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Verificar_Estado_Cliente">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wIDKey" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="wCliente" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Verificar_Estado_ClienteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Verificar_Estado_ClienteResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="Version_WebServiceSoapIn">
+    <wsdl:part name="parameters" element="tns:Version_WebService" />
+  </wsdl:message>
+  <wsdl:message name="Version_WebServiceSoapOut">
+    <wsdl:part name="parameters" element="tns:Version_WebServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="Iniciar_SesionSoapIn">
+    <wsdl:part name="parameters" element="tns:Iniciar_Sesion" />
+  </wsdl:message>
+  <wsdl:message name="Iniciar_SesionSoapOut">
+    <wsdl:part name="parameters" element="tns:Iniciar_SesionResponse" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_Bodegas_MovilesSoapIn">
+    <wsdl:part name="parameters" element="tns:Consultar_Bodegas_Moviles" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_Bodegas_MovilesSoapOut">
+    <wsdl:part name="parameters" element="tns:Consultar_Bodegas_MovilesResponse" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_ArticulosSoapIn">
+    <wsdl:part name="parameters" element="tns:Consultar_Articulos" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_ArticulosSoapOut">
+    <wsdl:part name="parameters" element="tns:Consultar_ArticulosResponse" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_Precios_ZPLSoapIn">
+    <wsdl:part name="parameters" element="tns:Consultar_Precios_ZPL" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_Precios_ZPLSoapOut">
+    <wsdl:part name="parameters" element="tns:Consultar_Precios_ZPLResponse" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_Stock_ZPLSoapIn">
+    <wsdl:part name="parameters" element="tns:Consultar_Stock_ZPL" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_Stock_ZPLSoapOut">
+    <wsdl:part name="parameters" element="tns:Consultar_Stock_ZPLResponse" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_ClientesSoapIn">
+    <wsdl:part name="parameters" element="tns:Consultar_Clientes" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_ClientesSoapOut">
+    <wsdl:part name="parameters" element="tns:Consultar_ClientesResponse" />
+  </wsdl:message>
+  <wsdl:message name="Ingresar_ClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:Ingresar_Cliente" />
+  </wsdl:message>
+  <wsdl:message name="Ingresar_ClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:Ingresar_ClienteResponse" />
+  </wsdl:message>
+  <wsdl:message name="Anular_DocumentoSoapIn">
+    <wsdl:part name="parameters" element="tns:Anular_Documento" />
+  </wsdl:message>
+  <wsdl:message name="Anular_DocumentoSoapOut">
+    <wsdl:part name="parameters" element="tns:Anular_DocumentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Emitir_DocumentoSoapIn">
+    <wsdl:part name="parameters" element="tns:Emitir_Documento" />
+  </wsdl:message>
+  <wsdl:message name="Emitir_DocumentoSoapOut">
+    <wsdl:part name="parameters" element="tns:Emitir_DocumentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Enviar_Documentos_DTESoapIn">
+    <wsdl:part name="parameters" element="tns:Enviar_Documentos_DTE" />
+  </wsdl:message>
+  <wsdl:message name="Enviar_Documentos_DTESoapOut">
+    <wsdl:part name="parameters" element="tns:Enviar_Documentos_DTEResponse" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_DocumentosSoapIn">
+    <wsdl:part name="parameters" element="tns:Consultar_Documentos" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_DocumentosSoapOut">
+    <wsdl:part name="parameters" element="tns:Consultar_DocumentosResponse" />
+  </wsdl:message>
+  <wsdl:message name="Obtener_DocumentoSoapIn">
+    <wsdl:part name="parameters" element="tns:Obtener_Documento" />
+  </wsdl:message>
+  <wsdl:message name="Obtener_DocumentoSoapOut">
+    <wsdl:part name="parameters" element="tns:Obtener_DocumentoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_Documento_DTESoapIn">
+    <wsdl:part name="parameters" element="tns:Consultar_Documento_DTE" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_Documento_DTESoapOut">
+    <wsdl:part name="parameters" element="tns:Consultar_Documento_DTEResponse" />
+  </wsdl:message>
+  <wsdl:message name="Emitir_TEDSoapIn">
+    <wsdl:part name="parameters" element="tns:Emitir_TED" />
+  </wsdl:message>
+  <wsdl:message name="Emitir_TEDSoapOut">
+    <wsdl:part name="parameters" element="tns:Emitir_TEDResponse" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_TEDSoapIn">
+    <wsdl:part name="parameters" element="tns:Consultar_TED" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_TEDSoapOut">
+    <wsdl:part name="parameters" element="tns:Consultar_TEDResponse" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_CorrelativoSoapIn">
+    <wsdl:part name="parameters" element="tns:Consultar_Correlativo" />
+  </wsdl:message>
+  <wsdl:message name="Consultar_CorrelativoSoapOut">
+    <wsdl:part name="parameters" element="tns:Consultar_CorrelativoResponse" />
+  </wsdl:message>
+  <wsdl:message name="Verificar_Estado_ClienteSoapIn">
+    <wsdl:part name="parameters" element="tns:Verificar_Estado_Cliente" />
+  </wsdl:message>
+  <wsdl:message name="Verificar_Estado_ClienteSoapOut">
+    <wsdl:part name="parameters" element="tns:Verificar_Estado_ClienteResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="Version_WebService">
+      <wsdl:input message="tns:Version_WebServiceSoapIn" />
+      <wsdl:output message="tns:Version_WebServiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IniciarSesion">
+      <wsdl:input name="Iniciar_Sesion" message="tns:Iniciar_SesionSoapIn" />
+      <wsdl:output name="Iniciar_Sesion" message="tns:Iniciar_SesionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarBodegasMoviles">
+      <wsdl:input name="Consultar_Bodegas_Moviles" message="tns:Consultar_Bodegas_MovilesSoapIn" />
+      <wsdl:output name="Consultar_Bodegas_Moviles" message="tns:Consultar_Bodegas_MovilesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarArticulos">
+      <wsdl:input name="Consultar_Articulos" message="tns:Consultar_ArticulosSoapIn" />
+      <wsdl:output name="Consultar_Articulos" message="tns:Consultar_ArticulosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarPreciosZPL">
+      <wsdl:input name="Consultar_Precios_ZPL" message="tns:Consultar_Precios_ZPLSoapIn" />
+      <wsdl:output name="Consultar_Precios_ZPL" message="tns:Consultar_Precios_ZPLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarStockZPL">
+      <wsdl:input name="Consultar_Stock_ZPL" message="tns:Consultar_Stock_ZPLSoapIn" />
+      <wsdl:output name="Consultar_Stock_ZPL" message="tns:Consultar_Stock_ZPLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarClientes">
+      <wsdl:input name="Consultar_Clientes" message="tns:Consultar_ClientesSoapIn" />
+      <wsdl:output name="Consultar_Clientes" message="tns:Consultar_ClientesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IngresarCliente">
+      <wsdl:input name="Ingresar_Cliente" message="tns:Ingresar_ClienteSoapIn" />
+      <wsdl:output name="Ingresar_Cliente" message="tns:Ingresar_ClienteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AnularDocumento">
+      <wsdl:input name="Anular_Documento" message="tns:Anular_DocumentoSoapIn" />
+      <wsdl:output name="Anular_Documento" message="tns:Anular_DocumentoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EmitirDocumento">
+      <wsdl:input name="Emitir_Documento" message="tns:Emitir_DocumentoSoapIn" />
+      <wsdl:output name="Emitir_Documento" message="tns:Emitir_DocumentoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarDocumentosDTE">
+      <wsdl:input name="Enviar_Documentos_DTE" message="tns:Enviar_Documentos_DTESoapIn" />
+      <wsdl:output name="Enviar_Documentos_DTE" message="tns:Enviar_Documentos_DTESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarDocumentos">
+      <wsdl:input name="Consultar_Documentos" message="tns:Consultar_DocumentosSoapIn" />
+      <wsdl:output name="Consultar_Documentos" message="tns:Consultar_DocumentosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDocumento">
+      <wsdl:input name="Obtener_Documento" message="tns:Obtener_DocumentoSoapIn" />
+      <wsdl:output name="Obtener_Documento" message="tns:Obtener_DocumentoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarDocumentoDTE">
+      <wsdl:input name="Consultar_Documento_DTE" message="tns:Consultar_Documento_DTESoapIn" />
+      <wsdl:output name="Consultar_Documento_DTE" message="tns:Consultar_Documento_DTESoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EmitirTED">
+      <wsdl:input name="Emitir_TED" message="tns:Emitir_TEDSoapIn" />
+      <wsdl:output name="Emitir_TED" message="tns:Emitir_TEDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarTED">
+      <wsdl:input name="Consultar_TED" message="tns:Consultar_TEDSoapIn" />
+      <wsdl:output name="Consultar_TED" message="tns:Consultar_TEDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCorrelativo">
+      <wsdl:input name="Consultar_Correlativo" message="tns:Consultar_CorrelativoSoapIn" />
+      <wsdl:output name="Consultar_Correlativo" message="tns:Consultar_CorrelativoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Verificar_Estado_Cliente">
+      <wsdl:input message="tns:Verificar_Estado_ClienteSoapIn" />
+      <wsdl:output message="tns:Verificar_Estado_ClienteSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Version_WebService">
+      <soap:operation soapAction="http://wikets.cl/Version_WebService" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IniciarSesion">
+      <soap:operation soapAction="http://wikets.cl/Iniciar_Sesion" style="document" />
+      <wsdl:input name="Iniciar_Sesion">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Iniciar_Sesion">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarBodegasMoviles">
+      <soap:operation soapAction="http://wikets.cl/Consultar_Bodegas_Moviles" style="document" />
+      <wsdl:input name="Consultar_Bodegas_Moviles">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Bodegas_Moviles">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarArticulos">
+      <soap:operation soapAction="http://wikets.cl/Consultar_Articulos" style="document" />
+      <wsdl:input name="Consultar_Articulos">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Articulos">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarPreciosZPL">
+      <soap:operation soapAction="http://wikets.cl/Consultar_Precios_ZPL" style="document" />
+      <wsdl:input name="Consultar_Precios_ZPL">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Precios_ZPL">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarStockZPL">
+      <soap:operation soapAction="http://wikets.cl/Consultar_Stock_ZPL" style="document" />
+      <wsdl:input name="Consultar_Stock_ZPL">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Stock_ZPL">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarClientes">
+      <soap:operation soapAction="http://wikets.cl/Consultar_Clientes" style="document" />
+      <wsdl:input name="Consultar_Clientes">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Clientes">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IngresarCliente">
+      <soap:operation soapAction="http://wikets.cl/Ingresar_Cliente" style="document" />
+      <wsdl:input name="Ingresar_Cliente">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Ingresar_Cliente">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnularDocumento">
+      <soap:operation soapAction="http://wikets.cl/Anular_Documento" style="document" />
+      <wsdl:input name="Anular_Documento">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Anular_Documento">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmitirDocumento">
+      <soap:operation soapAction="http://wikets.cl/Emitir_Documento" style="document" />
+      <wsdl:input name="Emitir_Documento">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Emitir_Documento">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarDocumentosDTE">
+      <soap:operation soapAction="http://wikets.cl/Enviar_Documentos_DTE" style="document" />
+      <wsdl:input name="Enviar_Documentos_DTE">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Enviar_Documentos_DTE">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarDocumentos">
+      <soap:operation soapAction="http://wikets.cl/Consultar_Documentos" style="document" />
+      <wsdl:input name="Consultar_Documentos">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Documentos">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDocumento">
+      <soap:operation soapAction="http://wikets.cl/Obtener_Documento" style="document" />
+      <wsdl:input name="Obtener_Documento">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Obtener_Documento">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarDocumentoDTE">
+      <soap:operation soapAction="http://wikets.cl/Consultar_Documento_DTE" style="document" />
+      <wsdl:input name="Consultar_Documento_DTE">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Documento_DTE">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmitirTED">
+      <soap:operation soapAction="http://wikets.cl/Emitir_TED" style="document" />
+      <wsdl:input name="Emitir_TED">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Emitir_TED">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarTED">
+      <soap:operation soapAction="http://wikets.cl/Consultar_TED" style="document" />
+      <wsdl:input name="Consultar_TED">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_TED">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCorrelativo">
+      <soap:operation soapAction="http://wikets.cl/Consultar_Correlativo" style="document" />
+      <wsdl:input name="Consultar_Correlativo">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Correlativo">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Verificar_Estado_Cliente">
+      <soap:operation soapAction="http://wikets.cl/Verificar_Estado_Cliente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap12" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Version_WebService">
+      <soap12:operation soapAction="http://wikets.cl/Version_WebService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IniciarSesion">
+      <soap12:operation soapAction="http://wikets.cl/Iniciar_Sesion" style="document" />
+      <wsdl:input name="Iniciar_Sesion">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Iniciar_Sesion">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarBodegasMoviles">
+      <soap12:operation soapAction="http://wikets.cl/Consultar_Bodegas_Moviles" style="document" />
+      <wsdl:input name="Consultar_Bodegas_Moviles">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Bodegas_Moviles">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarArticulos">
+      <soap12:operation soapAction="http://wikets.cl/Consultar_Articulos" style="document" />
+      <wsdl:input name="Consultar_Articulos">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Articulos">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarPreciosZPL">
+      <soap12:operation soapAction="http://wikets.cl/Consultar_Precios_ZPL" style="document" />
+      <wsdl:input name="Consultar_Precios_ZPL">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Precios_ZPL">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarStockZPL">
+      <soap12:operation soapAction="http://wikets.cl/Consultar_Stock_ZPL" style="document" />
+      <wsdl:input name="Consultar_Stock_ZPL">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Stock_ZPL">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarClientes">
+      <soap12:operation soapAction="http://wikets.cl/Consultar_Clientes" style="document" />
+      <wsdl:input name="Consultar_Clientes">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Clientes">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IngresarCliente">
+      <soap12:operation soapAction="http://wikets.cl/Ingresar_Cliente" style="document" />
+      <wsdl:input name="Ingresar_Cliente">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Ingresar_Cliente">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AnularDocumento">
+      <soap12:operation soapAction="http://wikets.cl/Anular_Documento" style="document" />
+      <wsdl:input name="Anular_Documento">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Anular_Documento">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmitirDocumento">
+      <soap12:operation soapAction="http://wikets.cl/Emitir_Documento" style="document" />
+      <wsdl:input name="Emitir_Documento">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Emitir_Documento">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarDocumentosDTE">
+      <soap12:operation soapAction="http://wikets.cl/Enviar_Documentos_DTE" style="document" />
+      <wsdl:input name="Enviar_Documentos_DTE">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Enviar_Documentos_DTE">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarDocumentos">
+      <soap12:operation soapAction="http://wikets.cl/Consultar_Documentos" style="document" />
+      <wsdl:input name="Consultar_Documentos">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Documentos">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDocumento">
+      <soap12:operation soapAction="http://wikets.cl/Obtener_Documento" style="document" />
+      <wsdl:input name="Obtener_Documento">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Obtener_Documento">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarDocumentoDTE">
+      <soap12:operation soapAction="http://wikets.cl/Consultar_Documento_DTE" style="document" />
+      <wsdl:input name="Consultar_Documento_DTE">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Documento_DTE">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmitirTED">
+      <soap12:operation soapAction="http://wikets.cl/Emitir_TED" style="document" />
+      <wsdl:input name="Emitir_TED">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Emitir_TED">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarTED">
+      <soap12:operation soapAction="http://wikets.cl/Consultar_TED" style="document" />
+      <wsdl:input name="Consultar_TED">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_TED">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCorrelativo">
+      <soap12:operation soapAction="http://wikets.cl/Consultar_Correlativo" style="document" />
+      <wsdl:input name="Consultar_Correlativo">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="Consultar_Correlativo">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Verificar_Estado_Cliente">
+      <soap12:operation soapAction="http://wikets.cl/Verificar_Estado_Cliente" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="http://earendil.no-ip.info/SisVenWS/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap12" binding="tns:ServiceSoap12">
+      <soap12:address location="http://earendil.no-ip.info/SisVenWS/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,137 @@
+﻿Imports System.Collections.Generic
+
+Public Class GenerarArchivoBanco
+    Private Sub GenerarArchivoBanco_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim i As Integer, nMes As Integer
+
+        For i = Year(Now) - 1 To Year(Now)
+            cAño.Items.Add(i)
+        Next i
+
+        For i = 1 To 12
+            cMes.Items.Add(Trim(MES(i)))
+        Next i
+
+        nMes = Month(Now)
+
+        If nMes > 1 Then
+            nMes = nMes - 1
+        End If
+
+        cAño.Text = Num(Year(Now))
+        cMes.Text = Trim(MES(nMes))
+
+        cFormato.Items.Add("OfficeBanking")
+        cFormato.Text = "OfficeBanking"
+
+        cTipo.Items.Add(".CSV")
+        cTipo.Items.Add(".TXT")
+        cTipo.Items.Add(".XLS")
+
+        cTipo.Text = ".CSV"
+
+    End Sub
+
+    Private Sub bGenerar_Click(sender As Object, e As EventArgs) Handles bGenerar.Click
+        Dim Separador = ""
+
+
+        Dim xGirador As String, VerChe As Double, Datos As String
+        Dim Registro As String, Separado As String, qRut As String, qDig As String, qMonto As String
+        Dim xAño As Integer, xMes As Integer, wGlosa As String
+
+        xAño = Val(cAño.Text)
+        xMes = cMes.SelectedIndex + 1
+
+        Datos = ""
+        'Dim xSerie = UCase(xSerie)
+
+
+        If ValidarCombo(cFormato) Then
+            MsgError("Falta Formato Archivo del Banco")
+            Exit Sub
+        End If
+
+        If ValidarCombo(cTipo) Then
+            MsgError("Falta Tipo de Archivo a Generar")
+            Exit Sub
+        End If
+
+        If cTipo.Text = ".XLS" Then
+            Separador = vbTab
+        End If
+        If cTipo.Text = ".CSV" Then
+            Separador = ";"
+        End If
+        If cTipo.Text = ".TXT" Then
+            Separador = ""
+        End If
+
+        If Pregunta("Desea Emitir Archivo para " & cFormato.Text) = False Then
+            Exit Sub
+        End If
+
+        Call Auditoria(Me.Name, "Generar Archivo para Bancos", cAño.Text, cMes.Text)
+
+        RmG = SQL("Select * from Sueldos where Año = " & Val(cAño.Text.Trim) & " and Mes = " & cMes.SelectedIndex + 1)
+        If RmG.RecordCount = 0 Then
+            MsgError("No hay Calculo de Sueldos para el Año:" & cAño.Text.Trim & "  Mes:" & cMes.Text.Trim)
+            Exit Sub
+        End If
+
+        '    Dim wList() = New List()
+
+        '    While Not RmG.EOF
+        '        xelList.Add("66787150", "CLP",)
+        '    End While
+
+
+        '    If cFormato.Text = "OfficeBanking" Then
+        '        Dim Archivo = Variable_Sistema("USERPROFILE") + "\Desktop\" + "OfficeBanking_" + Llena0(Day(Now), 2) + Llena0(Month(Now), 2) + Llena0(Year(Of Date), 4) + cTipo
+        '        Fil = FreeFile()
+        '        Open Archivo For Output As #Fil
+
+        '    '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+        '        'Cta_origen  mon_origen  Cta_destino mon_destino Cod_banco   RUT benef.  nombre benef.                Mto Total   Glosa TEF                 Correo                  Glosa correo              Glosa Cartola Cliente   Glosa Cartola Beneficiario
+        '        'XXXXXXX     CLP         XXXXXX      CLP         37          XXXXXXXXX   CARLOS ALFREDO AILEF VALDES  XXXXX       ABONO DE REMUNERACIONES   Ejemplo@santander.cl    ABONO DE REMUNERACIONES   Pago remuneraciones 1   Cancelado 1
+
+        '        'Encabezado
+        '        Registro = "Cuenta Origen" + Separador + "Moneda" + Separador + "Cuenta Destino" + Separador + "Moneda" + Separador + "Banco" + Separador + "Rut Beneficiario" + Separador + "Nombre Beneficiario" + Separador + "Monto" + Separador + "Glosa TEF" + Separador + "Correo" + Separador + "Glosa Correo" + Separador + "Glosa Cliente" + Separador + "Glosa Beneficiario"
+        '        Print #Fil, Registro
+
+        '    While Not RmG.EOF
+        '            If Buscar("Usuarios", "Usuario", RmG("Usuario"), "*") Then
+        '                If Val(Swap("Banco")) = 0 Then
+        '                    'No tiene cuenta corriente
+        '                Else
+        '                    wGlosa = "Pago Sueldo: " + Trim(Swap("NombreUsr")) + " " + MES(Val(xMes)) + " " + Num(xAño)
+
+        '                    Registro = ""
+        '                    Registro = Registro + "66787150" + Separador                            ' Cuenta Origen
+        '                    Registro = Registro + "CLP" + Separador                                 ' Moneda
+        '                    Registro = Registro + Trim(Swap("CuentaCorriente")) + Separador         ' Cuenta Destino
+        '                    Registro = Registro + "CLP" + Separador                                 ' Moneda
+        '                    Registro = Registro + Llena0(Trim(Swap("Banco")), 3) + Separador        ' Codigo Banco
+        '                    Registro = Registro + Formatea_Rut(Trim(Swap("Rut"))) + Separador       ' Rut Beneficiario
+        '                    Registro = Registro + Trim(Swap("NombreUsr")) + Separador               ' Nombre Beneficiario
+        '                    Registro = Registro + Num(RmG("TLiquido")) + Separador                  ' Monto
+        '                    Registro = Registro + wGlosa + Separador                                ' Glosa TEF
+        '                    Registro = Registro + Swap("Correo") + Separador                        ' Correo
+        '                    Registro = Registro + wGlosa + Separador                                ' Glosa Correo
+        '                    Registro = Registro + wGlosa + Separador                                ' Glosa Cartola Wikets
+        '                    Registro = Registro + wGlosa                                            ' Glosa Beneficiario
+
+        '                    Print #Fil, Registro
+        '            End If
+        '            End If
+        '            RmG.MoveNext
+        '    Wend
+
+        'End If
+
+
+        '    Close Fil
+
+        'El_Mensaje("Archivo Generado:" + vbCrLf + Archivo)
+    End Sub
+End Class

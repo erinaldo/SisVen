@@ -1,0 +1,718 @@
+﻿Imports System.ComponentModel
+Imports CrystalDecisions.CrystalReports.Engine
+
+Public Class VisorReportes
+    Dim gQuery As String
+    Dim gFiltros
+    Dim gReporte As ReportClass
+    Dim ListParametros = New List(Of ParametrosReporte)
+    Private Sub VisorReportes_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+
+        Par = SQL("SELECT * FROM Parametros")
+        If Par.RecordCount = 1 Then ListParametros.Add(New ParametrosReporte With {.Logo = Par.Fields("Logo").Value})
+
+        Select Case ModuloReporte
+            Case "Pagos"
+                Listado_Pagos()
+            Case "ListadoArticulos"
+                Listado_Articulos()
+            Case "ListadoClientes"
+                Listado_Clientes()
+            Case "ListadoPrecios"
+                Listado_Precios()
+            Case "ListadoBodegas"
+                Listado_Bodegas()
+            Case "CuadraturaCaja"
+                ListadoCuadraturaCaja()
+            Case "ReporteBoleta"
+                Reporte_Boleta()
+            Case "Movimientos"
+                Listado_Movimiento()
+            Case "ListadoStock"
+                ListadoStock()
+            Case "ListadoTomaInventario"
+                Listado_TomaInventario()
+            Case "ListadoMovimiento"
+                Listado_Movimiento()
+            Case "ListadoOT"
+                Listado_OT()
+            Case "ListadoRevisionOTMecanico"
+                Listado_RevisionOTMecanico()
+            Case "ListadoRepuestosPendientes"
+                Listado_RepuestosPendientesOT()
+            Case "ListadoMovimientos"
+                Listado_Movimientos()
+            Case "ReporteLiquidacion"
+                Reporte_Liquidacion()
+            Case "Listado_EventosRem"
+                Listado_EventosREm()
+            Case "ReporteLiquidaciones"
+                Reporte_Liquidaciones()
+            Case "ListadoVentasBoleta"
+                Listado_VentasBoletas()
+            Case "ListadoDescuento"
+                Listado_Descuento()
+            Case "Reporte_Auditoria"
+                Reporte_Auditoria()
+            Case "ListadoDocumento"
+                Listado_Documento()
+            Case "ReporteCiudades"
+                Listado_Ciudades()
+            Case "ImprimirDocumentos"
+                Imprimir_Documentos()
+        End Select
+    End Sub
+
+    Sub Reporte_Boleta()
+        Dim Lista = New List(Of BoletaReporte)
+        Swap = SQL(gQuery)
+
+        While Not Swap.EOF
+            Lista.Add(New BoletaReporte With {.NumDoc = Swap.Fields("NumDoc").Text,
+                                              .Ticket = Swap.Fields("Ticket").Text,
+                                              .Fecha = Swap.Fields("FECHA").Text,
+                                              .Total = Swap.Fields("TOTAL").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(Lista)
+            'gReporte.Database.Tables(1).SetDataSource(Lista)
+            Visor_Reporte.ReportSource = gReporte
+            gReporte.PrintToPrinter(1, False, 0, 0)
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub ListadoCuadraturaCaja()
+        Dim Lista = New List(Of CuadraturaReporte)
+        Swap = SQL(gQuery)
+
+        While Not Swap.EOF
+            Lista.Add(New CuadraturaReporte With {.LOCAL = Swap.Fields("LOCAL").Text,
+                                              .FORMAPAGO = Swap.Fields("FPAGO").Text,
+                                              .CAJA = Swap.Fields("CAJA").Text,
+                                              .DESCFPAGO = Swap.Fields("DESCFPAGO").Text,
+                                              .NOMBRELOCAL = Swap.Fields("NOMBRELOCAL").Text,
+                                              .FECHA = Swap.Fields("FECHA").Text,
+                                              .TOTAL = Swap.Fields("TOTAL").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(Lista)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+
+    Sub Listado_Bodegas()
+        Dim Lista = New List(Of BodegasListado)
+        Swap = SQL(gQuery)
+
+        While Not Swap.EOF
+            Lista.Add(New BodegasListado With {.Bodega = Swap.Fields("Bodega").Text,
+                                              .NombreBodega = Swap.Fields("NombreBodega").Text,
+                                              .Local = Swap.Fields("Local").Text,
+                                              .NombreLocal = Swap.Fields("NombreLocal").Text,
+                                              .Cliente = Swap.Fields("Cliente").Text,
+                                              .NombreCliente = Swap.Fields("Nombre").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(ListParametros)
+            gReporte.Database.Tables(1).SetDataSource(Lista)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_Precios()
+        Dim Lista = New List(Of PreciosReporte)
+        Swap = SQL(gQuery)
+
+        While Not Swap.EOF
+            Lista.Add(New PreciosReporte With {.Articulo = Swap.Fields("Articulo").Text,
+                                              .NombreArticulo = Swap.Fields("Descripcion").Text,
+                                              .PrecioMayorista = Swap.Fields("Costo").Text,
+                                              .PrecioVenta = Swap.Fields("PVenta").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(ListParametros)
+            gReporte.Database.Tables(1).SetDataSource(Lista)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_Clientes()
+        Dim Lista = New List(Of ClientesReporte)
+        Swap = SQL(gQuery)
+
+        While Not Swap.EOF
+            Lista.Add(New ClientesReporte With {.Cliente = Swap.Fields("Cliente").Text,
+                                                .NombreCliente = Swap.Fields("Nombre").Text,
+                                                .Rut = Swap.Fields("Rut").Text,
+                                                .Direcicon = Swap.Fields("Direccion").Text,
+                                                .NombreCiudad = Swap.Fields("NombreCiudad").Text,
+                                                .Nombrecomuna = Swap.Fields("NombreComuna").Text,
+                                                .Estado = Swap.Fields("DescEstado").Text,
+                                                .CupoMax = Swap.Fields("CupoMax").Text,
+                                                .Proveedor = Swap.Fields("Proveedor").Text,
+                                                .Vencimiento = Swap.Fields("Vencimiento").Text,
+                                                .Comision = Swap.Fields("Comision").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(ListParametros)
+            gReporte.Database.Tables(1).SetDataSource(Lista)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_Articulos()
+        Dim Lista = New List(Of ArticulosReporte)
+        Swap = SQL(gQuery)
+
+        While Not Swap.EOF
+            Lista.Add(New ArticulosReporte With {.Articulo = Swap.Fields("Articulo").Text,
+                                                 .DescArticulo = Swap.Fields("Descripcion").Text,
+                                                 .DescEstado = Swap.Fields("DescEstado").Text,
+                                                 .Descfamilia = Swap.Fields("DescFamilia").Text,
+                                                 .DesSubfamilia = Swap.Fields("DescSubFamilia").Text,
+                                                 .DescUnidad = Swap.Fields("DescUnidad").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(ListParametros)
+            gReporte.Database.Tables(1).SetDataSource(Lista)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_Pagos()
+        Dim lista = New List(Of PagosReporte)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            lista.Add(New PagosReporte With {.TipoDoc = Swap.Fields("DescTipoDoc").Text.Trim,
+                                            .Numero = Val(Swap.Fields("Numero").Text),
+                                            .Rut = Swap.Fields("Rut").Text.Trim,
+                                            .NombreCliente = Swap.Fields("Nombre").Text.Trim,
+                                            .Monto = Val(Swap.Fields("Monto").Text.Trim),
+                                            .FPago = Swap.Fields("DescFPago").Text.Trim,
+                                            .Estado = Swap.Fields("DescEstado").Text.Trim,
+                                            .FechaCanc = CDate(Swap.Fields("FechaCanc").Text.Trim),
+                                            .Obs = Swap.Fields("Obs").Text})
+            Swap.MoveNext()
+        End While
+
+        If lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(lista)
+            gReporte.Database.Tables(1).SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_Movimiento()
+        Dim Lista = New List(Of MovimientoReporte)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New MovimientoReporte With {.Movimiento = Swap.Fields("Movimiento").Text,
+                                                  .TipoMov = Swap.Fields("DescTipo").Text,
+                                                  .Fecha = Swap.Fields("Fecha").Text,
+                                                  .Local = Swap.Fields("Local").Text,
+                                                  .NombreLocal = Swap.Fields("NombreLocal").Text,
+                                                  .Bodega = Swap.Fields("Bodega").Text,
+                                                  .NombreBodega = Swap.Fields("NombreBodega").Text,
+                                                  .UsuarioC = Swap.Fields("UsrResponsable").Text,
+                                                  .UsuarioR = Swap.Fields("UsrCreador").Text,
+                                                  .Estado = Swap.Fields("DescEstado").Text,
+                                                  .TipoDoc = Swap.Fields("DescTipoDoc").Text,
+                                                  .NumDoc = Swap.Fields("NumDoc").Text,
+                                                  .Cliente = Swap.Fields("Nombre").Text,
+                                                  .Observacion = Swap.Fields("ObsTra").Text,
+                                                  .Articulo = Swap.Fields("Articulo").Text,
+                                                  .Descripcion = Swap.Fields("Descripcion").Text,
+                                                  .Barra = Swap.Fields("Barra").Text,
+                                                  .Cantidad = Swap.Fields("Cantidad").Text,
+                                                  .PVenta = Swap.Fields("Precio").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(Lista)
+            gReporte.Database.Tables(1).SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+
+    End Sub
+    Sub ListadoStock()
+        Dim Lista = New List(Of StockReporte)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New StockReporte With {.Local = Swap.Fields("Local").Text,
+                                             .NombreLocal = Swap.Fields("NombreLocal").Text,
+                                             .Bodega = Swap.Fields("Bodega").Text,
+                                             .NombreBodega = Swap.Fields("NombreBodega").Text,
+                                             .Articulo = Swap.Fields("Articulo").Text,
+                                             .Descripcion = Swap.Fields("Descripcion").Text,
+                                             .Stock = Swap.Fields("Stock").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(Lista)
+            gReporte.Database.Tables(1).SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_TomaInventario()
+        Dim Lista = New List(Of TomaInventarioReporte)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New TomaInventarioReporte With {.Articulo = Swap.Fields("Articulo").Text,
+                                                      .Descripcion = Swap.Fields("Descripcion").Text,
+                                                      .Barra = Swap.Fields("Barra").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(Lista)
+            gReporte.Database.Tables(1).SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_OT()
+        Dim Lista = New List(Of OTReporte)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New OTReporte With {.NumeroOT = Swap.Fields("OT").Text,
+                                          .RUT = Swap.Fields("Rut").Text,
+                                          .NombreCliente = Swap.Fields("Nombre").Text,
+                                          .Direccion = Swap.Fields("Direccion").Text,
+                                          .Ciudad = Swap.Fields("Ciudad").Text,
+                                          .Telefono = Swap("Telefonos").Text,
+                                          .FechaOT = Swap.Fields("Fecha").Text,
+                                          .FechaEntrega = Swap.Fields("FechaEntrega").Text,
+                                          .TecnicoR = Swap.Fields("TecnicoRevision").Text,
+                                          .CodigoR = Swap.Fields("Codigo").Text,
+                                          .ProductoR = Swap.Fields("Recepcion").Text,
+                                          .ObsCliente = Swap.Fields("ObsCliente").Text,
+                                          .ObsTecnico = Swap.Fields("obsTecnico").Text,
+                                          .Articulo = Swap.Fields("Articulo").Text,
+                                          .Descripcion = Swap.Fields("Descripcion").Text,
+                                          .Cantidad = Swap.Fields("Cantidad").Text,
+                                          .pVenta = Swap.Fields("PVenta").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(Lista)
+            gReporte.Database.Tables(1).SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+
+    Sub Listado_RevisionOTMecanico()
+        Dim Lista = New List(Of RevisionOTMecanicoListado)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New RevisionOTMecanicoListado With {.NumeroOT = Swap.Fields("OT").Text,
+                                                              .tecnico = Swap.Fields("Tecnico").Text,
+                                                              .Articulo = Swap.Fields("Articulo").Text,
+                                                              .Descripcion = Swap.Fields("Descripcion").Text,
+                                                              .Cantidad = Swap.Fields("Cantidad").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(1).SetDataSource(Lista)
+            gReporte.Database.Tables(0).SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_RepuestosPendientesOT()
+        Dim Lista = New List(Of RepuestosPendientesListado)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New RepuestosPendientesListado With {.NumeroOT = Swap.Fields("OT").Text,
+                                                          .Fecha = Swap.Fields("FechaSol").Text,
+                                                          .Articulo = Swap.Fields("Articulo").Text,
+                                                          .Descripcion = Swap.Fields("Descripcion").Text,
+                                                          .Cantidad = Swap.Fields("Cantidad").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(1).SetDataSource(Lista)
+            gReporte.Database.Tables(0).SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_Movimientos()
+        Dim Lista = New List(Of MovimientosReporte)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New MovimientosReporte With {.Movimiento = Swap.Fields("Movimiento").Text,
+                                                   .Fecha = Swap.Fields("Fecha").Text,
+                                                   .DescTipoMov = Swap.Fields("DescTipo").Text,
+                                                   .DescTipoDoc = Swap.Fields("DescTipoDoc").Text,
+                                                   .NombreLocal = Swap.Fields("NombreLocal").Text,
+                                                   .NombreBodega = Swap.Fields("NombreBodega").Text,
+                                                   .NombreUsuario = Swap.Fields("usuario").Text,
+                                                   .nombreResponsable = Swap.Fields("Responsable").Text,
+                                                   .DescEstado = Swap.Fields("DescEstado").Text,
+                                                   .NumDoc = Swap.Fields("NumDoc").Text,
+                                                   .Cliente = Swap.Fields("Nombre").Text,
+                                                   .ObsTra = Swap.Fields("ObsTra").Text,
+                                                   .Total = Swap.Fields("Total").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(1).SetDataSource(Lista)
+            gReporte.Database.Tables(0).SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Public Sub Reporte_Liquidacion()
+        Dim Lista = New List(Of LiquidacionReporte)
+        Dim wLiquido = ""
+        Swap = SQL(gQuery)
+
+        While Not Swap.EOF
+            Lista.Add(New LiquidacionReporte With {.Año = Swap.Fields("Año").Text,
+                                                   .Mes = Swap.Fields("Mes").Text,
+                                                   .AFC = Swap.Fields("AFC").Text,
+                                                   .Ahorros = Swap.Fields("Ahorros").Text,
+                                                   .Anticipados = Swap.Fields("Anticipos").Text,
+                                                   .Base = Swap.Fields("Base").Text,
+                                                   .Descuentos = Swap.Fields("Descuentos").Text,
+                                                   .Dias = Swap.Fields("Dias").Text,
+                                                   .Direccion = Swap.Fields("Direccion").Text,
+                                                   .NAFP = Swap.Fields("NAFP").Text,
+                                                   .Nombre = Swap.Fields("Nombre").Text,
+                                                   .NombreCiudad = Swap.Fields("NombreCiudad").Text,
+                                                   .NombreComuna = Swap.Fields("NombreComuna").Text,
+                                                   .Nombreusr = Swap.Fields("Nombreusr").Text,
+                                                   .NSAlud = Swap.Fields("NSAlud").Text,
+                                                   .Pactado = Swap.Fields("Pactado").Text,
+                                                   .PorcentajeAFP = Swap.Fields("PorcentajeAFP").Text,
+                                                   .Rut = Swap.Fields("Rut").Text,
+                                                   .Seguros = Swap.Fields("Seguros").Text,
+                                                   .TAFP = Swap.Fields("TAFP").Text,
+                                                   .TAguinaldos = Swap.Fields("TAguinaldos").Text,
+                                                   .TBonos2 = Swap.Fields("TBonos2").Text,
+                                                   .TCargas = Swap.Fields("TCargas").Text,
+                                                   .TColacion = Swap.Fields("TColacion").Text,
+                                                   .TDescuentos = Swap.Fields("TDescuentos").Text,
+                                                   .TGratificacion = Swap.Fields("TGratificacion").Text,
+                                                   .THaberes = Swap.Fields("THaberes").Text,
+                                                   .TImponible = Swap.Fields("TImponible").Text,
+                                                   .TLiquido = Swap.Fields("TLiquido").Text,
+                                                   .TMovilizacion = Swap.Fields("TMovilizacion").Text,
+                                                   .TSalud = Swap.Fields("TSalud").Text,
+                                                   .UF = Swap.Fields("UF").Text,
+                                                   .Cargas = Swap.Fields("Cargas").Text,
+                                                   .PorcentajeSalud = Swap.Fields("PorcentajeSalud").Text,
+                                                   .TBonos = Swap.Fields("TBonos").Text,
+                                                   .TVariables = Swap.Fields("TVariables").Text,
+                                                   .Creditos = Swap.Fields("Creditos").Text,
+                                                   .Vigencia = Swap.Fields("Vigencia").Text,
+                                                   .Letras = Letras(Swap.Fields("TLiquido").Text).ToUpper})
+
+
+
+
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(Lista)
+            gReporte.Database.Tables(1).SetDataSource(ListParametros)
+            gReporte.DataDefinition.FormulaFields("wL").Text = Letras(wLiquido)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_EventosREm()
+        Dim Lista = New List(Of EventosRemListado)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New EventosRemListado With {.CalculoRem = Swap.Fields("CalculoRem").Text,
+                                                  .DescEvento = Swap.Fields("DescEventoRem").Text,
+                                                  .Estado = Swap.Fields("Estado").Text,
+                                                  .Fecha = Swap.Fields("Fecha").Text,
+                                                  .Funcionario = Swap.Fields("NombreUsr").Text,
+                                                  .Glosa = Swap.Fields("Glosa").Text,
+                                                  .ID = Swap.Fields("ID").Text,
+                                                  .Usuario = Swap.Fields("UsuarioRem").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(0).SetDataSource(Lista)
+            gReporte.Database.Tables(1).SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+
+    Sub Reporte_Liquidaciones()
+        Dim Lista = New List(Of LiquidacionesReporte)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New LiquidacionesReporte With {.AFC = Swap.Fields("AFP").Text,
+                                                     .Ahorro = Swap.Fields("Ahorros").Text,
+                                                     .Anticipos = Swap.Fields("Anticipos").Text,
+                                                     .Base = Swap.Fields("Base").Text,
+                                                     .Creditos = Swap.Fields("Creditos").Text,
+                                                     .DescModoPago = Swap.Fields("DescModoPago").Text,
+                                                     .Descuentos = Swap.Fields("Descuentos").Text,
+                                                     .Funcionario = Swap.Fields("NombreUsr").Text,
+                                                     .ModoPago = Swap.Fields("ModoPago").Text,
+                                                     .Seguros = Swap.Fields("Seguros").Text,
+                                                     .TAFP = Swap.Fields("TAFP").Text,
+                                                     .TAguinaldos = Swap.Fields("TAguinaldos").Text,
+                                                     .TBonos = Swap.Fields("TBonos").Text,
+                                                     .TCargas = Swap.Fields("TCargas").Text,
+                                                     .TColacion = Swap.Fields("TColacion").Text,
+                                                     .TDescuentos = Swap.Fields("TDescuentos").Text,
+                                                     .TGratificacion = Swap.Fields("TGratificacion").Text,
+                                                     .THaberes = Swap.Fields("THAberes").Text,
+                                                     .TImponible = Swap.Fields("TImponible").Text,
+                                                     .TLiquido = Swap.Fields("TLiquido").Text,
+                                                     .TMovilizacion = Swap.Fields("TMovilizacion").Text,
+                                                     .TSalud = Swap.Fields("TSalud").Text,
+                                                     .TVariables = Swap.Fields("TVariables").Text,
+                                                     .Dia = Swap.Fields("Dias").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(1).SetDataSource(Lista)
+            gReporte.Database.Tables(0).SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+
+    Sub Listado_VentasBoletas()
+        Dim Lista = New List(Of VentasBoletaListado)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New VentasBoletaListado With {.Articulo = Swap.Fields("Articulo").Text,
+                                                    .Caja = Swap.Fields("Caja").Text,
+                                                    .Cantidad = Swap.Fields("Cantidad").Text,
+                                                    .Descripcion = Swap.Fields("Descripcion").Text,
+                                                    .Fecha = Swap.Fields("Fecha").Text,
+                                                    .Fpago = Swap.Fields("DescFPago").Text,
+                                                    .Local = Swap.Fields("Local").Text,
+                                                    .NumDoc = Swap.Fields("NumDoc").Text,
+                                                    .PVenta = Swap.Fields("PVenta").Text,
+                                                    .Ticket = Swap.Fields("Ticket").Text,
+                                                    .Usuario = Swap.Fields("Usuario").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables(1).SetDataSource(Lista)
+            gReporte.Database.Tables(0).SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_Descuento()
+        Dim Lista = New List(Of DescuentoListado)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New DescuentoListado With {.Articulo = Swap.Fields("Articulo").Text,
+                                                 .Caja = Swap.Fields("Caja").Text,
+                                                 .Descripcion = Swap.Fields("Descripcion").Text,
+                                                 .Descuento = Swap.Fields("Descuento").Text,
+                                                 .Documento = Swap.Fields("NumDoc").Text,
+                                                 .Fecha = Swap.Fields("Fecha").Text,
+                                                 .FPago = Swap.Fields("DescFPago").Text,
+                                                 .Local = Swap.Fields("Local").Text,
+                                                 .Tickets = Swap.Fields("Ticket").Text,
+                                                 .TotalOriginal = Swap.Fields("Total").Text,
+                                                 .Usuario = Swap.Fields("Usuario").Text,
+                                                 .TipoDoc = Swap.Fields("TipoDoc").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables("SisVen_DescuentoListado").SetDataSource(Lista)
+            gReporte.Database.Tables("SisVen_ParametrosReporte").SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+
+    Sub Reporte_Auditoria()
+        Dim Lista = New List(Of AuditoriaReporte)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New AuditoriaReporte With {.Evento = Swap.Fields("Evento").Text,
+                                                 .Fecha = Swap.Fields("Fecha").Text,
+                                                 .Hora = Swap.Fields("Hora").Text,
+                                                 .ID = Swap.Fields("ID").Text,
+                                                 .Local = Swap.Fields("Local").Text,
+                                                 .Lugar = Swap.Fields("Lugar").Text,
+                                                 .Proceos = Swap.Fields("Proceso").Text,
+                                                 .Usuario = Swap.Fields("Usuario").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables("SisVen_AuditoriaReporte").SetDataSource(Lista)
+            gReporte.Database.Tables("SisVen_ParametrosReporte").SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_Documento()
+        Dim Lista = New List(Of DocumentoListado)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New DocumentoListado With {.Local = Swap.Fields("Local").Text,
+                                                 .Cliente = Swap.Fields("Cliente").Text,
+                                                 .NombreCliente = Swap.Fields("Nombre").Text,
+                                                 .Documento = Swap.Fields("Numero").Text,
+                                                 .Fecha = Swap.Fields("Fecha").Text,
+                                                 .Estado = Swap.Fields("Estado").Text,
+                                                 .FPago = Swap.Fields("FPAgo").Text,
+                                                 .Vendedor = Swap.Fields("Vendedor").Text,
+                                                 .SubTotal = Swap.Fields("SubTotal").Text,
+                                                 .Descuento = Swap.Fields("Descuento").Text,
+                                                 .Neto = Swap.Fields("Neto").Text,
+                                                 .Iva = Swap.Fields("IVA").Text,
+                                                 .Total = Swap.Fields("Total").Text,
+                                                 .Articulo = Swap.Fields("Articulo").Text,
+                                                 .Cantidad = Swap.Fields("Cantidad").Text,
+                                                 .Descripcion = Swap.Fields("Descripcion").Text,
+                                                 .Precio = Swap.Fields("Precio").Text,
+                                                 .TipoDoc = Swap.Fields("TipoDoc").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables("SisVen_DocumentoListado").SetDataSource(Lista)
+            gReporte.Database.Tables("SisVen_ParametrosReporte").SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Sub Listado_Ciudades()
+        Dim Lista = New List(Of CiudadesListado)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New CiudadesListado With {.Ciudad = Swap("Ciudad").Text,
+                                                 .NombreCiudad = Swap.Fields("NombreCiudad").Text,
+                                                 .CodigoArea = Swap.Fields("CodigoArea").Text,
+                                                 .Region = Swap.Fields("NombreRegion").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables("SisVen_CiudadesListado").SetDataSource(Lista)
+            gReporte.Database.Tables("SisVen_ParametrosReporte").SetDataSource(ListParametros)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+    Public Sub Imprimir_Documentos()
+        Dim Lista = New List(Of DocumentosImprimir)
+        Swap = SQL(gQuery)
+        While Not Swap.EOF
+            Lista.Add(New DocumentosImprimir With {.Fecha = Swap.Fields("Fecha").Text,
+                                                   .Rut = Swap.Fields("Rut").Text,
+                                                   .Nombre = Swap.Fields("Nombre").Text,
+                                                   .Direccion = Swap.Fields("Direccion").Text,
+                                                   .Giro = Swap.Fields("Giro").Text,
+                                                   .Telefono = Swap.Fields("Telefonos").Text,
+                                                   .Numero = Swap.Fields("Numero").Text,
+                                                   .OC = Swap.Fields("OC").Text,
+                                                   .Ciudad = Swap.Fields("NombreCiudad").Text,
+                                                   .FPago = Swap.Fields("DescFPago").Text,
+                                                   .Articulo = Swap.Fields("Articulo").Text,
+                                                   .Descripcion = Swap.Fields("Descripcion").Text,
+                                                   .Precio = Swap.Fields("Precio").Text,
+                                                   .Cantidad = Swap.Fields("Cantidad").Text,
+                                                   .Descuento = Swap.Fields("Descuento").Text,
+                                                   .IVA = Swap.Fields("IVA").Text,
+                                                   .Neto = Swap.Fields("Neto").Text,
+                                                   .SubTotal = Swap.Fields("SubTotal").Text,
+                                                   .Total = Swap.Fields("Total").Text})
+            Swap.MoveNext()
+        End While
+
+        If Lista.Count > 0 Then
+            gReporte.Database.Tables("SisVen_DocumentosImprimir").SetDataSource(Lista)
+            Visor_Reporte.ReportSource = gReporte
+        Else
+            Mensaje("No se encuentran datos para la selección indicada")
+            Close()
+        End If
+    End Sub
+
+    Public Sub VisorParametros(ByVal wQuery As String, wReporte As ReportClass)
+        gQuery = wQuery
+        gReporte = wReporte
+    End Sub
+
+End Class

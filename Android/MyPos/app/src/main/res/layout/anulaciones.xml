@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:text="Tipo Documento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="15sp"
+        android:layout_marginStart="15sp"
+        android:textColor="?android:attr/textColorTertiary" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar7"
+        android:visibility="invisible"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp" />
+
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnertipo"
+        android:background="@drawable/spinner_background"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar2"
+        android:visibility="invisible"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/xNumeroAnular"
+        android:hint="Ingrese Número Documento"
+        android:layout_marginEnd="15sp"
+        android:layout_marginStart="15sp"
+        android:textColorHint="?android:attr/textColorTertiary"
+        android:textSize="24sp" />
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBar3"
+        android:visibility="invisible"
+        android:paddingEnd="0dp"
+        android:paddingStart="0dp" />
+
+
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="Anular"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bAnular"
+            android:background="@drawable/botonnaranjorectangular"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_marginStart="15sp"
+            android:drawableLeft="@drawable/anular"
+            android:gravity="center"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:layout_marginTop="10sp"/>
+
+        <Button
+            android:text="Salir"
+            android:layout_width="150sp"
+            android:layout_height="wrap_content"
+            android:id="@+id/bVolver"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/botonrojorectangular"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_marginTop="10sp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15sp"
+            android:drawableLeft="@drawable/atras"
+            android:gravity="center"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:layout_alignBottom="@+id/bAnular" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+            <section name="SisVen.My.MySettings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false"/>
+        </sectionGroup>
+        <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="SisVen.My.MySettings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <connectionStrings>
+        <add name="SisVen.My.MySettings.SisVenConnectionString" connectionString="Data Source=25.67.155.150;Initial Catalog=Wikets;User ID=wikets;Password=software"
+            providerName="System.Data.SqlClient" />
+    </connectionStrings>
+    <system.diagnostics>
+        <sources>
+            <!-- En esta sección se define la configuración del registro para My.Application.Log -->
+            <source name="DefaultSource" switchName="DefaultSwitch">
+                <listeners>
+                    <add name="FileLog"/>
+                    <!-- Quite los comentarios de la sección posterior para escribir en el registro de eventos de la aplicación -->
+                    <!--<add name="EventLog"/>-->
+                </listeners>
+            </source>
+        </sources>
+        <switches>
+            <add name="DefaultSwitch" value="Information"/>
+        </switches>
+        <sharedListeners>
+            <add name="FileLog" type="Microsoft.VisualBasic.Logging.FileLogTraceListener, Microsoft.VisualBasic, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" initializeData="FileLogWriter"/>
+            <!-- Quite los comentarios de la sección posterior y reemplace APPLICATION_NAME con el nombre de su aplicación para escribir en el registro de eventos de la aplicación -->
+            <!--<add name="EventLog" type="System.Diagnostics.EventLogTraceListener" initializeData="APPLICATION_NAME"/> -->
+        </sharedListeners>
+    </system.diagnostics>
+    <userSettings>
+        <SisVen.My.MySettings>
+            <setting name="CLAVE" serializeAs="String">
+                <value>W</value>
+            </setting>
+            <setting name="DBASE" serializeAs="String">
+                <value>Wikets</value>
+            </setting>
+            <setting name="POS" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="CAJA" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="SERVIDOR" serializeAs="String">
+                <value>25.67.155.150</value>
+            </setting>
+            <setting name="CONEXION" serializeAs="String">
+                <value>Data Source={0};Initial Catalog={1};User ID=Wikets;Password=software</value>
+            </setting>
+        </SisVen.My.MySettings> 
+    </userSettings>
+  <startup useLegacyV2RuntimeActivationPolicy="true">
+  <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5"/></startup>
+  <applicationSettings>
+    <SisVen.My.MySettings>
+      <setting name="SisVen_SisVenWS1_Service" serializeAs="String">
+        <value>http://earendil.no-ip.info/SisVenWS/service.asmx</value>
+      </setting>
+    </SisVen.My.MySettings>
+  </applicationSettings>
+</configuration>

@@ -1,0 +1,110 @@
+﻿Imports C1.Win.C1FlexGrid
+
+Public Class BuscarClientes
+    Const T_ID As Integer = 0
+    Const T_CLIENTE As Integer = 1
+    Const T_RUT As Integer = 2
+    Const T_NOMBRE As Integer = 3
+
+    Sub Titulos()
+        xTabla.Redraw = False
+
+        xTabla.Clear()
+        xTabla.Rows.Count = 1
+        xTabla.Cols.Count = 4
+        xTabla.Cols(T_ID).Width = 0
+        xTabla.Cols(T_CLIENTE).Width = 100
+        xTabla.Cols(T_RUT).Width = 100
+        xTabla.Cols(T_NOMBRE).Width = 460
+        xTabla.SetData(0, T_ID, "ID")
+        xTabla.SetData(0, T_CLIENTE, "Cliente")
+        xTabla.SetData(0, T_RUT, "Rut")
+        xTabla.SetData(0, T_NOMBRE, "Nombre")
+
+        xTabla.Redraw = True
+    End Sub
+    Private Sub BuscarClientes_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Titulos()
+    End Sub
+
+    Private Sub Cargar_Datos()
+        Dim wFila As Integer
+        Dim wCliente As Double
+
+        Titulos()
+        wFila = 1
+        Cursor = Cursors.WaitCursor
+
+        wCliente = Val(xDato.Text)
+
+        If wCliente > 0 Then
+            Swap = SQL("SELECT Cliente, Rut, Nombre FROM Clientes WHERE Cliente = " & wCliente & " or Rut = '" + xDato.Text.Trim + "' Order by Nombre")
+        Else
+            Swap = SQL("SELECT Cliente, Rut, Nombre FROM Clientes WHERE Nombre Like '%" + UCase(Trim(xDato.Text)) + "%'  Order by Nombre")
+        End If
+
+        xTabla.Redraw = False
+        DoEvents()
+
+        If Swap.RecordCount > 0 Then
+            xTabla.Visible = False
+            Swap.MoveFirst()
+            While Not Swap.EOF
+                DoEvents()
+                xTabla.AddItem(New Object() {"", Swap.Fields("Cliente").Text.ToString.Trim, Swap.Fields("Rut").Text.ToString.Trim, Swap.Fields("Nombre").Text.ToString.Trim})
+                Swap.MoveNext()
+                wFila += 1
+            End While
+
+        Else
+            Mensaje("No existen datos a mostrar")
+            xDato.Focus()
+        End If
+
+        'xTabla.AjustarColumnas
+        xTabla.Redraw = True
+        xTabla.Visible = True
+        Cursor = Cursors.Default
+
+        xTabla.Focus()
+
+    End Sub
+
+    Private Sub BuscarCli(Optional sender As System.Object = Nothing, Optional e As System.EventArgs = Nothing) Handles bBuscar.Click
+        Cargar_Datos()
+    End Sub
+
+    Private Sub xDato_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles xDato.KeyPress
+        If e.KeyChar = vbCr Then
+            BuscarCli()
+        End If
+    End Sub
+
+    Private Sub bCancelar_Click(sender As Object, e As EventArgs) Handles bCancelar.Click
+        Close()
+    End Sub
+
+    Private Sub xTabla_DoubleClick(sender As Object, e As EventArgs) Handles xTabla.DoubleClick
+        If Modulo = "Documentos" Then
+            Documentos.xCliente.Text = xTabla.GetData(xTabla.Row, T_CLIENTE)
+            Documentos.xCliente.Focus()
+            SendKeys("{ENTER}")
+        End If
+        Me.Close()
+    End Sub
+    Private Sub xTabla_KeyPress(sender As Object, e As KeyPressEventArgs) Handles xTabla.KeyPress
+        If e.KeyChar = vbCr Then
+            If xTabla.Rows.Count > 1 Then
+                xTabla_DoubleClick(sender, e)
+            End If
+        End If
+    End Sub
+
+    Private Sub xDato_TextChanged(sender As Object, e As EventArgs) Handles xDato.TextChanged
+
+    End Sub
+
+    Private Sub xTabla_Click(sender As Object, e As EventArgs) Handles xTabla.Click
+
+    End Sub
+End Class

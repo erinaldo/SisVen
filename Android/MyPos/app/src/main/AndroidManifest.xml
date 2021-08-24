@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="wikets.mypos">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:name=".variables_gloabales"
+        android:theme="@style/AppTheme">
+        <activity android:name=".login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Menu"
+            android:label="SisVen"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <activity
+            android:name=".anulaciones"
+            android:label="Anulaciones"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <activity
+            android:name=".clientes"
+            android:label="Registro Clientes"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <activity
+            android:name=".consulta_de_ventas"
+            android:label="Consulta de Venta"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+        <activity
+            android:name=".menu_ventas"
+            android:label="Menú Ventas"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".consulta_venta"
+            android:label="Consulta de Venta"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".consulta_venta_detallada"
+            android:label="Consulta de Venta Detallada"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".consultas"
+            android:label="Consultas"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".correlativos"
+            android:label="Correlativos"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".cuadratura"
+            android:label="Cuadratura de Caja"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".lista_precio"
+            android:label="Listado de Precios"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--<activity-->
+            <!--android:name=".listado_ventas"-->
+            <!--android:label="Listado de Ventas"-->
+            <!--android:configChanges="orientation|keyboardHidden|screenSize"/>-->
+        <!--<activity-->
+            <!--android:name=".listado_ventas_detalle"-->
+            <!--android:label="Listado de Ventas Detallado"-->
+            <!--android:configChanges="orientation|keyboardHidden|screenSize"/>-->
+        <activity
+            android:name=".precio"
+            android:label="Precio"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".registro"
+            android:label="Registrar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".venta_detallada"
+            android:label="Venta Detallada"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".venta_detallada_preview"
+            android:label="Venta Detallada"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".venta_diaria"
+            android:label="Venta diaria"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".venta_sin_detalle"
+            android:label="Venta"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".venta_sin_detalle_preview"
+            android:label="Venta"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".venta_vuelto"
+            android:label="Vuelto"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+    </application>
+
+</manifest>

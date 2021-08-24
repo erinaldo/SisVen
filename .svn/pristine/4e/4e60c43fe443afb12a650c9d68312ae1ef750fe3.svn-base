@@ -1,0 +1,137 @@
+﻿Public Class CuadraturaCaja
+    Private Sub CuadraturaCaja_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cDesde.Value = IniFinFecha(1, Date.Now)
+        cHasta.Value = IniFinFecha(2, Date.Now)
+        MostrarCuadratura(False)
+        LoadCombobox(cLocal, "Locales", "Local", "NombreLocal")
+        cLocal.SelectedIndex = 0
+    End Sub
+
+    Private Sub bLimpiar_Click(sender As Object, e As EventArgs) Handles bLimpiar.Click
+        cDesde.Value = IniFinFecha(1, Date.Now)
+        cHasta.Value = IniFinFecha(2, Date.Now)
+        cLocal.SelectedIndex = 0
+        xPOS.Clear()
+        xCuadratura.Clear()
+        If xCuadratura.Visible Then MostrarCuadratura(False)
+        cLocal.Focus()
+    End Sub
+    Public Sub MostrarCuadratura(ByVal wMostrar As Boolean)
+        If xCuadratura.Visible Then Exit Sub
+        If Not wMostrar Then
+            Height -= xCuadratura.Size.Height
+            xCuadratura.Visible = False
+        Else
+            Height += xCuadratura.Size.Height
+            xCuadratura.Visible = True
+        End If
+
+        Invalidate()
+        StartPosition = FormStartPosition.CenterScreen
+        DoEvents()
+    End Sub
+    Private Sub bSalir_Click(sender As Object, e As EventArgs) Handles bSalir.Click
+        Close()
+    End Sub
+
+    Private Sub bConsultar_Click(sender As Object, e As EventArgs) Handles bConsultar.Click
+        MostrarCuadratura(True)
+        BotonesActivados(False)
+        Me.Cursor = Cursors.WaitCursor
+        Calcular_Cuadratura()
+        Me.Cursor = Cursors.Default
+        BotonesActivados(True)
+    End Sub
+    Sub BotonesActivados(ByVal wEstado As Boolean)
+        bSalir.Enabled = wEstado
+        bLimpiar.Enabled = wEstado
+        bConsultar.Enabled = wEstado
+        bImprimir.Enabled = wEstado
+    End Sub
+
+    Sub Calcular_Cuadratura()
+        Dim wFPago As String
+        Dim wNumeroCaja As Integer
+        Dim wNumeroPos As Integer
+        Dim wTotalVendido As Double
+        Dim wTotalCuadratura As String
+        Dim wFiltro As String = IIf(cLocal.Text = "Seleccionar", "", " WHERE NombreLocal='" & Trim(cLocal.Text) & "'")
+        Loc = SQL("Select Local,NombreLocal from Locales " & wFiltro & " Order by Local")
+        xCuadratura.Clear()
+
+        While Not Loc.EOF
+            Dim wLocales As Double = Loc.Fields("Local").Value
+            xCuadratura.Text = xCuadratura.Text & "LOCAL: " & Trim(Loc.Fields("NombreLocal").Value) & vbCrLf & vbCrLf
+            Cli = SQL("SELECT Distinct Top 1 Caja FROM Ventas WHERE Local=" & wLocales & " Order By Caja Desc")
+            If Cli.EOF Then
+                wNumeroPos = 1
+            Else
+                wNumeroPos = Cli.Fields("Caja").Value
+            End If
+            For wNumeroCaja = 1 To wNumeroPos
+                If xPOS.Text <> "" And Val(xPOS.Text) > 0 Then
+                    wNumeroCaja = Val(xPOS.Text)
+                End If
+                Caj = SQL("Select Sum(Total) as TCaja,Fpago from Ventas " &
+                              " where Local = " & wLocales & " " &
+                              " And Fecha Between '" & cDesde.Text & " 00:00:00 " & "' " &
+                              " And '" & cHasta.Text & " 23:59:00 " & "' " &
+                              " And Caja=" & wNumeroCaja & " Group By FPago")
+                xCuadratura.Text = xCuadratura.Text & "Caja " & wNumeroCaja & ": " & vbCrLf
+
+                While Not Caj.EOF
+                    If Buscar("FPagos", "FPago", Caj.Fields("FPago").Value) Then
+                        wFPago = Trim(Swap.Fields("DescFPago").Value)
+                    Else
+                        wFPago = " "
+                    End If
+                    xCuadratura.Text = xCuadratura.Text & wFPago & ": " & Format(Caj.Fields("TCaja").Value, "###,###,###") & vbCrLf
+                    Caj.MoveNext()
+                End While
+
+                xCuadratura.Text = xCuadratura.Text & vbCrLf
+                If Trim(xPOS.Text) <> "" Or Val(xPOS.Text) = 0 Then Exit For
+            Next
+            wFiltro = ""
+            If xPOS.Text <> "" And Val(xPOS.Text) > 0 Then
+                wFiltro = " And Caja=" & Val(xPOS.Text) & ""
+            End If
+
+            Caj = SQL("Select Coalesce(Sum(Total),0) as Final from Ventas " &
+                          " where Local = " & wLocales & " " &
+                          " And Fecha Between '" & cDesde.Text & " 00:00:00 " & "' " &
+                          " And '" & cHasta.Text & " 23:59:00 " & "' AND Caja<>0 " & wFiltro & "")
+
+            wTotalVendido = Val(Caj.Fields("Final").Value)
+            wTotalCuadratura = IIf(wTotalVendido = 0, 0, Format(wTotalVendido, "###,###,###"))
+            xCuadratura.Text = xCuadratura.Text & "-----------------------------------" & vbCrLf
+            xCuadratura.Text = xCuadratura.Text & "TOTAL : " & wTotalCuadratura & vbCrLf & vbCrLf
+            Loc.MoveNext()
+            DoEvents()
+        End While
+    End Sub
+
+    Private Sub bImprimir_Click(sender As Object, e As EventArgs) Handles bImprimir.Click
+        Dim wFiltro As String = ""
+        wFiltro = " CONVERT(date,v.fecha,3) between '" & cDesde.Text & "' And '" & cHasta.Text & "'"
+        If Trim(cLocal.Text) <> "Seleccionar" Then
+            wFiltro += " AND l.NombreLocal='" & Trim(cLocal.Text) & "'"
+        End If
+        If Val(xPOS.Text) > 0 Then
+            wFiltro += " AND v.Caja=" & Val(xPOS.Text)
+        End If
+        Dim wQuery As String = "SELECT v.Local,v.FPago,v.Caja,f.DescFPago,l.NombreLocal," &
+                                " CONVERT(date,v.fecha,3) as Fecha,Sum(v.Total) as Total " &
+                                " FROM Ventas v INNER JOIN Locales l on v.Local=l.Local " &
+                                " INNER JOIN FPagos f on v.FPago=f.FPago " &
+                                " WHERE " & wFiltro & " And v.caja<>0" &
+                                " Group By CONVERT(date,v.fecha,3),v.Local,v.FPago,v.Caja, " &
+                                " f.DescFPago,l.NombreLocal " &
+                                " ORDER BY v.Local,v.Fecha"
+        Dim wReporte As New ReporteCuadraturaCaja
+        ModuloReporte = "CuadraturaCaja"
+        VisorReportes.VisorParametros(wQuery, wReporte)
+        VisorReportes.WinDeco1.TituloVentana = "Listado de Cuadratura de Caja"
+        VisorReportes.Show()
+    End Sub
+End Class

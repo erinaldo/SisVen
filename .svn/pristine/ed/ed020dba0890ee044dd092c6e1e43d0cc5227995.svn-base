@@ -1,0 +1,75 @@
+﻿Public Class ImprimirLiquidaciones
+    Private Sub ImprimirLiquidaciones_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        cAño.AñosMes("A")
+        cMes.AñosMes("M")
+        LoadCombobox(cEmrpesa, "Clientes", "Cliente", "Nombre", " WHERE cliente IN (SELECT DISTINCT  empresa FROM usuarios WHERE funcionario=1)")
+    End Sub
+
+    Private Sub cEmrpesa_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cEmrpesa.SelectedIndexChanged
+        If ValidarCombo(cEmrpesa) Then
+            LoadCombobox(cFuncionario, "USuarios", "Usuario", "NombreUsr", "WHERE Funcionario=1 and Empresa = " & cEmrpesa.SelectedValue)
+        End If
+    End Sub
+
+    Private Sub bLimpiar_Click(sender As Object, e As EventArgs) Handles bLimpiar.Click
+        LimpiarCampos(Me)
+    End Sub
+
+    Private Sub bCancelar_Click(sender As Object, e As EventArgs) Handles bCancelar.Click
+        Close()
+    End Sub
+
+    Private Sub bImprimir_Click(sender As Object, e As EventArgs) Handles bImprimir.Click
+
+        If Not ValidarCombo(cAño) Then
+            MsgError("Indique año")
+            cAño.Focus()
+            Exit Sub
+        End If
+        If Not ValidarCombo(cMes) Then
+            MsgError("Indique Mes")
+            cMes.Focus()
+            Exit Sub
+        End If
+        If Not ValidarCombo(cEmrpesa) Then
+            MsgError("Indique Empresa")
+            cEmrpesa.Focus()
+            Exit Sub
+        End If
+        If Not ValidarCombo(cFuncionario) Then
+            MsgError("Indique Funcionario")
+            cFuncionario.Focus()
+            Exit Sub
+        End If
+
+        Dim wQuery = "SELECT S.año,S.Mes,S.TLiquido,S.Dias,S.PorcentajeSalud,S.Base,S.TGratificacion,S.TImponible,S.TColacion,S.TMovilizacion,S.PorcentajeSalud,Us.Vigencia," &
+                     " S.TCargas,S.Cargas,S.THaberes,S.TAFP,S.TSalud,S.Anticipos,S.Descuentos,S.TDescuentos,S.Ahorros,S.Seguros,S.Creditos,S.UF,S.NAFP,S.TBonos,S.TVariables," &
+                     " S.NSalud,S.PorcentajeAFP,S.AFC,S.TAguinaldos,S.TBonos2,Us.NombreUsr,Us.Rut,Us.Pactado,Cl.Nombre,Cl.Direccion,ci.NombreCiudad,co.NombreComuna" &
+                     " FROM SUELDOS S " &
+                     " JOIN UFs UF ON S.UF = UF.UF" &
+                     " JOIN Usuarios Us ON S.Usuario = Us.Usuario" &
+                     " JOIN AFPs Af ON s.AFP = Af.AFP" &
+                     " JOIN Salud Sa ON S.Salud = Sa.Salud" &
+                     " JOIN Clientes Cl ON Us.Empresa = Cl.Cliente" &
+                     " JOIN Ciudades Ci ON Cl.Ciudad = Ci.Ciudad" &
+                     " JOIN Comunas Co ON Cl.Comuna = Co.comuna" &
+                     " WHERE S.Año = " & cAño.Text & " AND S.Mes = " & cMes.SelectedValue & " AND S.Usuario = '" & cFuncionario.SelectedValue & "'"
+
+
+        Swap = SQL(wQuery)
+
+        If Swap.RecordCount > 0 Then
+            Dim wReporte As New ReporteLiquidacion
+            Dim wFiltro As String = ""
+
+            ModuloReporte = "ReporteLiquidacion"
+            VisorReportes.VisorParametros(wQuery, wReporte)
+            VisorReportes.WinDeco1.TituloVentana = "Reporte de Liquidación"
+            VisorReportes.Show()
+        Else
+            MsgError("No se encuentra registro")
+            Exit Sub
+        End If
+
+    End Sub
+End Class

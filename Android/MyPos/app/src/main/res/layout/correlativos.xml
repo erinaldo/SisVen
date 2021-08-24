@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Tipo Documento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView5"
+                android:textSize="18sp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp"/>
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar"
+                android:visibility="invisible"
+                android:paddingEnd="0dp"
+                android:paddingStart="0dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp"/>
+
+            <Spinner
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinnertipo"
+                android:background="@drawable/spinner_background"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar8"
+                android:paddingEnd="0dp"
+                android:paddingStart="0dp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:text="Fecha Activación"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp"
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar4"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp"
+                android:visibility="invisible" />
+
+            <DatePicker
+                android:layout_width="match_parent"
+                android:layout_height="97dp"
+                android:id="@+id/xFecha_Activacion"
+                style="@android:style/Widget.DatePicker" />
+
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/seekBar6"
+                android:paddingEnd="0dp"
+                android:paddingStart="0dp"
+                android:visibility="invisible" />
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/xValorInicial"
+                    android:layout_weight="1"
+                    android:hint="Valor Inicial"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginEnd="15sp"
+                    android:textColorHint="?android:attr/textColorTertiary" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/xValorFinal"
+                    android:layout_weight="1"
+                    android:hint="Valor Final"
+                    android:layout_marginStart="15sp"
+                    android:layout_marginEnd="15sp"
+                    android:textColorHint="?android:attr/textColorTertiary" />
+            </LinearLayout>
+
+
+
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/bGuardar"
+                    android:layout_width="192dp"
+                    android:layout_height="wrap_content"
+                    android:text="GUARDAR"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:drawableLeft="@drawable/ingresar"
+                    android:gravity="center"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginEnd="15sp"
+                    android:layout_marginStart="15sp"
+                    android:background="@drawable/botonnaranjorectangular"/>
+
+                <Button
+                    android:id="@+id/bVolver"
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"
+                    android:text="VOLVER"
+                    android:layout_alignBaseline="@+id/bGuardar"
+                    android:layout_alignBottom="@+id/bGuardar"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:drawableLeft="@drawable/atras"
+                    android:gravity="center"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/botonrojorectangular"/>
+
+            </RelativeLayout>
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

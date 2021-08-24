@@ -1,0 +1,891 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class VentaSucursal
+    Inherits System.Windows.Forms.Form
+
+    'Form reemplaza a Dispose para limpiar la lista de componentes.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Requerido por el Diseñador de Windows Forms
+    Private components As System.ComponentModel.IContainer
+
+    'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
+    'Se puede modificar usando el Diseñador de Windows Forms.  
+    'No lo modifique con el editor de código.
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(VentaSucursal))
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.bCargar = New System.Windows.Forms.Button()
+        Me.bimprimir = New System.Windows.Forms.Button()
+        Me.xBoleta = New System.Windows.Forms.TextBox()
+        Me.xVendedor = New System.Windows.Forms.TextBox()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.bBuscar = New System.Windows.Forms.Button()
+        Me.xArticulo = New System.Windows.Forms.TextBox()
+        Me.xDescripcion = New System.Windows.Forms.TextBox()
+        Me.xCantidad = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.xTabla = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.xCantidadTabla = New System.Windows.Forms.TextBox()
+        Me.bLimpiar = New System.Windows.Forms.Button()
+        Me.bEmitir = New System.Windows.Forms.Button()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.xCaja = New System.Windows.Forms.TextBox()
+        Me.bConsultaBoleta = New System.Windows.Forms.Button()
+        Me.bVentaEspecial = New System.Windows.Forms.Button()
+        Me.bCuadraturaCaja = New System.Windows.Forms.Button()
+        Me.bCambiarCorrelativo = New System.Windows.Forms.Button()
+        Me.cDocumento = New System.Windows.Forms.ComboBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.cFormaPago = New System.Windows.Forms.ComboBox()
+        Me.xSaldo = New System.Windows.Forms.TextBox()
+        Me.xSubTotal = New System.Windows.Forms.TextBox()
+        Me.xAbonado = New System.Windows.Forms.TextBox()
+        Me.xAbono = New System.Windows.Forms.TextBox()
+        Me.xDescuento = New System.Windows.Forms.TextBox()
+        Me.xTotal = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.WinDeco1 = New SisVen.WinDeco()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        CType(Me.xTabla, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox3.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
+        Me.SuspendLayout()
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox1.Controls.Add(Me.bCargar)
+        Me.GroupBox1.Controls.Add(Me.bimprimir)
+        Me.GroupBox1.Controls.Add(Me.xBoleta)
+        Me.GroupBox1.Controls.Add(Me.xVendedor)
+        Me.GroupBox1.Controls.Add(Me.DateTimePicker1)
+        Me.GroupBox1.Controls.Add(Me.Label3)
+        Me.GroupBox1.Controls.Add(Me.Label2)
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 56)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(768, 73)
+        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Datos Principales"
+        '
+        'bCargar
+        '
+        Me.bCargar.BackColor = System.Drawing.Color.White
+        Me.bCargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bCargar.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bCargar.Image = Global.SisVen.My.Resources.Resources.execute16
+        Me.bCargar.Location = New System.Drawing.Point(596, 41)
+        Me.bCargar.Name = "bCargar"
+        Me.bCargar.Size = New System.Drawing.Size(80, 28)
+        Me.bCargar.TabIndex = 2
+        Me.bCargar.TabStop = False
+        Me.bCargar.Text = "Cargar"
+        Me.bCargar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.bCargar.UseVisualStyleBackColor = False
+        '
+        'bimprimir
+        '
+        Me.bimprimir.BackColor = System.Drawing.Color.White
+        Me.bimprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bimprimir.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bimprimir.Image = Global.SisVen.My.Resources.Resources.print
+        Me.bimprimir.Location = New System.Drawing.Point(682, 41)
+        Me.bimprimir.Name = "bimprimir"
+        Me.bimprimir.Size = New System.Drawing.Size(80, 28)
+        Me.bimprimir.TabIndex = 3
+        Me.bimprimir.TabStop = False
+        Me.bimprimir.Text = "Imprimir"
+        Me.bimprimir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.bimprimir.UseVisualStyleBackColor = False
+        '
+        'xBoleta
+        '
+        Me.xBoleta.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.xBoleta.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.xBoleta.Location = New System.Drawing.Point(645, 13)
+        Me.xBoleta.Name = "xBoleta"
+        Me.xBoleta.ReadOnly = True
+        Me.xBoleta.Size = New System.Drawing.Size(117, 20)
+        Me.xBoleta.TabIndex = 1
+        Me.xBoleta.TabStop = False
+        '
+        'xVendedor
+        '
+        Me.xVendedor.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.xVendedor.Location = New System.Drawing.Point(99, 45)
+        Me.xVendedor.Name = "xVendedor"
+        Me.xVendedor.ReadOnly = True
+        Me.xVendedor.Size = New System.Drawing.Size(491, 24)
+        Me.xVendedor.TabIndex = 2
+        Me.xVendedor.TabStop = False
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker1.Location = New System.Drawing.Point(99, 19)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(103, 24)
+        Me.DateTimePicker1.TabIndex = 0
+        Me.DateTimePicker1.TabStop = False
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(6, 48)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(71, 18)
+        Me.Label3.TabIndex = 0
+        Me.Label3.Text = "Vendedor"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(511, 16)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(128, 18)
+        Me.Label2.TabIndex = 0
+        Me.Label2.Text = "Número de Boleta"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(6, 25)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(49, 18)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Fecha"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox2.Controls.Add(Me.bBuscar)
+        Me.GroupBox2.Controls.Add(Me.xArticulo)
+        Me.GroupBox2.Controls.Add(Me.xDescripcion)
+        Me.GroupBox2.Controls.Add(Me.xCantidad)
+        Me.GroupBox2.Controls.Add(Me.Label4)
+        Me.GroupBox2.Controls.Add(Me.Label7)
+        Me.GroupBox2.Controls.Add(Me.Label6)
+        Me.GroupBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(12, 135)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(768, 100)
+        Me.GroupBox2.TabIndex = 1
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Artículo"
+        '
+        'bBuscar
+        '
+        Me.bBuscar.BackColor = System.Drawing.Color.White
+        Me.bBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bBuscar.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bBuscar.Image = Global.SisVen.My.Resources.Resources.find
+        Me.bBuscar.Location = New System.Drawing.Point(596, 40)
+        Me.bBuscar.Name = "bBuscar"
+        Me.bBuscar.Size = New System.Drawing.Size(80, 28)
+        Me.bBuscar.TabIndex = 78
+        Me.bBuscar.TabStop = False
+        Me.bBuscar.Text = "Buscar"
+        Me.bBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.bBuscar.UseVisualStyleBackColor = False
+        '
+        'xArticulo
+        '
+        Me.xArticulo.Location = New System.Drawing.Point(99, 19)
+        Me.xArticulo.MaxLength = 30
+        Me.xArticulo.Name = "xArticulo"
+        Me.xArticulo.Size = New System.Drawing.Size(90, 24)
+        Me.xArticulo.TabIndex = 0
+        '
+        'xDescripcion
+        '
+        Me.xDescripcion.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.xDescripcion.Location = New System.Drawing.Point(99, 45)
+        Me.xDescripcion.Name = "xDescripcion"
+        Me.xDescripcion.ReadOnly = True
+        Me.xDescripcion.Size = New System.Drawing.Size(491, 24)
+        Me.xDescripcion.TabIndex = 2
+        Me.xDescripcion.TabStop = False
+        '
+        'xCantidad
+        '
+        Me.xCantidad.Location = New System.Drawing.Point(99, 71)
+        Me.xCantidad.MaxLength = 10
+        Me.xCantidad.Name = "xCantidad"
+        Me.xCantidad.Size = New System.Drawing.Size(90, 24)
+        Me.xCantidad.TabIndex = 1
+        Me.xCantidad.Text = "1"
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(6, 48)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(87, 18)
+        Me.Label4.TabIndex = 0
+        Me.Label4.Text = "Descripción"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(6, 74)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(66, 18)
+        Me.Label7.TabIndex = 0
+        Me.Label7.Text = "Cantidad"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(6, 25)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(56, 18)
+        Me.Label6.TabIndex = 0
+        Me.Label6.Text = "Código"
+        '
+        'xTabla
+        '
+        Me.xTabla.AllowEditing = False
+        Me.xTabla.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.xTabla.ColumnInfo = "0,0,0,0,0,140,Columns:"
+        Me.xTabla.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!)
+        Me.xTabla.Location = New System.Drawing.Point(6, 241)
+        Me.xTabla.Name = "xTabla"
+        Me.xTabla.Rows.Count = 1
+        Me.xTabla.Rows.DefaultSize = 28
+        Me.xTabla.Size = New System.Drawing.Size(1263, 201)
+        Me.xTabla.StyleInfo = resources.GetString("xTabla.StyleInfo")
+        Me.xTabla.TabIndex = 2
+        Me.xTabla.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox3.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox3.Controls.Add(Me.Label17)
+        Me.GroupBox3.Controls.Add(Me.Label16)
+        Me.GroupBox3.Controls.Add(Me.Label15)
+        Me.GroupBox3.Controls.Add(Me.Label10)
+        Me.GroupBox3.Controls.Add(Me.Label9)
+        Me.GroupBox3.Controls.Add(Me.Label14)
+        Me.GroupBox3.Controls.Add(Me.Label8)
+        Me.GroupBox3.Controls.Add(Me.Label5)
+        Me.GroupBox3.Controls.Add(Me.Label13)
+        Me.GroupBox3.Controls.Add(Me.Label12)
+        Me.GroupBox3.Controls.Add(Me.Label11)
+        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox3.Location = New System.Drawing.Point(1087, 54)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(188, 181)
+        Me.GroupBox3.TabIndex = 6
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Comandos Rápidos"
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Location = New System.Drawing.Point(6, 155)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(121, 16)
+        Me.Label17.TabIndex = 0
+        Me.Label17.Text = "F11: Cerrar Módulo"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label16.Location = New System.Drawing.Point(6, 142)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(111, 16)
+        Me.Label16.TabIndex = 0
+        Me.Label16.Text = "F10: Emitir Boleta"
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label15.Location = New System.Drawing.Point(6, 129)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(102, 16)
+        Me.Label15.TabIndex = 0
+        Me.Label15.Text = "F9: Monto Pago"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(6, 62)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(111, 16)
+        Me.Label10.TabIndex = 0
+        Me.Label10.Text = "F4: Limpiar Venta"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Location = New System.Drawing.Point(6, 49)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(98, 16)
+        Me.Label9.TabIndex = 0
+        Me.Label9.Text = "F3: Documento"
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Location = New System.Drawing.Point(6, 116)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(118, 16)
+        Me.Label14.TabIndex = 0
+        Me.Label14.Text = "F8: Buscar Artículo"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Location = New System.Drawing.Point(6, 36)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(73, 16)
+        Me.Label8.TabIndex = 0
+        Me.Label8.Text = "F2: Artículo"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Location = New System.Drawing.Point(6, 23)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(123, 16)
+        Me.Label5.TabIndex = 0
+        Me.Label5.Text = "F1: Forma de Pago"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Location = New System.Drawing.Point(6, 103)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(117, 16)
+        Me.Label13.TabIndex = 0
+        Me.Label13.Text = "F7: Cancelar Total"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Location = New System.Drawing.Point(6, 89)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(165, 16)
+        Me.Label12.TabIndex = 0
+        Me.Label12.Text = "F6: Eliminar Último Artículo"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Location = New System.Drawing.Point(6, 75)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(161, 16)
+        Me.Label11.TabIndex = 0
+        Me.Label11.Text = "F5: Repetir Último Artículo"
+        '
+        'xCantidadTabla
+        '
+        Me.xCantidadTabla.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.xCantidadTabla.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.xCantidadTabla.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.xCantidadTabla.Location = New System.Drawing.Point(991, 206)
+        Me.xCantidadTabla.Name = "xCantidadTabla"
+        Me.xCantidadTabla.ReadOnly = True
+        Me.xCantidadTabla.Size = New System.Drawing.Size(90, 26)
+        Me.xCantidadTabla.TabIndex = 2
+        Me.xCantidadTabla.TabStop = False
+        '
+        'bLimpiar
+        '
+        Me.bLimpiar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.bLimpiar.BackColor = System.Drawing.Color.White
+        Me.bLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bLimpiar.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bLimpiar.Image = Global.SisVen.My.Resources.Resources.clean24
+        Me.bLimpiar.Location = New System.Drawing.Point(1187, 665)
+        Me.bLimpiar.Name = "bLimpiar"
+        Me.bLimpiar.Size = New System.Drawing.Size(88, 36)
+        Me.bLimpiar.TabIndex = 5
+        Me.bLimpiar.Text = "Limpiar"
+        Me.bLimpiar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.bLimpiar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.bLimpiar.UseVisualStyleBackColor = False
+        '
+        'bEmitir
+        '
+        Me.bEmitir.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.bEmitir.BackColor = System.Drawing.Color.White
+        Me.bEmitir.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bEmitir.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bEmitir.Image = Global.SisVen.My.Resources.Resources.print24
+        Me.bEmitir.Location = New System.Drawing.Point(1093, 665)
+        Me.bEmitir.Name = "bEmitir"
+        Me.bEmitir.Size = New System.Drawing.Size(88, 36)
+        Me.bEmitir.TabIndex = 4
+        Me.bEmitir.Text = "Emitir"
+        Me.bEmitir.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.bEmitir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.bEmitir.UseVisualStyleBackColor = False
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox4.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox4.Controls.Add(Me.xCaja)
+        Me.GroupBox4.Controls.Add(Me.bConsultaBoleta)
+        Me.GroupBox4.Controls.Add(Me.bVentaEspecial)
+        Me.GroupBox4.Controls.Add(Me.bCuadraturaCaja)
+        Me.GroupBox4.Controls.Add(Me.bCambiarCorrelativo)
+        Me.GroupBox4.Controls.Add(Me.cDocumento)
+        Me.GroupBox4.Controls.Add(Me.Label26)
+        Me.GroupBox4.Controls.Add(Me.Label25)
+        Me.GroupBox4.Controls.Add(Me.Label24)
+        Me.GroupBox4.Controls.Add(Me.Label23)
+        Me.GroupBox4.Controls.Add(Me.Label22)
+        Me.GroupBox4.Controls.Add(Me.Label21)
+        Me.GroupBox4.Controls.Add(Me.Label20)
+        Me.GroupBox4.Controls.Add(Me.Label18)
+        Me.GroupBox4.Controls.Add(Me.Label19)
+        Me.GroupBox4.Controls.Add(Me.cFormaPago)
+        Me.GroupBox4.Controls.Add(Me.xSaldo)
+        Me.GroupBox4.Controls.Add(Me.xSubTotal)
+        Me.GroupBox4.Controls.Add(Me.xAbonado)
+        Me.GroupBox4.Controls.Add(Me.xAbono)
+        Me.GroupBox4.Controls.Add(Me.xDescuento)
+        Me.GroupBox4.Controls.Add(Me.xTotal)
+        Me.GroupBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox4.Location = New System.Drawing.Point(12, 443)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(1263, 205)
+        Me.GroupBox4.TabIndex = 3
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Documento"
+        '
+        'xCaja
+        '
+        Me.xCaja.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.xCaja.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.xCaja.Location = New System.Drawing.Point(75, 22)
+        Me.xCaja.Name = "xCaja"
+        Me.xCaja.ReadOnly = True
+        Me.xCaja.Size = New System.Drawing.Size(90, 20)
+        Me.xCaja.TabIndex = 0
+        '
+        'bConsultaBoleta
+        '
+        Me.bConsultaBoleta.BackColor = System.Drawing.Color.White
+        Me.bConsultaBoleta.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bConsultaBoleta.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bConsultaBoleta.Image = Global.SisVen.My.Resources.Resources.invoice_find24
+        Me.bConsultaBoleta.Location = New System.Drawing.Point(9, 90)
+        Me.bConsultaBoleta.Name = "bConsultaBoleta"
+        Me.bConsultaBoleta.Size = New System.Drawing.Size(156, 36)
+        Me.bConsultaBoleta.TabIndex = 2
+        Me.bConsultaBoleta.Text = "Consultar Boleta"
+        Me.bConsultaBoleta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.bConsultaBoleta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.bConsultaBoleta.UseVisualStyleBackColor = False
+        '
+        'bVentaEspecial
+        '
+        Me.bVentaEspecial.BackColor = System.Drawing.Color.White
+        Me.bVentaEspecial.Enabled = False
+        Me.bVentaEspecial.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bVentaEspecial.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bVentaEspecial.Image = Global.SisVen.My.Resources.Resources.order_edit24
+        Me.bVentaEspecial.Location = New System.Drawing.Point(9, 159)
+        Me.bVentaEspecial.Name = "bVentaEspecial"
+        Me.bVentaEspecial.Size = New System.Drawing.Size(156, 36)
+        Me.bVentaEspecial.TabIndex = 4
+        Me.bVentaEspecial.Text = "Venta Especial"
+        Me.bVentaEspecial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.bVentaEspecial.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.bVentaEspecial.UseVisualStyleBackColor = False
+        '
+        'bCuadraturaCaja
+        '
+        Me.bCuadraturaCaja.BackColor = System.Drawing.Color.White
+        Me.bCuadraturaCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bCuadraturaCaja.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bCuadraturaCaja.Image = Global.SisVen.My.Resources.Resources.cashier_ok24
+        Me.bCuadraturaCaja.Location = New System.Drawing.Point(9, 124)
+        Me.bCuadraturaCaja.Name = "bCuadraturaCaja"
+        Me.bCuadraturaCaja.Size = New System.Drawing.Size(156, 36)
+        Me.bCuadraturaCaja.TabIndex = 3
+        Me.bCuadraturaCaja.Text = "Cuadratura de Caja"
+        Me.bCuadraturaCaja.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.bCuadraturaCaja.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.bCuadraturaCaja.UseVisualStyleBackColor = False
+        '
+        'bCambiarCorrelativo
+        '
+        Me.bCambiarCorrelativo.BackColor = System.Drawing.Color.White
+        Me.bCambiarCorrelativo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bCambiarCorrelativo.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bCambiarCorrelativo.Image = Global.SisVen.My.Resources.Resources.calc_ok24
+        Me.bCambiarCorrelativo.Location = New System.Drawing.Point(9, 55)
+        Me.bCambiarCorrelativo.Name = "bCambiarCorrelativo"
+        Me.bCambiarCorrelativo.Size = New System.Drawing.Size(156, 36)
+        Me.bCambiarCorrelativo.TabIndex = 1
+        Me.bCambiarCorrelativo.Text = "Cambiar Correlativo"
+        Me.bCambiarCorrelativo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.bCambiarCorrelativo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.bCambiarCorrelativo.UseVisualStyleBackColor = False
+        '
+        'cDocumento
+        '
+        Me.cDocumento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cDocumento.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cDocumento.FormattingEnabled = True
+        Me.cDocumento.Location = New System.Drawing.Point(265, 93)
+        Me.cDocumento.Name = "cDocumento"
+        Me.cDocumento.Size = New System.Drawing.Size(249, 26)
+        Me.cDocumento.TabIndex = 6
+        '
+        'Label26
+        '
+        Me.Label26.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label26.AutoSize = True
+        Me.Label26.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label26.Location = New System.Drawing.Point(928, 173)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(58, 24)
+        Me.Label26.TabIndex = 0
+        Me.Label26.Text = "Saldo"
+        '
+        'Label25
+        '
+        Me.Label25.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label25.AutoSize = True
+        Me.Label25.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label25.Location = New System.Drawing.Point(928, 143)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(112, 24)
+        Me.Label25.TabIndex = 0
+        Me.Label25.Text = "Monto Pago"
+        '
+        'Label24
+        '
+        Me.Label24.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label24.Location = New System.Drawing.Point(928, 113)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(90, 24)
+        Me.Label24.TabIndex = 0
+        Me.Label24.Text = "Sub Total"
+        '
+        'Label23
+        '
+        Me.Label23.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label23.AutoSize = True
+        Me.Label23.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label23.Location = New System.Drawing.Point(928, 83)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(101, 24)
+        Me.Label23.TabIndex = 0
+        Me.Label23.Text = "Descuento"
+        '
+        'Label22
+        '
+        Me.Label22.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label22.AutoSize = True
+        Me.Label22.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label22.Location = New System.Drawing.Point(928, 54)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(122, 24)
+        Me.Label22.TabIndex = 0
+        Me.Label22.Text = "Total Abonos"
+        '
+        'Label21
+        '
+        Me.Label21.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label21.AutoSize = True
+        Me.Label21.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label21.Location = New System.Drawing.Point(928, 24)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(105, 24)
+        Me.Label21.TabIndex = 0
+        Me.Label21.Text = "Total Venta"
+        '
+        'Label20
+        '
+        Me.Label20.AutoSize = True
+        Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label20.Location = New System.Drawing.Point(262, 72)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(86, 18)
+        Me.Label20.TabIndex = 0
+        Me.Label20.Text = "Documento"
+        '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label18.Location = New System.Drawing.Point(6, 22)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(38, 18)
+        Me.Label18.TabIndex = 0
+        Me.Label18.Text = "Caja"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label19.Location = New System.Drawing.Point(262, 22)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(111, 18)
+        Me.Label19.TabIndex = 0
+        Me.Label19.Text = "Forma de Pago"
+        '
+        'cFormaPago
+        '
+        Me.cFormaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cFormaPago.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cFormaPago.FormattingEnabled = True
+        Me.cFormaPago.Location = New System.Drawing.Point(265, 43)
+        Me.cFormaPago.Name = "cFormaPago"
+        Me.cFormaPago.Size = New System.Drawing.Size(249, 26)
+        Me.cFormaPago.TabIndex = 5
+        '
+        'xSaldo
+        '
+        Me.xSaldo.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.xSaldo.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.xSaldo.Location = New System.Drawing.Point(1090, 170)
+        Me.xSaldo.Name = "xSaldo"
+        Me.xSaldo.ReadOnly = True
+        Me.xSaldo.Size = New System.Drawing.Size(156, 29)
+        Me.xSaldo.TabIndex = 12
+        Me.xSaldo.Text = "0"
+        '
+        'xSubTotal
+        '
+        Me.xSubTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.xSubTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.xSubTotal.Location = New System.Drawing.Point(1090, 110)
+        Me.xSubTotal.Name = "xSubTotal"
+        Me.xSubTotal.ReadOnly = True
+        Me.xSubTotal.Size = New System.Drawing.Size(156, 29)
+        Me.xSubTotal.TabIndex = 10
+        Me.xSubTotal.Text = "0"
+        '
+        'xAbonado
+        '
+        Me.xAbonado.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.xAbonado.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.xAbonado.Location = New System.Drawing.Point(1090, 51)
+        Me.xAbonado.Name = "xAbonado"
+        Me.xAbonado.ReadOnly = True
+        Me.xAbonado.Size = New System.Drawing.Size(156, 29)
+        Me.xAbonado.TabIndex = 8
+        Me.xAbonado.Text = "0"
+        '
+        'xAbono
+        '
+        Me.xAbono.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.xAbono.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.xAbono.Location = New System.Drawing.Point(1090, 140)
+        Me.xAbono.Name = "xAbono"
+        Me.xAbono.ReadOnly = True
+        Me.xAbono.Size = New System.Drawing.Size(156, 29)
+        Me.xAbono.TabIndex = 11
+        Me.xAbono.Text = "0"
+        '
+        'xDescuento
+        '
+        Me.xDescuento.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.xDescuento.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.xDescuento.Location = New System.Drawing.Point(1090, 80)
+        Me.xDescuento.Name = "xDescuento"
+        Me.xDescuento.Size = New System.Drawing.Size(156, 29)
+        Me.xDescuento.TabIndex = 9
+        Me.xDescuento.Text = "0"
+        '
+        'xTotal
+        '
+        Me.xTotal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.xTotal.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.xTotal.Location = New System.Drawing.Point(1090, 21)
+        Me.xTotal.Name = "xTotal"
+        Me.xTotal.ReadOnly = True
+        Me.xTotal.Size = New System.Drawing.Size(156, 29)
+        Me.xTotal.TabIndex = 7
+        Me.xTotal.Text = "0"
+        '
+        'Label27
+        '
+        Me.Label27.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label27.AutoSize = True
+        Me.Label27.BackColor = System.Drawing.Color.Transparent
+        Me.Label27.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label27.Location = New System.Drawing.Point(784, 206)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(201, 24)
+        Me.Label27.TabIndex = 0
+        Me.Label27.Text = "Cantidad de Productos"
+        '
+        'WinDeco1
+        '
+        Me.WinDeco1.AlturaFooter = 60
+        Me.WinDeco1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(205, Byte), Integer))
+        Me.WinDeco1.BordeVentana = 2
+        Me.WinDeco1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.WinDeco1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(67, Byte), Integer))
+        Me.WinDeco1.Location = New System.Drawing.Point(0, 0)
+        Me.WinDeco1.MuestraBordeExterior = -1
+        Me.WinDeco1.Name = "WinDeco1"
+        Me.WinDeco1.Size = New System.Drawing.Size(1287, 50)
+        Me.WinDeco1.TabIndex = 5
+        Me.WinDeco1.TituloVentana = "Módulo de Venta Sucursal"
+        Me.WinDeco1.VerCerrar = False
+        Me.WinDeco1.VerLogo = True
+        Me.WinDeco1.VerMaximizar = False
+        Me.WinDeco1.VerMinimizar = False
+        Me.WinDeco1.VerTitulo = True
+        '
+        'VentaSucursal
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(1287, 713)
+        Me.Controls.Add(Me.bEmitir)
+        Me.Controls.Add(Me.bLimpiar)
+        Me.Controls.Add(Me.xTabla)
+        Me.Controls.Add(Me.GroupBox4)
+        Me.Controls.Add(Me.GroupBox3)
+        Me.Controls.Add(Me.GroupBox2)
+        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.xCantidadTabla)
+        Me.Controls.Add(Me.WinDeco1)
+        Me.Controls.Add(Me.Label27)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.KeyPreview = True
+        Me.MaximumSize = New System.Drawing.Size(1360, 740)
+        Me.Name = "VentaSucursal"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
+        Me.Text = "SisVen - Venta Sucursal"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        CType(Me.xTabla, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
+        Me.ResumeLayout(False)
+        Me.PerformLayout()
+
+    End Sub
+
+    Friend WithEvents WinDeco1 As WinDeco
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents xBoleta As TextBox
+    Friend WithEvents xVendedor As TextBox
+    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
+    Public WithEvents bCargar As Button
+    Public WithEvents bimprimir As Button
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents xCantidad As TextBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label6 As Label
+    Friend WithEvents xArticulo As TextBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents xDescripcion As TextBox
+    Public WithEvents bBuscar As Button
+    Friend WithEvents xTabla As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label14 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label5 As Label
+    Friend WithEvents Label13 As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Label11 As Label
+    Friend WithEvents xCantidadTabla As TextBox
+    Public WithEvents bLimpiar As Button
+    Public WithEvents bEmitir As Button
+    Friend WithEvents Label17 As Label
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents cDocumento As ComboBox
+    Friend WithEvents Label20 As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents cFormaPago As ComboBox
+    Friend WithEvents xSaldo As TextBox
+    Friend WithEvents xSubTotal As TextBox
+    Friend WithEvents xAbonado As TextBox
+    Friend WithEvents xAbono As TextBox
+    Friend WithEvents xDescuento As TextBox
+    Friend WithEvents xTotal As TextBox
+    Friend WithEvents Label26 As Label
+    Friend WithEvents Label25 As Label
+    Friend WithEvents Label24 As Label
+    Friend WithEvents Label23 As Label
+    Friend WithEvents Label22 As Label
+    Friend WithEvents Label21 As Label
+    Public WithEvents bConsultaBoleta As Button
+    Public WithEvents bVentaEspecial As Button
+    Public WithEvents bCuadraturaCaja As Button
+    Public WithEvents bCambiarCorrelativo As Button
+    Friend WithEvents xCaja As TextBox
+    Friend WithEvents Label27 As Label
+    Friend WithEvents Label18 As Label
+End Class

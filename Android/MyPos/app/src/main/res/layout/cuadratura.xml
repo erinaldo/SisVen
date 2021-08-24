@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/xFecha"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp"
+                android:textAlignment="textEnd" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="25dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Ventas del Día:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView16"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/holo_green_dark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xTotal"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@android:color/holo_green_dark" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black"/>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Facturas:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lfactura"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xFacturas"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Boletas:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lboletas"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xBoletas"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Notas de Crédito:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/notasdecredito"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xNDC"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Notas de Débito:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/notasdedebito"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xNDD"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Facturas Exentas:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/factutasexentas"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xFacturasExentas"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Guías de Despacho:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/guiasdedespacho"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xGuias"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/black"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Efectivo:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lefectivo"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xEfectivo"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Red Compra:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lredcompra"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xRedCompra"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Tarjeta De Crédito:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ltarjeta"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xTarjeta"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Cheque:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lcheque"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xCheque"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Vale:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lvale"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xVale"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginStart="15sp"
+                android:layout_marginEnd="15sp">
+
+                <TextView
+                    android:text="Nota de Crédito:"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lnota"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorPrimaryDark" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/xNotas"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorPrimaryDark" />
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/bEmitirBoleta"
+                android:layout_alignParentStart="true"
+                android:visibility="visible"
+                android:layout_weight="0.43">
+
+                <Button
+                    android:id="@+id/bLimpiar"
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"
+                    android:text="LIMPIAR"
+                    android:background="@drawable/botonazulrectangular"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:layout_marginTop="10sp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="15sp"
+                    android:visibility="invisible" />
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:text="VOLVER"
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bVolver"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/botonrojorectangular"
+                    android:textColor="#FFFFFF"
+                    android:drawableLeft="@drawable/atras"
+                    android:gravity="center"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"
+                    android:textSize="20sp"
+                    android:layout_marginTop="10sp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="15sp"
+                    />
+
+
+
+            </RelativeLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="13dp" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

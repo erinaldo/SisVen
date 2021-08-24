@@ -1,0 +1,105 @@
+﻿
+Public Class Palet
+    Property Palet As String
+    Property CantidadTotal As Double
+    Property CantidadPicking As Double
+
+End Class
+Public Class Paquete
+    Property Etiqueta As String
+    Property Cliente As Double
+    Property Estado As String
+    Property Condicion As String
+    Property FechaElaboracion As DateTime
+    Property FechaVencimiento As DateTime
+    Property Resolucion As String
+    Property Quimico As String
+    Property Alergeno As String
+    Property Liquido As String
+    Property Peligroso As String
+    Property Cantidad As Double 'ESTA SE GUARDA PARA EL STOCK   
+    Property NormaNU As String
+    Property Neto As Double
+    Property Bruto As Double
+    Property Tara As Double
+    Property Lote As String
+    Property Talla As String
+    Property Colores As String
+    Property Maquilado As String
+    Property Tipo_Producto As String
+    Property NSerie As String
+    Property Largo As Double
+    Property Ancho As Double
+    Property Alto As Double
+    Property Mt2 As Double
+    Property Mt3 As Double
+    Property Articulo As String
+    Property SKu As String
+    Property Nutricion As String
+    Property Durabilidad As Double
+    Property Etiquetacion As String
+    Property MotivoCantidadPicking As String
+    Property Numcaja As String
+    Property Especie As String
+    Property Calidad As String
+    Property Calibre As String
+    Property Caja As String
+    Property Palet As String
+
+
+End Class
+
+
+Public Class Picking
+    Public Property Picking As Double
+    Public Property CantPicking As Double
+End Class
+
+Public Class Articulo
+
+    Property Articulo As Double
+    Property Cliente As Double
+    Property Bodega As Double
+    Property Cantidad As Double
+    Property SKU As String
+
+
+End Class
+
+Public Class Items
+    Private StrNombre As String
+    Private IntCodigo As String
+    Public Sub New()
+        StrNombre = ""
+        IntCodigo = 0
+    End Sub
+
+    Public Sub New(ByVal Name As String, ByVal ID As String)
+        StrNombre = Name
+        IntCodigo = ID
+    End Sub
+
+    Public Property Name() As String
+        Get
+            Return StrNombre
+        End Get
+
+        Set(ByVal sValue As String)
+            StrNombre = sValue
+        End Set
+    End Property
+
+    Public Property ItemData() As String
+        Get
+            Return IntCodigo
+        End Get
+
+        Set(ByVal iValue As String)
+            IntCodigo = iValue
+        End Set
+    End Property
+
+    Public Overrides Function ToString() As String
+        Return StrNombre
+    End Function
+End Class

@@ -1,0 +1,373 @@
+﻿Imports C1.Win.C1FlexGrid
+
+Public Class ControlDTE
+    Const T_OK = 0
+    Const T_ESTADO = 1
+    Const T_TIPODOC = 2
+    Const T_DOC = 3
+    Const T_NUM = 4
+    Const T_FECHA = 5
+    Const T_USUARIO = 6
+    Const T_LOCAL = 7
+    Const T_RUT = 8
+    Const T_NOMBRE = 9
+    Const T_FPAGO = 10
+    Const T_MONTO = 11
+    Const T_OBS = 12
+
+    Const EI = "Emitido Incorrecto"
+    Const ET = "Emitido con TED"
+    Const AP = "Aprobado por SII"
+    Const AR = "Aprobado con Reparos por SII"
+    Const RE = "Rechazado por SII"
+    Const RP = "Respuesta Pendiente"
+
+    Const NE = "No es Electrónico"
+
+    Dim wFila As Integer
+    Dim wLocal As Integer
+
+    Private Sub ControlDTE_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Loc = SQL("Select NombreLocal from Locales WHERE FElectronica = 1 Order by Local")
+        While Not Loc.EOF
+            cLocal.Items.Add(Loc.Fields("NombreLocal").Value.ToString.Trim)
+            Loc.MoveNext()
+        End While
+
+        Doc = SQL("Select DescTipoDoc from TipoDoc WHERE Cod_SII > 0 Order by DescTipoDoc")
+        While Not Doc.EOF
+            cTipoDoc.Items.Add(Doc.Fields("DescTipoDoc").Value.ToString.Trim)
+            Doc.MoveNext()
+        End While
+
+        Titulos()
+
+        cEstados.Items.Add(EI)
+        cEstados.Items.Add(ET)
+        cEstados.Items.Add(AP)
+        cEstados.Items.Add(AR)
+        cEstados.Items.Add(RE)
+        cEstados.Items.Add(RP)
+
+        oVer.Checked = False
+
+        xF1.Value = IniFecha(1, Now.Date)
+        xF2.Value = IniFecha(2, Now.Date)
+    End Sub
+
+    Private Sub bDesmarcar_Click()
+        For i = 1 To xTabla.Rows.Count - 1
+            xTabla.SetData(i, T_OK, UNCHECK)
+        Next i
+    End Sub
+
+    Private Sub bEnviarM_Click()
+        Dim Hay As Boolean
+
+        If oEnviar.Checked Then
+            Hay = False
+            Cursor = Cursors.WaitCursor
+            For i = 1 To xTabla.Rows.Count - 1
+                If xTabla.GetData(i, T_ESTADO) = NE Then
+                    'El_Error ("No se puede enviar a DTE Documentos No electrónicos")
+                Else
+                    If xTabla.GetData(i, T_ESTADO) = AP Or xTabla.GetData(i, T_ESTADO) = AR Then
+                        'El_Error ("Documento Electrónico ya enviado a SII, no se puede volver a enviar")
+                    Else
+                        If xTabla.GetData(i, T_OK) = CHECK Then
+                            'pausar(1)
+                            Hay = True
+                            If Emitir_DTE(Val(xTabla.GetData(i, T_LOCAL)), BuscaDocumento(xTabla.GetData(i, T_DOC)), xTabla.GetData(i, T_NUM)) Then
+                                'Me.MousePointer = vbDefault
+                                'El_Mensaje (Tabla.TextMatrix(Tabla.Row, T_DOC) + " " + Str(Tabla.TextMatrix(Tabla.Row, T_NUM)) + " Enviada Correctamente.")
+                            Else
+                                'Me.MousePointer = vbDefault
+                                'El_Error ("Error al Enviar Documento Electrónico")
+                            End If
+                        End If
+                    End If
+                End If
+            Next i
+            Cursor = Cursors.Arrow
+            If Not Hay Then
+                MsgError("No hay documentos marcados para enviar")
+            Else
+                Mensaje("Los Datos enviados a SII, demoran en algunos casos tener respuestas, " + vbCrLf + "deberá consultar los documentos en unos minutos mas para conocer su estado.")
+                'Volver a Cargar los Datos
+                Consultar_Datos
+            End If
+        Else
+            MsgError("Debe Marcar Envio DTE y marcar los documentos para realizar este proceso")
+        End If
+    End Sub
+
+    Private Sub bLimpiar_Click(sender As Object, e As EventArgs) Handles bLimpiar.Click
+        Titulos()
+        cLocal.Text = ""
+        cTipoDoc.Text = ""
+        cEstados.Text = ""
+
+        xF1.Value = IniFecha(1, Now.Date)
+        xF2.Value = IniFecha(2, Now.Date)
+
+        oVer.Checked = False
+
+        cLocal.Focus()
+    End Sub
+
+    Private Sub bCancelar_Click(sender As Object, e As EventArgs) Handles bCancelar.Click
+        Close()
+    End Sub
+
+    Sub Titulos()
+        xTabla.Redraw = True
+
+        xTabla.Clear()
+        xTabla.Rows.Count = 1
+        xTabla.Cols.Count = 13
+
+        xTabla.SetData(0, T_OK, "")
+        xTabla.SetData(0, T_ESTADO, "Estado")
+        xTabla.SetData(0, T_TIPODOC, "Tipo.Doc.")
+        xTabla.SetData(0, T_DOC, "Documento")
+        xTabla.SetData(0, T_NUM, "Número")
+        xTabla.SetData(0, T_FECHA, "Fecha")
+        xTabla.SetData(0, T_USUARIO, "Usuario")
+        xTabla.SetData(0, T_LOCAL, "Local")
+        xTabla.SetData(0, T_RUT, "Rut")
+        xTabla.SetData(0, T_NOMBRE, "Nombre")
+        xTabla.SetData(0, T_FPAGO, "F.Pago")
+        xTabla.SetData(0, T_MONTO, "Monto")
+        xTabla.SetData(0, T_OBS, "Observaciones")
+
+        xTabla.Cols(T_OK).Width = 50
+        xTabla.Cols(T_ESTADO).Width = 180
+        xTabla.Cols(T_TIPODOC).Width = 0
+        xTabla.Cols(T_DOC).Width = 180
+        xTabla.Cols(T_NUM).Width = 100
+        xTabla.Cols(T_FECHA).Width = 110
+        xTabla.Cols(T_USUARIO).Width = 70
+        xTabla.Cols(T_LOCAL).Width = 60
+        xTabla.Cols(T_RUT).Width = 110
+        xTabla.Cols(T_NOMBRE).Width = 280
+        xTabla.Cols(T_FPAGO).Width = 80
+        xTabla.Cols(T_MONTO).Width = 100
+        xTabla.Cols(T_OBS).Width = 800
+
+        xTabla.Cols(T_OK).TextAlignFixed = TextAlignEnum.CenterCenter
+
+        xTabla.Cols(T_OK).TextAlign = TextAlignEnum.CenterCenter
+        xTabla.Cols(T_OBS).TextAlign = TextAlignEnum.LeftCenter
+
+        xTabla.Cols(T_OK).DataType = GetType(Boolean)
+
+    End Sub
+
+    Private Sub bConsultar_Click(sender As Object, e As EventArgs) Handles bConsultar.Click
+        Consultar_Datos
+    End Sub
+
+    Sub Consultar_Datos()
+        Dim wTipoDoc As String
+
+        wFila = 0
+        wLocal = 999
+        Titulos()
+
+        If Trim(cTipoDoc.Text) <> "" Then
+            If Buscar("Locales", "NombreLocal", Trim(cTipoDoc.Text), "Local") Then
+                wLocal = Swap("Local").Value
+            End If
+        End If
+
+        Cursor = Cursors.WaitCursor
+        xTabla.Visible = False
+
+        wTipoDoc = BuscaDocumento(cTipoDoc.Text)
+        If wTipoDoc = "FV" Or wTipoDoc = "" Then
+            Call Cargar_Datos("FV")
+        End If
+        If wTipoDoc = "NC" Or wTipoDoc = "" Then
+            Call Cargar_Datos("NC")
+        End If
+        If wTipoDoc = "ND" Or wTipoDoc = "" Then
+            Call Cargar_Datos("ND")
+        End If
+        If wTipoDoc = "GD" Or wTipoDoc = "" Then
+            Call Cargar_Datos("GD")
+        End If
+        If wTipoDoc = "BV" Or wTipoDoc = "" Then
+            Call Cargar_Datos("BV")
+        End If
+        If wTipoDoc = "FE" Or wTipoDoc = "" Then
+            Call Cargar_Datos("FE")
+        End If
+
+        lStatus.Text = "Ok"
+
+        Cursor = Cursors.Arrow
+        xTabla.Visible = True
+
+    End Sub
+
+    Sub Cargar_Datos(wTipo As String)
+        Dim Filtro As String, wDocumento As String, wEstado As String, wLocal As Integer, wRut As String, wFila As Integer
+
+        wLocal = 999
+        If Trim(cLocal.Text) <> "" Then
+            If Buscar("Locales", "NombreLocal", Trim(cLocal.Text), "Local") Then
+                wLocal = Swap("Local").Value
+            End If
+        End If
+
+        If wLocal = 999 Then
+            Filtro = "(1=1)"
+        Else
+            Filtro = "Local = " + Num(wLocal)
+        End If
+
+        wDocumento = ""
+        If wTipo = "FV" Then
+            DocG = SQL("Select Factura as Numero,FechaFac as Fecha,Usuario,Local,Cliente,FPago,TotalFac as Total,DTE,Status_DTE,TED from FvGen where " + Filtro + " and FechaFac >= '" + Format(xF1, "dd/MM/yyyy 00:00:00") + "' and FechaFac <= '" + Format(xF2, "dd/MM/yyyy 23:59:59") + "' and " + Filtro + " Order by FechaFac,Factura")
+            wDocumento = "Factura de Venta"
+        End If
+        If wTipo = "NC" Then
+            DocG = SQL("Select NCredito as Numero,FechaNCre as Fecha,Usuario,Local,Cliente,FPago,TotalNCre as Total,DTE,Status_DTE,TED from NcGen where " + Filtro + " and FechaNCre >= '" + Format(xF1, "dd/MM/yyyy 00:00:00") + "' and FechaNCre <= '" + Format(xF2, "dd/MM/yyyy 23:59:59") + "' and " + Filtro + " Order by FechaNCre,NCredito")
+            wDocumento = "Nota de Crédito"
+        End If
+        If wTipo = "ND" Then
+            DocG = SQL("Select NDebito as Numero,FechaNDe as Fecha,Usuario,Local,Cliente,FPago,TotalNde as Total,DTE,Status_DTE,TED from NdGen where " + Filtro + " and FechaNDe >= '" + Format(xF1, "dd/MM/yyyy 00:00:00") + "' and FechaNDe <= '" + Format(xF2, "dd/MM/yyyy 23:59:59") + "' and " + Filtro + " Order by FechaNDe,NDebito")
+            wDocumento = "Nota de Débito"
+        End If
+        If wTipo = "GD" Then
+            DocG = SQL("Select Guia as Numero,FechaGui as Fecha,Usuario,Local,Cliente,FPago,TotalGui as Total,DTE,Status_DTE,TED from GdGen where " + Filtro + " and FechaGui >= '" + Format(xF1, "dd/MM/yyyy 00:00:00") + "' and FechaGui <= '" + Format(xF2, "dd/MM/yyyy 23:59:59") + "' and " + Filtro + " Order by FechaGui,Guia")
+            wDocumento = "Guía de Despacho"
+        End If
+
+        lStatus.Text = wTipo
+
+        If DocG.RecordCount > 0 Then
+            While Not DocG.EOF
+                DoEvents()
+                wFila = wFila + 1
+                xTabla.AddItem("")
+                xTabla.SetData(wFila, T_OK, UNCHECK)
+                If DocG("DTE").Value Then
+                    lStatus.Text = IIf(IsDBNull(DocG("Status_DTE").Value), 0, DocG("Status_DTE").Value)
+                    If DocG("Status_DTE").Value = 0 Or DocG("Status_DTE").Value = 9 Or IsDBNull(DocG("Status_DTE").Value) Then
+                        xTabla.SetData(wFila, T_ESTADO, EI)
+                        xTabla.Row = wFila : xTabla.Col = T_ESTADO
+                        'xTabla.CellBackColor = Color.Magenta
+                    End If
+                    If DocG("Status_DTE").Value = 1 Then
+                        xTabla.SetData(wFila, T_ESTADO, ET)
+                        xTabla.Row = wFila : xTabla.Col = T_ESTADO
+                        'xTabla.CellBackColor = Color.Cyan
+                    End If
+                    If DocG("Status_DTE").Value = 2 Then
+                        lStatus.Text = wTipo + " " + Num(DocG("Numero").Value)
+
+                        wRut = FE_Rut_Emisor
+                        Loc = SQL("Select RutLocal from Locales where Local = " + Num(DocG("Local").Value))
+                        If Loc.RecordCount > 0 Then
+                            wRut = Rut_DTE(Loc("RutLocal").Value)
+                        End If
+
+                        If Not oVer.Checked Then
+                            wEstado = Consultar_DTE(1, wRut, wTipo, Val(DocG("Numero").Value))
+                        Else
+                            wEstado = 6
+                        End If
+
+                        lStatus.Text = wTipo + " " + Num(DocG("Numero").Value) + wEstado
+                        If wEstado = "0" Then
+                            xTabla.SetData(wFila, T_ESTADO, AP)
+                            xTabla.Row = wFila : xTabla.Col = T_ESTADO
+                            'xTabla.CellBackColor = Color.Green
+                        End If
+                        If wEstado = "1" Then
+                            If Not oVer.Checked Then
+                                xTabla.SetData(wFila, T_OBS, Consultar_DTE(3, wRut, wTipo, Val(DocG("Numero").Value)))
+                            End If
+                            xTabla.SetData(wFila, T_ESTADO, RE)
+                            xTabla.Row = wFila : xTabla.Col = T_ESTADO
+                            'xTabla.CellBackColor = Color.Red
+                        End If
+                        If wEstado = "2" Then
+                            If Not oVer.Checked Then
+                                xTabla.SetData(wFila, T_OBS, Consultar_DTE(3, wRut, wTipo, Val(DocG("Numero").Value)))
+                            End If
+                            xTabla.SetData(wFila, T_ESTADO, AR)
+                            xTabla.Row = wFila : xTabla.Col = T_ESTADO
+                            'xTabla.CellBackColor = Color.Yellow
+                        End If
+                        If wEstado = "6" Then
+                            xTabla.SetData(wFila, T_OBS, "Consulta Rápida")
+                            xTabla.SetData(wFila, T_ESTADO, "Enviado a SII")
+                            'Tabla.Row = wFila: Tabla.Col = T_ESTADO: Tabla.CellBackColor = vbBlack
+                            'Tabla.Row = wFila: Tabla.Col = T_ESTADO: Tabla.CellForeColor = vbWhite
+                        End If
+                        If wEstado = "7" Then
+                            xTabla.SetData(wFila, T_OBS, "No se pudo Consultar DTE")
+                            xTabla.SetData(wFila, T_ESTADO, RP)
+                            xTabla.Row = wFila : xTabla.Col = T_ESTADO
+                            'xTabla.CellBackColor = Color.Blue
+                        End If
+                        If wEstado = "9" Then
+                            If Not oVer.Checked Then
+                                xTabla.SetData(wFila, T_OBS, Consultar_DTE(3, wRut, wTipo, Val(DocG("Numero").Value)))
+                            End If
+                            xTabla.SetData(wFila, T_ESTADO, RE)
+                            xTabla.Row = wFila : xTabla.Col = T_ESTADO
+                            'xTabla.CellBackColor = Color.Red
+                        End If
+                        If wEstado = "3" Or wEstado = "4" Or wEstado = "5" Or wEstado = "7" Or wEstado = "8" Then
+                            If Not oVer.Checked Then
+                                xTabla.SetData(wFila, T_OBS, Consultar_DTE(3, wRut, wTipo, Val(DocG("Numero").Value)))
+                            End If
+                            xTabla.SetData(wFila, T_ESTADO, RP)
+                            xTabla.Row = wFila : xTabla.Col = T_ESTADO
+                            'xTabla.CellBackColor = Color.Blue
+                        End If
+                        If UCase(Mid(wEstado, 1, 5)) = "NO SE" Then
+                            If Not oVer.Checked Then
+                                xTabla.SetData(wFila, T_OBS, Consultar_DTE(3, wRut, wTipo, Val(DocG("Numero").Value)))
+                            End If
+                            xTabla.SetData(wFila, T_ESTADO, RP)
+                            xTabla.Row = wFila : xTabla.Col = T_ESTADO
+                            'xTabla.CellBackColor = Color.Blue
+                        Else
+                            'Tabla.TextMatrix(wFila, T_ESTADO) = wEstado
+                            'Tabla.Row = wFila: Tabla.Col = T_ESTADO: Tabla.CellBackColor = vbRed
+                        End If
+                    End If
+                Else
+                    xTabla.SetData(wFila, T_ESTADO, "No es Electrónico")
+                End If
+                lStatus.Text = "Ok"
+
+                xTabla.SetData(wFila, T_TIPODOC, Codigo_DTE(wTipo))
+                xTabla.SetData(wFila, T_DOC, wDocumento)
+                xTabla.SetData(wFila, T_NUM, DocG("Numero").Value)
+                xTabla.SetData(wFila, T_FECHA, Format(DocG("Fecha"), "dd/MM/yyyy"))
+                xTabla.SetData(wFila, T_USUARIO, DocG("Usuario").Value)
+                xTabla.SetData(wFila, T_LOCAL, DocG("Local").Value)
+                xTabla.SetData(wFila, T_RUT, DocG("Cliente").Value)
+                If Buscar("Clientes", "Rut", DocG("Cliente").Value, "Nombre") Then
+                    xTabla.SetData(wFila, T_NOMBRE, Trim(Swap("Nombre").Value))
+                End If
+                xTabla.SetData(wFila, T_FPAGO, DocG("FPago").Value)
+                xTabla.SetData(wFila, T_MONTO, DocG("Total").Value)
+
+                If Trim(cEstados.Text) <> "" Then
+                    If Trim(xTabla.GetData(wFila, T_ESTADO)) <> Trim(cEstados.Text) Then
+                        'xTabla.RowHeight(wFila) = 0
+                    End If
+                End If
+
+                DocG.MoveNext()
+            End While
+        End If
+    End Sub
+
+End Class

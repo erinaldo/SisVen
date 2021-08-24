@@ -1,0 +1,164 @@
+﻿Imports System.ComponentModel
+
+Public Class ImprimirDocumentos
+    Private Sub ImprimirDocumentos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadCombobox(cLocal, "Locales", "Local", "NombreLocal")
+        LoadCombobox(cTipoDoc, "TipoDoc", "TipoDoc", "DescTipoDoc", " ORDER BY DescTipoDoc")
+    End Sub
+
+    Private Sub xLocal_KeyPress(sender As Object, e As KeyPressEventArgs) Handles xLocal.KeyPress
+        ValidarDigitos(e)
+        e.NextControl(cTipoDoc)
+    End Sub
+
+    Private Sub xLocal_Validating(sender As Object, e As CancelEventArgs) Handles xLocal.Validating
+        If xLocal.Text.Trim <> "" Then
+            cLocal.SelectedValue = xLocal.Text.Trim
+            If cLocal.Text = W_SELECCIONAR Then
+                MsgError("Local no encontrado")
+                xLocal.Clear()
+                xLocal.Focus()
+            End If
+        End If
+    End Sub
+
+    Private Sub cLocal_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cLocal.SelectedIndexChanged
+        If ValidarCombo(cLocal) Then
+            xLocal.Text = cLocal.SelectedValue
+        Else
+            xLocal.Clear()
+        End If
+    End Sub
+
+    Private Sub xNumDoc_KeyPress(sender As Object, e As KeyPressEventArgs) Handles xNumDoc.KeyPress
+        ValidarDigitos(e)
+        e.NextControl(bImprimir)
+    End Sub
+
+    Private Sub bLimpiar_Click(sender As Object, e As EventArgs) Handles bLimpiar.Click
+        xLocal.Clear()
+        xNumDoc.Clear()
+        cTipoDoc.SelectedIndex = 0
+        cLocal.SelectedIndex = 0
+        xLocal.Focus()
+    End Sub
+
+    Private Sub bCancelar_Click(sender As Object, e As EventArgs) Handles bCancelar.Click
+        Close()
+    End Sub
+
+    Private Sub bImprimir_Click(sender As Object, e As EventArgs) Handles bImprimir.Click
+        If xLocal.Text.Trim = "" Then
+            MsgError("Ingrese Local")
+            xLocal.Focus()
+            Exit Sub
+        End If
+
+        If ValidarCombo(cTipoDoc) = False Then
+            MsgError("Ingrese Tipo de Documento")
+            cTipoDoc.Focus()
+            Exit Sub
+        End If
+
+        If xNumDoc.Text.Trim = "" Then
+            MsgError("Ingrese Numero de Documento")
+            xNumDoc.Focus()
+            Exit Sub
+        End If
+        Dim wQuery = "SELECT DG.Fecha,C.Rut,C.Nombre,C.Direccion,C.Giro,C.Telefonos,DG.Numero,Ci.NombreCiudad,DG.OC," &
+                     " F.DescFPago,DD.Articulo, A.Descripcion,DD.Cantidad,DD.Precio,DG.TipoDoc,DG.Descuento,DG.SubTotal,DG.IVA,DG.Total,DG.Neto" &
+                     " From DocumentosG DG" &
+                     " JOIN Clientes C ON DG.Cliente = C.Cliente" &
+                     " JOIN Ciudades Ci ON C.Ciudad = Ci.Ciudad" &
+                     " JOIN FPagos F ON DG.FPago = F.FPago" &
+                     " JOIN DocumentosD DD ON DG.Numero = DD.Numero" &
+                     " JOIN Articulos A ON DD.Articulo = A.Articulo" &
+                     " WHERE DG.Numero = '" & xNumDoc.Text.Trim & "' AND DG.TipoDoc = '" & cTipoDoc.SelectedValue & "'"
+
+        Dim vrf = SQL(wQuery)
+        If vrf.RecordCount > 0 Then
+
+            Select Case cTipoDoc.SelectedValue
+                Case "FV"
+                    Dim wReporte As New ReporteFacturas
+                    ModuloReporte = "ImprimirDocumentos"
+                    VisorReportes.VisorParametros(wQuery, wReporte)
+                    VisorReportes.WinDeco1.TituloVentana = "Factura de Venta"
+                    VisorReportes.Show()
+                Case "CO"
+                    Dim wReporte As New ReporteCotizacion
+                    wQuery = wQuery
+                    ModuloReporte = "ImprimirDocumentos"
+                    VisorReportes.VisorParametros(wQuery, wReporte)
+                    VisorReportes.WinDeco1.TituloVentana = "Cotización"
+                    VisorReportes.Show()
+                Case "GD"
+
+                Case "NC"
+
+                Case "FC"
+
+                Case "NV"
+
+            End Select
+            Auditoria(Me.Text, PR_IMPRIMIR, "", 0)
+        Else
+            MsgError("Debe ingresar numero de documento")
+            xNumDoc.Focus()
+        End If
+
+        If cTipoDoc.SelectedValue = "F" Then
+
+        End If
+    End Sub
+    Sub Cotizacion()
+        If xNumDoc.Text.Trim <> "" Then
+            Dim wQuery = "SELECT DG.Fecha,C.Rut,C.Nombre,C.Direccion,C.Giro,C.Telefonos,DG.Numero,Ci.NombreCiudad,DG.OC," &
+                         " F.DescFPago,DD.Articulo, A.Descripcion,DD.Cantidad,DD.Precio,DG.TipoDoc,DG.Descuento,DG.SubTotal,DG.IVA,DG.Total,DG.Neto" &
+                         " From DocumentosG DG" &
+                         " JOIN Clientes C ON DG.Cliente = C.Cliente" &
+                         " JOIN Ciudades Ci ON C.Ciudad = Ci.Ciudad" &
+                         " JOIN FPagos F ON DG.FPago = F.FPago" &
+                         " JOIN DocumentosD DD ON DG.Numero = DD.Numero" &
+                         " JOIN Articulos A ON DD.Articulo = A.Articulo" &
+                         " WHERE DG.Numero = '" & xNumDoc.Text.Trim & "' AND DG.TipoDoc = '" & cTipoDoc.SelectedValue & "'"
+
+
+            Dim wReporte As New ReporteCotizacion
+            wQuery = wQuery
+            ModuloReporte = "Cotizacion"
+            VisorReportes.VisorParametros(wQuery, wReporte)
+            VisorReportes.WinDeco1.TituloVentana = "Cotizacion"
+            VisorReportes.Show()
+            Auditoria(Me.Text, PR_IMPRIMIR, "", 0)
+        Else
+            MsgError("Debe ingresar numero de documento")
+            xNumDoc.Focus()
+        End If
+    End Sub
+    Sub Facturas()
+        If xNumDoc.Text.Trim <> "" Then
+            Dim wQuery = "SELECT DG.Fecha,C.Rut,C.Nombre,C.Direccion,C.Giro,C.Telefonos,DG.Numero,Ci.NombreCiudad,DG.OC," &
+                         " F.DescFPago,DD.Articulo, A.Descripcion,DD.Cantidad,DD.Precio,DG.TipoDoc,DG.Descuento,DG.SubTotal,DG.IVA,DG.Total,DG.Neto" &
+                         " From DocumentosG DG" &
+                         " JOIN Clientes C ON DG.Cliente = C.Cliente" &
+                         " JOIN Ciudades Ci ON C.Ciudad = Ci.Ciudad" &
+                         " JOIN FPagos F ON DG.FPago = F.FPago" &
+                         " JOIN DocumentosD DD ON DG.Numero = DD.Numero" &
+                         " JOIN Articulos A ON DD.Articulo = A.Articulo" &
+                         " WHERE DG.Numero = '" & xNumDoc.Text.Trim & "' AND DG.TipoDoc = '" & cTipoDoc.SelectedValue & "'"
+
+
+            Dim wReporte As New ReporteFacturas
+            wQuery = wQuery
+            ModuloReporte = "ImprimirFacturas"
+            VisorReportes.VisorParametros(wQuery, wReporte)
+            VisorReportes.WinDeco1.TituloVentana = "Factura"
+            VisorReportes.Show()
+            Auditoria(Me.Text, PR_IMPRIMIR, "", 0)
+        Else
+            MsgError("Debe ingresar numero de documento")
+            xNumDoc.Focus()
+        End If
+    End Sub
+End Class

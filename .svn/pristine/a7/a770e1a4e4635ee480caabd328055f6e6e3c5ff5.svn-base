@@ -1,0 +1,233 @@
+﻿Imports C1.Win.C1FlexGrid
+
+Public Class BuscarClientes
+
+    Const T_ID As Integer = 0
+    Const T_CLIENTE As Integer = 1
+    Const T_NOMBRE As Integer = 2
+
+
+    Sub Titulos()
+
+        xTabla.Redraw = False
+
+        xTabla.Clear()
+        xTabla.Rows.Count = 1
+        xTabla.Cols.Count = 3
+        xTabla.Cols(T_ID).Width = 0
+        xTabla.Cols(T_CLIENTE).Width = 100
+        xTabla.Cols(T_NOMBRE).Width = 500
+        xTabla.SetData(0, T_ID, "ID")
+        xTabla.SetData(0, T_CLIENTE, "Cliente")
+
+        xTabla.SetData(0, T_NOMBRE, "Nombre")
+
+        xTabla.Redraw = True
+    End Sub
+    Sub TitulosProveedor()
+        WinDeco1.TituloVentana = "Buscar Proveedor"
+        xTabla.Redraw = False
+
+        xTabla.Clear()
+        xTabla.Rows.Count = 1
+        xTabla.Cols.Count = 3
+        xTabla.Cols(T_ID).Width = 0
+        xTabla.Cols(T_CLIENTE).Width = 100
+        xTabla.Cols(T_NOMBRE).Width = 500
+        xTabla.SetData(0, T_ID, "ID")
+        xTabla.SetData(0, T_CLIENTE, "Proveedor")
+        xTabla.SetData(0, T_NOMBRE, "Nombre")
+
+        xTabla.Redraw = True
+    End Sub
+    Private Sub BuscarClientes_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        If (Modulo = "RecepcionProveedor") Then
+            TitulosProveedor()
+        Else
+            Titulos()
+        End If
+        Auditoria(Text, "Ingreso", "", 0)
+    End Sub
+
+
+
+#Region "MenuCopiar"
+    Private Sub bCopiar_Click(sender As Object, e As EventArgs) Handles bCopiar.Click
+        If bCopiar.Tag IsNot Nothing Then
+            Clipboard.SetText(bCopiar.Tag.ToString)
+            mMenuTabla.Hide()
+        End If
+    End Sub
+    Private Sub xTabla_MouseDown(sender As Object, e As MouseEventArgs) Handles xTabla.MouseDown
+        If e.Button = MouseButtons.Right Then
+            Dim xTabla = DirectCast(sender, C1.Win.C1FlexGrid.C1FlexGrid)
+            MostrarMenuCopiar(xTabla, e.Location, mMenuTabla, bCopiar)
+        End If
+    End Sub
+
+    Private Sub xTabla_KeyDown(sender As Object, e As KeyEventArgs) Handles xTabla.KeyDown
+        Dim xTabla = DirectCast(sender, C1.Win.C1FlexGrid.C1FlexGrid)
+        If e.Modifiers = Keys.Control AndAlso e.KeyCode = Keys.C Then
+            CopiarSeleccion(xTabla)
+            e.Handled = True
+        End If
+    End Sub
+
+#End Region
+
+
+
+
+    Private Sub Cargar_Datos()
+        Dim wFila As Integer
+        Dim wCliente As Double
+
+        Titulos()
+        wFila = 1
+        Me.Cursor = Cursors.WaitCursor
+
+        wCliente = Val(xDato.Text)
+
+        If wCliente > 0 Then
+            Swap = SQL("SELECT Cliente, Nombre FROM Clientes WHERE Cliente = " & wCliente & " and localruta='" & LocalActual & "' or Cliente = " & wCliente & " and PMultiLocal=1  Order by Nombre")
+        Else
+            Swap = SQL("SELECT Cliente, Nombre FROM Clientes WHERE Nombre Like '%" + UCase(Trim(xDato.Text)) + "%' and localruta='" + LocalActual + "'  or Nombre Like '%" + UCase(Trim(xDato.Text)) + "%' and PMultiLocal=1 Order by Nombre")
+        End If
+
+        xTabla.Redraw = False
+        DoEvents()
+
+        If Swap.RecordCount > 0 Then
+            xTabla.Visible = False
+            Swap.MoveFirst()
+            While Not Swap.EOF
+
+                xTabla.AddItem(New Object() {"", Swap.Fields("Cliente").Text.ToString.Trim, Swap.Fields("Nombre").Text.ToString.Trim})
+
+                Swap.MoveNext()
+                wFila += 1
+            End While
+
+        Else
+            Mensaje("No Existen Datos a Mostrar")
+            xDato.Focus()
+        End If
+        xTabla.AjustarColumnas
+        xTabla.Redraw = True
+        xTabla.Visible = True
+        Cursor = Cursors.Default
+
+        xTabla.Focus()
+
+    End Sub
+    Private Sub Cargar_Proveedor()
+        Dim wFila As Integer
+        Dim wCliente As Double
+
+        Titulos()
+        wFila = 1
+        Me.Cursor = Cursors.WaitCursor
+
+        wCliente = Val(xDato.Text)
+
+        If Val(wCliente) > 0 Then
+
+            Swap = SQL("SELECT Cliente, Nombre FROM Clientes WHERE proveedor <> 0 And Nombre Like '%" + UCase(Trim(xDato.Text)) + "%' and (localruta=" & LocalActual & " or PMultiLocal=1 ) Order by Nombre")
+        Else
+            Swap = SQL("SELECT Cliente, Nombre FROM Clientes WHERE proveedor <> 0 and (PMultiLocal = 1 or localruta = " & LocalActual & ")   Order by Nombre ")
+        End If
+
+        xTabla.Redraw = False
+
+        If Swap.RecordCount > 0 Then
+            xTabla.Visible = False
+            Swap.MoveFirst()
+            While Not Swap.EOF
+
+                xTabla.AddItem(New Object() {"", Swap.Fields("Cliente").Text.ToString.Trim, Swap.Fields("Nombre").Text.ToString.Trim})
+
+                Swap.MoveNext()
+                wFila += 1
+            End While
+            xTabla.AutoSizeCol(T_NOMBRE)
+        Else
+            Mensaje("No Existen Datos a Mostrar")
+            xDato.Focus()
+        End If
+
+        xTabla.Redraw = True
+        xTabla.Visible = True
+        Cursor = Cursors.Default
+
+        xTabla.Focus()
+
+    End Sub
+
+    Sub CargarInformeRecepcion()
+        Dim wFila As Integer
+        Dim wCliente As Double
+
+        Titulos()
+        wFila = 1
+        Me.Cursor = Cursors.WaitCursor
+
+        wCliente = Val(xDato.Text)
+
+        If wCliente > 0 Then
+            Swap = SQL("SELECT Cliente, Nombre FROM Clientes WHERE Cliente = " & wCliente & " And (localruta=" & LocalActual & " or  and PMultiLocal=1 ) and Sincronizador=1  Order by Nombre")
+        Else
+            Swap = SQL("SELECT Cliente, Nombre FROM Clientes WHERE Nombre Like '%" + UCase(Trim(xDato.Text)) + "%' and (localruta=" & LocalActual & " or  and PMultiLocal=1 ) and Sincronizador=1  Order by Nombre")
+        End If
+
+        xTabla.Redraw = False
+
+        If Swap.RecordCount > 0 Then
+            xTabla.Visible = False
+            Swap.MoveFirst()
+            While Not Swap.EOF
+
+                xTabla.AddItem(New Object() {"", Swap.Fields("Cliente").Text.ToString.Trim, Swap.Fields("Nombre").Text.ToString.Trim})
+
+                Swap.MoveNext()
+                wFila += 1
+            End While
+            xTabla.AutoSizeCol(T_NOMBRE)
+        Else
+            Mensaje("No Existen Datos a Mostrar")
+            xDato.Focus()
+        End If
+
+        xTabla.Redraw = True
+        xTabla.Visible = True
+        Cursor = Cursors.Default
+
+        xTabla.Focus()
+    End Sub
+    Private Sub BuscarCli(Optional sender As System.Object = Nothing, Optional e As System.EventArgs = Nothing) Handles bBuscar.Click
+        Select Case Modulo
+            Case "InformeRecepcionCarga"
+                CargarInformeRecepcion()
+            Case "RecepcionProveedor"
+                Cargar_Proveedor()
+            Case Else
+                Cargar_Datos()
+
+        End Select
+        Auditoria(Text, "Cargó Tabla", "", 0)
+    End Sub
+
+    Private Sub xDato_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles xDato.KeyPress
+        If e.KeyChar = vbCr Then
+            BuscarCli()
+        End If
+    End Sub
+
+
+
+
+    Private Sub bCancelar_Click(sender As Object, e As EventArgs) Handles bCancelar.Click
+        Close()
+    End Sub
+
+
+End Class
