@@ -24,6 +24,8 @@ Partial Class ManCliente
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ManCliente))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.xSucursal = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.bNuevo = New System.Windows.Forms.Button()
         Me.bBuscar = New System.Windows.Forms.Button()
         Me.xRut = New System.Windows.Forms.MaskedTextBox()
@@ -65,6 +67,8 @@ Partial Class ManCliente
         Me.bCancelar = New System.Windows.Forms.Button()
         Me.bLimpiar = New System.Windows.Forms.Button()
         Me.WinDeco1 = New SisVen.WinDeco()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -74,6 +78,10 @@ Partial Class ManCliente
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox1.Controls.Add(Me.Label19)
+        Me.GroupBox1.Controls.Add(Me.Label18)
+        Me.GroupBox1.Controls.Add(Me.xSucursal)
+        Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.bNuevo)
         Me.GroupBox1.Controls.Add(Me.bBuscar)
         Me.GroupBox1.Controls.Add(Me.xRut)
@@ -113,10 +121,29 @@ Partial Class ManCliente
         Me.GroupBox1.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(12, 56)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(505, 497)
+        Me.GroupBox1.Size = New System.Drawing.Size(523, 540)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Datos "
+        '
+        'xSucursal
+        '
+        Me.xSucursal.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.xSucursal.Location = New System.Drawing.Point(93, 320)
+        Me.xSucursal.MaxLength = 4
+        Me.xSucursal.Name = "xSucursal"
+        Me.xSucursal.Size = New System.Drawing.Size(100, 23)
+        Me.xSucursal.TabIndex = 28
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(7, 323)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(63, 16)
+        Me.Label10.TabIndex = 27
+        Me.Label10.Text = "Sucursal"
         '
         'bNuevo
         '
@@ -158,7 +185,7 @@ Partial Class ManCliente
         'oComision
         '
         Me.oComision.AutoSize = True
-        Me.oComision.Location = New System.Drawing.Point(93, 361)
+        Me.oComision.Location = New System.Drawing.Point(93, 416)
         Me.oComision.Name = "oComision"
         Me.oComision.Size = New System.Drawing.Size(15, 14)
         Me.oComision.TabIndex = 14
@@ -167,7 +194,7 @@ Partial Class ManCliente
         'oProveedor
         '
         Me.oProveedor.AutoSize = True
-        Me.oProveedor.Location = New System.Drawing.Point(94, 330)
+        Me.oProveedor.Location = New System.Drawing.Point(94, 385)
         Me.oProveedor.Name = "oProveedor"
         Me.oProveedor.Size = New System.Drawing.Size(15, 14)
         Me.oProveedor.TabIndex = 13
@@ -181,7 +208,7 @@ Partial Class ManCliente
         Me.cCiudad.FormattingEnabled = True
         Me.cCiudad.Location = New System.Drawing.Point(199, 180)
         Me.cCiudad.Name = "cCiudad"
-        Me.cCiudad.Size = New System.Drawing.Size(294, 24)
+        Me.cCiudad.Size = New System.Drawing.Size(308, 24)
         Me.cCiudad.TabIndex = 7
         Me.cCiudad.TabStop = False
         '
@@ -191,9 +218,9 @@ Partial Class ManCliente
         Me.cEstado.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cEstado.FormattingEnabled = True
         Me.cEstado.ItemHeight = 16
-        Me.cEstado.Location = New System.Drawing.Point(93, 443)
+        Me.cEstado.Location = New System.Drawing.Point(93, 498)
         Me.cEstado.Name = "cEstado"
-        Me.cEstado.Size = New System.Drawing.Size(121, 24)
+        Me.cEstado.Size = New System.Drawing.Size(134, 24)
         Me.cEstado.TabIndex = 16
         '
         'cComuna
@@ -204,7 +231,7 @@ Partial Class ManCliente
         Me.cComuna.FormattingEnabled = True
         Me.cComuna.Location = New System.Drawing.Point(199, 207)
         Me.cComuna.Name = "cComuna"
-        Me.cComuna.Size = New System.Drawing.Size(294, 24)
+        Me.cComuna.Size = New System.Drawing.Size(308, 24)
         Me.cComuna.TabIndex = 9
         Me.cComuna.TabStop = False
         '
@@ -215,7 +242,7 @@ Partial Class ManCliente
         Me.xNombre.Location = New System.Drawing.Point(93, 46)
         Me.xNombre.MaxLength = 200
         Me.xNombre.Name = "xNombre"
-        Me.xNombre.Size = New System.Drawing.Size(400, 23)
+        Me.xNombre.Size = New System.Drawing.Size(414, 23)
         Me.xNombre.TabIndex = 1
         '
         'xEmail
@@ -225,7 +252,7 @@ Partial Class ManCliente
         Me.xEmail.Location = New System.Drawing.Point(93, 262)
         Me.xEmail.MaxLength = 100
         Me.xEmail.Name = "xEmail"
-        Me.xEmail.Size = New System.Drawing.Size(400, 23)
+        Me.xEmail.Size = New System.Drawing.Size(414, 23)
         Me.xEmail.TabIndex = 11
         '
         'xContacto
@@ -234,7 +261,7 @@ Partial Class ManCliente
         Me.xContacto.Location = New System.Drawing.Point(93, 236)
         Me.xContacto.MaxLength = 100
         Me.xContacto.Name = "xContacto"
-        Me.xContacto.Size = New System.Drawing.Size(400, 23)
+        Me.xContacto.Size = New System.Drawing.Size(414, 23)
         Me.xContacto.TabIndex = 10
         '
         'xTelefono
@@ -254,7 +281,7 @@ Partial Class ManCliente
         Me.xGiro.Location = New System.Drawing.Point(93, 104)
         Me.xGiro.MaxLength = 100
         Me.xGiro.Name = "xGiro"
-        Me.xGiro.Size = New System.Drawing.Size(400, 23)
+        Me.xGiro.Size = New System.Drawing.Size(414, 23)
         Me.xGiro.TabIndex = 3
         '
         'xComuna
@@ -284,13 +311,13 @@ Partial Class ManCliente
         Me.xDireccion.Location = New System.Drawing.Point(93, 155)
         Me.xDireccion.MaxLength = 255
         Me.xDireccion.Name = "xDireccion"
-        Me.xDireccion.Size = New System.Drawing.Size(400, 23)
+        Me.xDireccion.Size = New System.Drawing.Size(414, 23)
         Me.xDireccion.TabIndex = 5
         '
         'xVencimiento
         '
         Me.xVencimiento.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.xVencimiento.Location = New System.Drawing.Point(93, 414)
+        Me.xVencimiento.Location = New System.Drawing.Point(93, 469)
         Me.xVencimiento.MaxLength = 18
         Me.xVencimiento.Name = "xVencimiento"
         Me.xVencimiento.Size = New System.Drawing.Size(100, 23)
@@ -299,7 +326,7 @@ Partial Class ManCliente
         'xCupoMax
         '
         Me.xCupoMax.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.xCupoMax.Location = New System.Drawing.Point(93, 385)
+        Me.xCupoMax.Location = New System.Drawing.Point(93, 440)
         Me.xCupoMax.MaxLength = 18
         Me.xCupoMax.Name = "xCupoMax"
         Me.xCupoMax.Size = New System.Drawing.Size(100, 23)
@@ -323,14 +350,14 @@ Partial Class ManCliente
         Me.xFantasia.Location = New System.Drawing.Point(93, 129)
         Me.xFantasia.MaxLength = 30
         Me.xFantasia.Name = "xFantasia"
-        Me.xFantasia.Size = New System.Drawing.Size(400, 23)
+        Me.xFantasia.Size = New System.Drawing.Size(414, 23)
         Me.xFantasia.TabIndex = 4
         '
         'Label17
         '
         Me.Label17.AutoSize = True
         Me.Label17.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label17.Location = New System.Drawing.Point(7, 446)
+        Me.Label17.Location = New System.Drawing.Point(7, 501)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(52, 16)
         Me.Label17.TabIndex = 0
@@ -340,7 +367,7 @@ Partial Class ManCliente
         '
         Me.Label16.AutoSize = True
         Me.Label16.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label16.Location = New System.Drawing.Point(7, 417)
+        Me.Label16.Location = New System.Drawing.Point(7, 472)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(84, 16)
         Me.Label16.TabIndex = 0
@@ -350,7 +377,7 @@ Partial Class ManCliente
         '
         Me.Label15.AutoSize = True
         Me.Label15.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label15.Location = New System.Drawing.Point(6, 388)
+        Me.Label15.Location = New System.Drawing.Point(6, 443)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(75, 16)
         Me.Label15.TabIndex = 0
@@ -360,7 +387,7 @@ Partial Class ManCliente
         '
         Me.Label14.AutoSize = True
         Me.Label14.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label14.Location = New System.Drawing.Point(6, 361)
+        Me.Label14.Location = New System.Drawing.Point(6, 416)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(66, 16)
         Me.Label14.TabIndex = 0
@@ -370,7 +397,7 @@ Partial Class ManCliente
         '
         Me.Label13.AutoSize = True
         Me.Label13.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label13.Location = New System.Drawing.Point(6, 330)
+        Me.Label13.Location = New System.Drawing.Point(6, 385)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(74, 16)
         Me.Label13.TabIndex = 0
@@ -493,7 +520,7 @@ Partial Class ManCliente
         Me.bGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.bGuardar.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.bGuardar.Image = Global.SisVen.My.Resources.Resources.save24
-        Me.bGuardar.Location = New System.Drawing.Point(218, 569)
+        Me.bGuardar.Location = New System.Drawing.Point(236, 612)
         Me.bGuardar.Name = "bGuardar"
         Me.bGuardar.Size = New System.Drawing.Size(95, 36)
         Me.bGuardar.TabIndex = 21
@@ -509,7 +536,7 @@ Partial Class ManCliente
         Me.bEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.bEliminar.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.bEliminar.Image = Global.SisVen.My.Resources.Resources.delete24
-        Me.bEliminar.Location = New System.Drawing.Point(319, 569)
+        Me.bEliminar.Location = New System.Drawing.Point(337, 612)
         Me.bEliminar.Name = "bEliminar"
         Me.bEliminar.Size = New System.Drawing.Size(93, 36)
         Me.bEliminar.TabIndex = 22
@@ -525,7 +552,7 @@ Partial Class ManCliente
         Me.bCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.bCancelar.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.bCancelar.Image = Global.SisVen.My.Resources.Resources.cancel24
-        Me.bCancelar.Location = New System.Drawing.Point(418, 569)
+        Me.bCancelar.Location = New System.Drawing.Point(436, 612)
         Me.bCancelar.Name = "bCancelar"
         Me.bCancelar.Size = New System.Drawing.Size(99, 36)
         Me.bCancelar.TabIndex = 23
@@ -541,7 +568,7 @@ Partial Class ManCliente
         Me.bLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.bLimpiar.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.bLimpiar.Image = Global.SisVen.My.Resources.Resources.clean24
-        Me.bLimpiar.Location = New System.Drawing.Point(12, 569)
+        Me.bLimpiar.Location = New System.Drawing.Point(12, 612)
         Me.bLimpiar.Name = "bLimpiar"
         Me.bLimpiar.Size = New System.Drawing.Size(88, 36)
         Me.bLimpiar.TabIndex = 20
@@ -560,7 +587,7 @@ Partial Class ManCliente
         Me.WinDeco1.Location = New System.Drawing.Point(0, 0)
         Me.WinDeco1.MuestraBordeExterior = -1
         Me.WinDeco1.Name = "WinDeco1"
-        Me.WinDeco1.Size = New System.Drawing.Size(528, 50)
+        Me.WinDeco1.Size = New System.Drawing.Size(546, 50)
         Me.WinDeco1.TabIndex = 98
         Me.WinDeco1.TituloVentana = "Mantención de Clientes"
         Me.WinDeco1.VerCerrar = True
@@ -569,11 +596,31 @@ Partial Class ManCliente
         Me.WinDeco1.VerMinimizar = True
         Me.WinDeco1.VerTitulo = True
         '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Font = New System.Drawing.Font("Arial", 8.0!)
+        Me.Label18.Location = New System.Drawing.Point(203, 317)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(232, 14)
+        Me.Label18.TabIndex = 29
+        Me.Label18.Text = "Nota: Dejar en blanco si es Casa Matriz o 0000"
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Font = New System.Drawing.Font("Arial", 8.0!)
+        Me.Label19.Location = New System.Drawing.Point(203, 331)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(304, 14)
+        Me.Label19.TabIndex = 30
+        Me.Label19.Text = "Ingresar Código en formato 9999 dejando ceros a la izquierda"
+        '
         'ManCliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(528, 618)
+        Me.ClientSize = New System.Drawing.Size(546, 661)
         Me.Controls.Add(Me.bLimpiar)
         Me.Controls.Add(Me.bGuardar)
         Me.Controls.Add(Me.bEliminar)
@@ -634,4 +681,8 @@ Partial Class ManCliente
     Public WithEvents bCancelar As Button
     Public WithEvents bLimpiar As Button
     Public WithEvents bNuevo As Button
+    Friend WithEvents xSucursal As TextBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents Label18 As Label
+    Friend WithEvents Label19 As Label
 End Class

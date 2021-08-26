@@ -24,6 +24,8 @@ Partial Class ManMaquinas
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ManMaquinas))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.xRut = New System.Windows.Forms.TextBox()
         Me.bBuscarCli = New System.Windows.Forms.Button()
         Me.dFechaR = New System.Windows.Forms.DateTimePicker()
         Me.dFechaA = New System.Windows.Forms.DateTimePicker()
@@ -39,7 +41,6 @@ Partial Class ManMaquinas
         Me.Label8 = New System.Windows.Forms.Label()
         Me.xGarantia = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.xSucursal = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.xNombre = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -57,15 +58,16 @@ Partial Class ManMaquinas
         Me.bEliminar = New System.Windows.Forms.Button()
         Me.bLimpiar = New System.Windows.Forms.Button()
         Me.bSalir = New System.Windows.Forms.Button()
-        Me.xRut = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.WinDeco1 = New SisVen.WinDeco()
+        Me.fDialogo = New System.Windows.Forms.SaveFileDialog()
+        Me.xSucursal = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox1.Controls.Add(Me.xSucursal)
         Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.xRut)
         Me.GroupBox1.Controls.Add(Me.bBuscarCli)
@@ -83,7 +85,6 @@ Partial Class ManMaquinas
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.xGarantia)
         Me.GroupBox1.Controls.Add(Me.Label7)
-        Me.GroupBox1.Controls.Add(Me.xSucursal)
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.xNombre)
         Me.GroupBox1.Controls.Add(Me.Label5)
@@ -102,6 +103,26 @@ Partial Class ManMaquinas
         Me.GroupBox1.Size = New System.Drawing.Size(516, 374)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.Location = New System.Drawing.Point(339, 120)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(36, 16)
+        Me.Label10.TabIndex = 106
+        Me.Label10.Text = "RUT"
+        '
+        'xRut
+        '
+        Me.xRut.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.xRut.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.xRut.Location = New System.Drawing.Point(381, 119)
+        Me.xRut.Name = "xRut"
+        Me.xRut.ReadOnly = True
+        Me.xRut.Size = New System.Drawing.Size(122, 20)
+        Me.xRut.TabIndex = 105
         '
         'bBuscarCli
         '
@@ -250,14 +271,6 @@ Partial Class ManMaquinas
         Me.Label7.Size = New System.Drawing.Size(63, 16)
         Me.Label7.TabIndex = 92
         Me.Label7.Text = "Sucursal"
-        '
-        'xSucursal
-        '
-        Me.xSucursal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.xSucursal.Location = New System.Drawing.Point(149, 171)
-        Me.xSucursal.Name = "xSucursal"
-        Me.xSucursal.Size = New System.Drawing.Size(354, 20)
-        Me.xSucursal.TabIndex = 6
         '
         'Label6
         '
@@ -454,26 +467,6 @@ Partial Class ManMaquinas
         Me.bSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.bSalir.UseVisualStyleBackColor = False
         '
-        'xRut
-        '
-        Me.xRut.BackColor = System.Drawing.SystemColors.ControlLight
-        Me.xRut.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.xRut.Location = New System.Drawing.Point(381, 119)
-        Me.xRut.Name = "xRut"
-        Me.xRut.ReadOnly = True
-        Me.xRut.Size = New System.Drawing.Size(122, 20)
-        Me.xRut.TabIndex = 105
-        '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.Location = New System.Drawing.Point(339, 120)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(36, 16)
-        Me.Label10.TabIndex = 106
-        Me.Label10.Text = "RUT"
-        '
         'WinDeco1
         '
         Me.WinDeco1.AlturaFooter = 60
@@ -492,6 +485,22 @@ Partial Class ManMaquinas
         Me.WinDeco1.VerMaximizar = False
         Me.WinDeco1.VerMinimizar = True
         Me.WinDeco1.VerTitulo = True
+        '
+        'fDialogo
+        '
+        Me.fDialogo.FileName = "Detalle"
+        Me.fDialogo.Filter = "Excel Files(.xlsx)|*.xlsx| Excel Files(*.xlsm)|*.xlsm"
+        Me.fDialogo.Title = "Exportar detalle"
+        '
+        'xSucursal
+        '
+        Me.xSucursal.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.xSucursal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.xSucursal.Location = New System.Drawing.Point(149, 172)
+        Me.xSucursal.Name = "xSucursal"
+        Me.xSucursal.ReadOnly = True
+        Me.xSucursal.Size = New System.Drawing.Size(354, 20)
+        Me.xSucursal.TabIndex = 107
         '
         'ManMaquinas
         '
@@ -539,7 +548,6 @@ Partial Class ManMaquinas
     Friend WithEvents Label8 As Label
     Friend WithEvents xGarantia As TextBox
     Friend WithEvents Label7 As Label
-    Friend WithEvents xSucursal As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents xNombre As TextBox
     Friend WithEvents Label5 As Label
@@ -554,4 +562,6 @@ Partial Class ManMaquinas
     Public WithEvents bBuscarCli As Button
     Friend WithEvents Label10 As Label
     Friend WithEvents xRut As TextBox
+    Friend WithEvents fDialogo As SaveFileDialog
+    Friend WithEvents xSucursal As TextBox
 End Class

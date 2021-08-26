@@ -351,9 +351,9 @@ Partial Class ConsultaDocumento
         Me.Label2.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.Location = New System.Drawing.Point(226, 16)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(20, 16)
+        Me.Label2.Size = New System.Drawing.Size(19, 16)
         Me.Label2.TabIndex = 10
-        Me.Label2.Text = "Al"
+        Me.Label2.Text = "al"
         '
         'dDesde
         '

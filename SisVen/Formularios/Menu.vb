@@ -924,4 +924,14 @@ Friend Class Menu_Principal
         ManMaquinas.Show()
         ManMaquinas.BringToFront()
     End Sub
+
+    Private Sub GeneraciónDeArchivosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GeneraciónDeArchivosToolStripMenuItem.Click
+        GeneracionArchivos.Show()
+        GeneracionArchivos.BringToFront()
+    End Sub
+
+    Private Sub bGenerar_Click(sender As Object, e As EventArgs) Handles bGenerar.Click
+        GeneracionArchivos.Show()
+        GeneracionArchivos.BringToFront()
+    End Sub
 End Class

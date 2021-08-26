@@ -118,6 +118,7 @@
         Me.mConsulta_Estados = New System.Windows.Forms.ToolStripMenuItem()
         Me.mConsulta_Usuarios = New System.Windows.Forms.ToolStripMenuItem()
         Me.mConsulta_Accesos = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GeneraciónDeArchivosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mMenuListados = New System.Windows.Forms.ToolStripMenuItem()
         Me.mListaDePrecios = New System.Windows.Forms.ToolStripMenuItem()
         Me.mListadoDeComisionez = New System.Windows.Forms.ToolStripMenuItem()
@@ -160,6 +161,7 @@
         Me.ToolStripMenuItem5 = New System.Windows.Forms.ToolStripSeparator()
         Me.mManCorrelativo = New System.Windows.Forms.ToolStripMenuItem()
         Me.mMantenciónDePOS = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MantenciónDeMáquinasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mSalir = New System.Windows.Forms.ToolStripMenuItem()
         Me.mSi = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator12 = New System.Windows.Forms.ToolStripSeparator()
@@ -198,7 +200,7 @@
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.WinDeco1 = New SisVen.WinDeco()
         Me.IndicadoresBGW = New System.ComponentModel.BackgroundWorker()
-        Me.MantenciónDeMáquinasToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.bGenerar = New System.Windows.Forms.Button()
         Me.Barra.SuspendLayout()
         Me.gParametros.SuspendLayout()
         CType(Me.LogoEmpresa, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -668,7 +670,7 @@
         '
         'mMenuConsultas
         '
-        Me.mMenuConsultas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mConsultaDeVentasConBoletas, Me.mConsultaDeDocumentos, Me.mConsultaDeDescuentos, Me.ToolStripSeparator13, Me.mConsultaAuditoria, Me.ToolStripSeparator14, Me.mSubMenuConsultaDeTablas})
+        Me.mMenuConsultas.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mConsultaDeVentasConBoletas, Me.mConsultaDeDocumentos, Me.mConsultaDeDescuentos, Me.ToolStripSeparator13, Me.mConsultaAuditoria, Me.ToolStripSeparator14, Me.mSubMenuConsultaDeTablas, Me.GeneraciónDeArchivosToolStripMenuItem})
         Me.mMenuConsultas.Name = "mMenuConsultas"
         Me.mMenuConsultas.Size = New System.Drawing.Size(83, 28)
         Me.mMenuConsultas.Text = "&Consultas"
@@ -792,6 +794,12 @@
         Me.mConsulta_Accesos.Name = "mConsulta_Accesos"
         Me.mConsulta_Accesos.Size = New System.Drawing.Size(323, 22)
         Me.mConsulta_Accesos.Text = "Consulta de Tipos de Accesos"
+        '
+        'GeneraciónDeArchivosToolStripMenuItem
+        '
+        Me.GeneraciónDeArchivosToolStripMenuItem.Name = "GeneraciónDeArchivosToolStripMenuItem"
+        Me.GeneraciónDeArchivosToolStripMenuItem.Size = New System.Drawing.Size(277, 22)
+        Me.GeneraciónDeArchivosToolStripMenuItem.Text = "Generación de Archivos"
         '
         'mMenuListados
         '
@@ -1052,6 +1060,12 @@
         Me.mMantenciónDePOS.Name = "mMantenciónDePOS"
         Me.mMantenciónDePOS.Size = New System.Drawing.Size(340, 22)
         Me.mMantenciónDePOS.Text = "Mantención de POS"
+        '
+        'MantenciónDeMáquinasToolStripMenuItem
+        '
+        Me.MantenciónDeMáquinasToolStripMenuItem.Name = "MantenciónDeMáquinasToolStripMenuItem"
+        Me.MantenciónDeMáquinasToolStripMenuItem.Size = New System.Drawing.Size(340, 22)
+        Me.MantenciónDeMáquinasToolStripMenuItem.Text = "Mantención de Máquinas"
         '
         'mSalir
         '
@@ -1318,6 +1332,7 @@
         Me.fBonotera.Controls.Add(Me.bCuadraturaCajas)
         Me.fBonotera.Controls.Add(Me.bMovimientoStockDocumento)
         Me.fBonotera.Controls.Add(Me.bZebra)
+        Me.fBonotera.Controls.Add(Me.bGenerar)
         Me.fBonotera.Location = New System.Drawing.Point(3, 35)
         Me.fBonotera.Name = "fBonotera"
         Me.fBonotera.Size = New System.Drawing.Size(987, 100)
@@ -1474,11 +1489,20 @@
         'IndicadoresBGW
         '
         '
-        'MantenciónDeMáquinasToolStripMenuItem
+        'bGenerar
         '
-        Me.MantenciónDeMáquinasToolStripMenuItem.Name = "MantenciónDeMáquinasToolStripMenuItem"
-        Me.MantenciónDeMáquinasToolStripMenuItem.Size = New System.Drawing.Size(340, 22)
-        Me.MantenciónDeMáquinasToolStripMenuItem.Text = "Mantención de Máquinas"
+        Me.bGenerar.BackgroundImage = CType(resources.GetObject("bGenerar.BackgroundImage"), System.Drawing.Image)
+        Me.bGenerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bGenerar.Image = Global.SisVen.My.Resources.Resources.excel24
+        Me.bGenerar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.bGenerar.Location = New System.Drawing.Point(369, 52)
+        Me.bGenerar.Name = "bGenerar"
+        Me.bGenerar.Size = New System.Drawing.Size(177, 43)
+        Me.bGenerar.TabIndex = 13
+        Me.bGenerar.Text = "Generar Archivos"
+        Me.bGenerar.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.bGenerar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.bGenerar.UseVisualStyleBackColor = True
         '
         'Menu_Principal
         '
@@ -1692,5 +1716,7 @@
     Friend WithEvents EmisiónDeCódigosDeBarraToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents IndicadoresBGW As System.ComponentModel.BackgroundWorker
     Friend WithEvents MantenciónDeMáquinasToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents GeneraciónDeArchivosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents bGenerar As Button
 #End Region
 End Class

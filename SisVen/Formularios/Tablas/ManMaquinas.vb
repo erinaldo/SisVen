@@ -1,7 +1,10 @@
 ﻿Imports System.ComponentModel
+Imports System.IO
+Imports System.Text.RegularExpressions
+Imports ClosedXML.Excel
 
 Public Class ManMaquinas
-    Implements iFormulario
+
     Private Sub ManMaquinas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         cUbicacion.Items.Add("")
         cUbicacion.Items.Add("Centro de Distribución")
@@ -82,12 +85,13 @@ Public Class ManMaquinas
                 If cl.RecordCount > 0 Then
                     xNombre.Text = cl.Fields("Nombre").Text.Trim
                     xRut.Text = cl.Fields("Rut").Text.Trim
+                    xSucursal.Text = cl.Fields("Glosa").Text.Trim
                 Else
                     xCliente.Text = ""
                     xNombre.Text = ""
                     xRut.Text = ""
+                    xSucursal.Text = ""
                 End If
-                xSucursal.Text = mq.Fields("Sucursal").Text.Trim
                 xGarantia.Text = mq.Fields("Garantia").Text.Trim
                 xGuia.Text = mq.Fields("Guia").Text.Trim
                 dFechaA.Text = mq.Fields("FechaAsignacion").Text.Trim
@@ -157,11 +161,6 @@ Public Class ManMaquinas
             If xCliente.Text.Trim = "" Or xNombre.Text = "" Then
                 MsgError("Falta Cliente")
                 xCliente.Focus()
-                Exit Sub
-            End If
-            If xSucursal.Text.Trim = "" Then
-                MsgError("Falta Sucursal")
-                xSucursal.Focus()
                 Exit Sub
             End If
             If xGarantia.Text.Trim = "" Then
@@ -257,12 +256,8 @@ Public Class ManMaquinas
         Buscador.Show()
         Buscador.Configurar(wQuery, "Modelo", Me, "Maquinas", xID)
     End Sub
-    Public Sub CargarRegistro(ByVal wControl As Control, ByVal wValor As String) Implements iFormulario.CargarRegistro
-        wControl.Text = wValor
-        wControl.Validate
-    End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles bBuscarCli.Click
+    Private Sub bBuscarCli_Click(sender As Object, e As EventArgs) Handles bBuscarCli.Click
         Modulo = "ManMaquinas"
         BuscarClientes.Show()
         BuscarClientes.BringToFront()
@@ -317,20 +312,25 @@ Public Class ManMaquinas
             xCliente.Text = ""
             xNombre.Text = ""
             xRut.Text = ""
+            xSucursal.Text = ""
             Exit Sub
         End If
         Dim cl = SQL("SELECT Nombre,Rut FROM Clientes WHERE Cliente = " & xCliente.Text)
         If cl.RecordCount > 0 Then
             xNombre.Text = cl.Fields("Nombre").Text.Trim
             xRut.Text = cl.Fields("Rut").Text.Trim
+            xSucursal.Text = cl.Fields("Glosa").Text.Trim
         Else
             xCliente.Text = ""
             xNombre.Text = ""
             xRut.Text = ""
+            xSucursal.Text = ""
         End If
     End Sub
 
     Private Sub xCliente_Validating(sender As Object, e As CancelEventArgs) Handles xCliente.Validating
         Verificar_Cliente()
     End Sub
+
+
 End Class

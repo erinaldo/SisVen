@@ -27,6 +27,7 @@
         xComuna.Clear()
         cComuna.SelectedIndex = 0
         xGiro.Clear()
+        xSucursal.Clear()
         xTelefono.Clear()
         xContacto.Clear()
         xEmail.Clear()
@@ -161,6 +162,7 @@
         Cli.Fields("Vencimiento").Value = Val(xVencimiento.Text)
         Cli.Fields("Estado").Value = cEstado.Tag
         Cli.Fields("Tipo").Value = wTipo
+        Cli.Fields("Glosa").Value = xSucursal.Text.Trim
         Cli.Update()
     End Sub
 
@@ -184,7 +186,7 @@
         xVencimiento.Text = Trim(Cli.Fields("Vencimiento").Value)
         LlenarEstado(Cli.Fields("Estado").Text)
         cEstado.Tag = Cli.Fields("Estado").Text
-
+        xSucursal.Text = Cli.Fields("Glosa").Value
     End Sub
 
     Private Sub xCliente_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles xCliente.Validating
@@ -343,7 +345,7 @@
         ValidarDigitos(sender, 0)
     End Sub
 
-    Private Sub xNombre_KeyPress(sender As Object, e As KeyPressEventArgs) Handles xTelefono.KeyPress, xRut.KeyPress, xNombre.KeyPress, xGiro.KeyPress, xFantasia.KeyPress, xEmail.KeyPress, xDireccion.KeyPress, xContacto.KeyPress, xComuna.KeyPress, xCiudad.KeyPress
+    Private Sub xNombre_KeyPress(sender As Object, e As KeyPressEventArgs) Handles xTelefono.KeyPress, xRut.KeyPress, xNombre.KeyPress, xGiro.KeyPress, xFantasia.KeyPress, xEmail.KeyPress, xDireccion.KeyPress, xContacto.KeyPress, xComuna.KeyPress, xCiudad.KeyPress, xSucursal.KeyPress
         If e.KeyChar = vbCr Then
             NextControl(sender)
         End If

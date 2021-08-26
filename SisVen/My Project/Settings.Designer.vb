@@ -78,30 +78,6 @@ Namespace My
             End Set
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("192.168.10.11")>  _
-        Public Property SERVIDOR() As String
-            Get
-                Return CType(Me("SERVIDOR"),String)
-            End Get
-            Set
-                Me("SERVIDOR") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source={0};Initial Catalog={1};User ID=wikets;Password=software")>  _
-        Public Property CONEXION() As String
-            Get
-                Return CType(Me("CONEXION"),String)
-            End Get
-            Set
-                Me("CONEXION") = value
-            End Set
-        End Property
-        
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.WebServiceUrl),  _
@@ -115,8 +91,8 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.10.11;Initial Catalog=Wikets;User ID=wikets;Password=software"& _ 
-            "")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=giantcold.ddns.net;Initial Catalog=SisVen;User ID=wikets;Password=sof"& _ 
+            "tware")>  _
         Public ReadOnly Property SisVenConnectionString() As String
             Get
                 Return CType(Me("SisVenConnectionString"),String)
@@ -125,7 +101,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("W")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("G")>  _
         Public Property CLAVE() As String
             Get
                 Return CType(Me("CLAVE"),String)
@@ -137,7 +113,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Wikets")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("SisVen")>  _
         Public Property DBASE() As String
             Get
                 Return CType(Me("DBASE"),String)
@@ -145,6 +121,40 @@ Namespace My
             Set
                 Me("DBASE") = value
             End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("giantcold.ddns.net")>  _
+        Public Property SERVIDOR() As String
+            Get
+                Return CType(Me("SERVIDOR"),String)
+            End Get
+            Set
+                Me("SERVIDOR") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source={0};Initial Catalog={1};User ID=Wikets;Password=software")>  _
+        Public Property CONEXION() As String
+            Get
+                Return CType(Me("CONEXION"),String)
+            End Get
+            Set
+                Me("CONEXION") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=giantcold.ddns.net;Initial Catalog=SisVen;User ID=wikets")>  _
+        Public ReadOnly Property SisVenConnectionString1() As String
+            Get
+                Return CType(Me("SisVenConnectionString1"),String)
+            End Get
         End Property
     End Class
 End Namespace
