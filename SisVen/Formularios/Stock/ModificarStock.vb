@@ -4,8 +4,9 @@ Imports SisVen
 Public Class ModificarStock
     Implements iFormulario
     Const T_LOCAL = 0
-    Const T_BODEGA = 1
-    Const T_STOCK = 2
+    Const T_CODIGO = 1
+    Const T_BODEGA = 2
+    Const T_STOCK = 3
 
     Public Sub CargarRegistro(ByVal wControl As Control, ByVal wValor As String) Implements iFormulario.CargarRegistro
         wControl.Text = wValor
@@ -26,9 +27,9 @@ Public Class ModificarStock
         If Bod.RecordCount > 0 Then
             While Not Bod.EOF
                 cBodega.Items.Add(Bod.Fields("NombreBodega").Text.Trim)
-                If Bod("Bodega").Value = BodegaActual Then
-                    cBodega.Text = Bod.Fields("NombreBodega").Text.Trim
-                End If
+                'If Bod("Bodega").Value = BodegaActual Then
+                '    cBodega.Text = Bod.Fields("NombreBodega").Text.Trim
+                'End If
                 Bod.MoveNext()
             End While
         End If
@@ -59,13 +60,15 @@ Public Class ModificarStock
 
         xTabla.Clear()
         xTabla.Rows.Count = 1
-        xTabla.Cols.Count = 3
+        xTabla.Cols.Count = 4
 
-        xTabla.Cols(T_LOCAL).Width = 200
+        xTabla.Cols(T_LOCAL).Width = 180
+        xTabla.Cols(T_CODIGO).Width = 60
         xTabla.Cols(T_BODEGA).Width = 200
         xTabla.Cols(T_STOCK).Width = 80
 
         xTabla.Cols(T_LOCAL).Caption = "Local"
+        xTabla.Cols(T_CODIGO).Caption = "Código"
         xTabla.Cols(T_BODEGA).Caption = "Bodega"
         xTabla.Cols(T_STOCK).Caption = "Stock"
 
@@ -108,6 +111,7 @@ Public Class ModificarStock
 
                 xTabla.AddItem("")
                 xTabla.SetData(wfila, T_LOCAL, BuscarCampo("Locales", "NombreLocal", "Local", Stk.Fields("Local").Text))
+                xTabla.SetData(wfila, T_CODIGO, Stk.Fields("Bodega").Text)
                 xTabla.SetData(wfila, T_BODEGA, BuscarCampo("Bodegas", "NombreBodega", "Bodega", Stk.Fields("Bodega").Text))
                 xTabla.SetData(wfila, T_STOCK, Stk.Fields("Stock").Text)
 

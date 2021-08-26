@@ -1,5 +1,5 @@
 ﻿Imports System.ComponentModel
-Module Inventarios
+Public Class Inventarios
     <DisplayName("CodPro")>
     Public Property Articulo As Decimal
     <DisplayName("Detalle")>
@@ -10,4 +10,4 @@ Module Inventarios
     Public Property Cantidad As Decimal
     <DisplayName("Precio Neto")>
     Public Property Neto As Decimal
-End Module
+End Class

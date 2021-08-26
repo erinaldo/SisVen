@@ -1,5 +1,6 @@
-﻿Imports System.ComponentModel
+﻿Imports System
 Imports System.IO
+Imports System.ComponentModel
 Imports System.Text.RegularExpressions
 Imports ClosedXML.Excel
 
@@ -41,7 +42,6 @@ Public Class GeneracionArchivos
 
     Private Sub Generar_Cabecera()
         Dim wDC = New SisVenDataContext(P_CONEXION)
-        Dim wListaCabecera = New List(Of CabeceraVentas)
         Dim wFPagos = wDC.T_FPagos.ToList()
         Dim wClientes = wDC.T_Clientes.ToList()
         Dim wUsuarios = wDC.T_Usuarios.ToList()
@@ -130,7 +130,6 @@ Public Class GeneracionArchivos
 
     Private Sub Generar_Detalles()
         Dim wDC = New SisVenDataContext(P_CONEXION)
-
         Dim wArticulos = wDC.T_Articulos.ToList()
         Dim wUnidades = wDC.T_Unidades.ToList()
 
@@ -169,27 +168,16 @@ Public Class GeneracionArchivos
 
     Private Sub Generar_Inventario()
         Dim wDC = New SisVenDataContext(P_CONEXION)
-        Dim wStocks = New List(Of Inventarios)
+        Dim wArticulos = wDC.T_Articulos.ToList()
 
-        Dim wClientes = wDC.T_Clientes.ToList()
-
-        'Dim wStocks = wDC.T_Stocks.Select(Function(x) New Inventarios With
-        '{
-        '    .Mes = Month(Now),
-        '    .Ano = Year(Now),
-        '    .ID = x.Id,
-        '    .Marca = x.Marca,
-        '    .Modelo = x.Modelo,
-        '    .Ubicacion = x.Ubicacion,
-        '    .Cliente = x.Cliente,
-        '    .Sucursal = x.Sucursal,
-        '    .Garantia = x.Garantia,
-        '    .Guia = x.Guia,
-        '    .FechaAsignacion = x.FechaAsignacion,
-        '    .Territorio = x.Territorio,
-        '    .Estado = x.Estado,
-        '    .FechaRecuperacion = x.FechaRecuperacion
-        '}).ToList()
+        Dim wStocks = wDC.T_Stocks.Where(Function(x) x.Stock > 0).OrderBy(Function(x) x.Articulo).Select(Function(x) New Inventarios With
+        {
+            .Articulo = x.Articulo,
+            .Descripcion = "",
+            .Bodega = x.Bodega,
+            .Cantidad = x.Stock,
+            .Neto = 0
+        }).ToList()
 
         If Not wStocks.Any() Then
             MsgError("No existen registros de Inventario")
@@ -197,17 +185,17 @@ Public Class GeneracionArchivos
         End If
 
         wStocks.ForEach(Sub(x)
-                            Dim wCliente = wClientes.FirstOrDefault(Function(c) c.Cliente = x.Cliente)
-                            If wCliente IsNot Nothing Then
-                                x.Rut = wCliente.Rut
-                                x.NombreSucursal = wCliente.Nombre
+                            Dim wArticulo = wArticulos.FirstOrDefault(Function(a) a.Articulo = x.Articulo)
+                            If wArticulo IsNot Nothing Then
+                                x.Descripcion = wArticulo.Descripcion
+                                x.Neto = Math.Round((Val(wArticulo.PVenta) / (1 + (G_IVA / 100))), 2)
                             End If
                         End Sub)
         Try
 
             wArchivo = Nombre_Archivo("Valorizado")
             wPath = Environment.CurrentDirectory + "\Archivos\" + wArchivo
-            Dim Stream = ExcelWorkbookService.GenerateExcel(Of Maquinas)(wStocks, "Valorizado", Nothing)
+            Dim Stream = ExcelWorkbookService.GenerateExcel(Of Inventarios)(wStocks, "Valorizado", Nothing)
             File.WriteAllBytes(wPath, Stream.ToArray)
 
         Catch ex As Exception
@@ -219,7 +207,6 @@ Public Class GeneracionArchivos
 
     Private Sub Generar_Maquinas()
         Dim wDC = New SisVenDataContext(P_CONEXION)
-        Dim wListaMaquinas = New List(Of Maquinas)
         Dim wClientes = wDC.T_Clientes.ToList()
 
         Dim wMaquinas = wDC.T_Maquinas.Select(Function(x) New Maquinas With

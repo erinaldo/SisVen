@@ -766,7 +766,6 @@
     <Compile Include="Objetos\CuadraturaReporte.vb" />
     <Compile Include="Objetos\DateComboBox.vb" />
     <Compile Include="Objetos\DescuentoListado.vb" />
-    <Compile Include="Objetos\Inventarios.vb" />
     <Compile Include="Objetos\DetalleVentas.vb" />
     <Compile Include="Objetos\DocumentoListado.vb" />
     <Compile Include="Objetos\DocumentosG.vb" />
@@ -779,6 +778,7 @@
     <Compile Include="Objetos\FPagoListado.vb" />
     <Compile Include="Objetos\FacturasReporte.vb" />
     <Compile Include="Objetos\Indicadores.vb" />
+    <Compile Include="Objetos\Inventarios.vb" />
     <Compile Include="Objetos\LiquidacionesReporte.vb" />
     <Compile Include="Objetos\LiquidacionReporte.vb" />
     <Compile Include="Objetos\LocalesParametro.vb" />

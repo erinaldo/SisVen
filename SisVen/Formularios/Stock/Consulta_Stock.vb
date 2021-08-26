@@ -335,4 +335,8 @@ Public Class Consulta_Stock
             cBodega.Focus()
         End If
     End Sub
+
+    Private Sub gPedidos_Enter(sender As Object, e As EventArgs) Handles gPedidos.Enter
+
+    End Sub
 End Class

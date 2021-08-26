@@ -176,6 +176,7 @@ Partial Class Movimientos
         Me.bBuscarC.Text = "Buscar"
         Me.bBuscarC.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.bBuscarC.UseVisualStyleBackColor = False
+        Me.bBuscarC.Visible = False
         '
         'xNombre
         '
@@ -188,6 +189,7 @@ Partial Class Movimientos
         Me.xNombre.ReadOnly = True
         Me.xNombre.Size = New System.Drawing.Size(522, 22)
         Me.xNombre.TabIndex = 2
+        Me.xNombre.Visible = False
         '
         'Label5
         '
@@ -198,6 +200,7 @@ Partial Class Movimientos
         Me.Label5.Size = New System.Drawing.Size(52, 16)
         Me.Label5.TabIndex = 10
         Me.Label5.Text = "Cliente"
+        Me.Label5.Visible = False
         '
         'xCliente
         '
@@ -207,6 +210,7 @@ Partial Class Movimientos
         Me.xCliente.Name = "xCliente"
         Me.xCliente.Size = New System.Drawing.Size(90, 22)
         Me.xCliente.TabIndex = 1
+        Me.xCliente.Visible = False
         '
         'Label4
         '
@@ -272,7 +276,7 @@ Partial Class Movimientos
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(6, 18)
+        Me.Label7.Location = New System.Drawing.Point(7, 46)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(99, 16)
         Me.Label7.TabIndex = 12
@@ -282,7 +286,7 @@ Partial Class Movimientos
         '
         Me.xDocumento.BackColor = System.Drawing.Color.White
         Me.xDocumento.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.xDocumento.Location = New System.Drawing.Point(121, 15)
+        Me.xDocumento.Location = New System.Drawing.Point(121, 43)
         Me.xDocumento.Name = "xDocumento"
         Me.xDocumento.Size = New System.Drawing.Size(57, 22)
         Me.xDocumento.TabIndex = 0
@@ -291,7 +295,7 @@ Partial Class Movimientos
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label6.Location = New System.Drawing.Point(6, 43)
+        Me.Label6.Location = New System.Drawing.Point(7, 21)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(111, 16)
         Me.Label6.TabIndex = 1
@@ -302,7 +306,7 @@ Partial Class Movimientos
         Me.cTipoDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cTipoDoc.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cTipoDoc.FormattingEnabled = True
-        Me.cTipoDoc.Location = New System.Drawing.Point(121, 40)
+        Me.cTipoDoc.Location = New System.Drawing.Point(121, 13)
         Me.cTipoDoc.Name = "cTipoDoc"
         Me.cTipoDoc.Size = New System.Drawing.Size(322, 24)
         Me.cTipoDoc.TabIndex = 2

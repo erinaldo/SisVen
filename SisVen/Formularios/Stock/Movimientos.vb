@@ -22,6 +22,7 @@ Public Class Movimientos
         xMovimiento.Text = SiguienteCorrelativo("MovGen")
         Titulos()
         Auditoria(Me.Text, PR_INGRESAR, "", 0)
+        cTipoDoc.Text = "Sin Documento"
     End Sub
     Sub CorrelativoMov()
         Cor = SQL("Select Top 1 Movimiento from MovGen Order by Movimiento Desc")
@@ -81,7 +82,7 @@ Public Class Movimientos
 
     Private Sub cBodegas_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cBodegas.SelectedIndexChanged
         If ValidarCombo(cBodegas) Then
-            xCliente.Focus()
+            cTipoDoc.Focus()
         End If
     End Sub
 
@@ -189,20 +190,26 @@ Public Class Movimientos
             cBodegas.Focus()
             Exit Sub
         End If
-        If xCliente.Text.Trim = "" Then
-            MsgError("Debe ingresar Cliente")
-            xCliente.Focus()
-            Exit Sub
-        End If
-        If xDocumento.Text.Trim = "" Then
-            MsgError("Debe ingresar numero de documento")
-            xDocumento.Focus()
-            Exit Sub
-        End If
+        'If xCliente.Text.Trim = "" Then
+        '    MsgError("Debe ingresar Cliente")
+        '    xCliente.Focus()
+        '    Exit Sub
+        'End If
         If ValidarCombo(cTipoDoc) = False Then
             MsgError("Debe ingresar tipo documento")
             cTipoDoc.Focus()
             Exit Sub
+        End If
+        If cTipoDoc.Text = "Sin Documento" Then
+            If xDocumento.Text.Trim = "" Then
+                xDocumento.Text = "0"
+            End If
+        Else
+            If xDocumento.Text.Trim = "" Then
+                MsgError("Debe ingresar número de documento")
+                xDocumento.Focus()
+                Exit Sub
+            End If
         End If
         If ValidarCombo(cResponsable) = False Then
             MsgError("Debe indicar personal responsable")
@@ -229,7 +236,7 @@ Public Class Movimientos
         MvG.Fields("Estado").Value = "E"
         MvG.Fields("TipoDoc").Value = cTipoDoc.SelectedValue
         MvG.Fields("NumDoc").Value = xDocumento.Text.Trim
-        MvG.Fields("Cliente").Value = xCliente.Text.Trim
+        MvG.Fields("Cliente").Value = 1
         MvG.Fields("ObsTra").Value = xObservacion.Text.Trim
         MvG.Fields("Total").Value = Totales()
         MvG.Fields("Responsable").Value = cResponsable.SelectedValue
