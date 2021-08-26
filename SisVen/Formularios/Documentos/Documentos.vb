@@ -414,6 +414,14 @@ Public Class Documentos
 
         If Trim(xDescripcion.Text) <> "" Then
             Art = SQL("Select * from Articulos where Articulo = '" & Trim(xArticulo.Text) & "'")
+            If Art.RecordCount = 0 Then
+                MsgError("Articulo no encontrado")
+                Exit Sub
+            End If
+            If Art("Estado").Value = "X" Then
+                MsgError("Articulo Bloqueado")
+                Exit Sub
+            End If
             If Esta_en_Tabla(xArticulo.Text) = 0 Then
                 xTabla.AddItem("")
                 Lin = xTabla.Rows.Count - 1
@@ -468,7 +476,7 @@ Public Class Documentos
                     xTabla_Click()
                 End If
             Else
-                    MsgError("Articulo ya Ingresado")
+                MsgError("Articulo ya Ingresado")
             End If
         End If
 
