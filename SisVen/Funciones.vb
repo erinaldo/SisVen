@@ -23,7 +23,7 @@ Module Funciones
     Public Const W_SELECCIONAR As String = "Seleccionar"
     Public Const c_Empresa As String = "Wikets Software"
     Public Const c_Sistema As String = "SisVen"
-    Public Const Version As String = "1.46 26/08/2021"
+    Public Const Version As String = "1.47 30/08/2021"
 
     Public gProgramador As Boolean = False
     Public gMonoLocal As Boolean = True
@@ -1627,6 +1627,19 @@ Module Funciones
 
     End Function
 
+    Public Function Validar_Stocks(wBodega As Integer, wArticulo As Double, wCantidad As Double) As Boolean
+        If wBodega = 0 Or wArticulo = 0 Or wCantidad = 0 Then
+            Return True
+        End If
+        Stk = SQL("Select * from Stocks where Bodega=" + Num(wBodega) + " and Articulo=" + Num(wArticulo))
+        If Stk.RecordCount = 0 Then
+            Return False
+        End If
+        If Stk.Fields("Stock").Value >= wCantidad Then
+            Return True
+        End If
+        Return False
+    End Function
 
     Public Function ObtenerListado(wTabla As String, wCampo As String, Optional wFiltro As String = " 1=1 ") As String()
 

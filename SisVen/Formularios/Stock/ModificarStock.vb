@@ -7,6 +7,8 @@ Public Class ModificarStock
     Const T_CODIGO = 1
     Const T_BODEGA = 2
     Const T_STOCK = 3
+    Const T_FECHA = 4
+    Const T_USUARIO = 5
 
     Public Sub CargarRegistro(ByVal wControl As Control, ByVal wValor As String) Implements iFormulario.CargarRegistro
         wControl.Text = wValor
@@ -60,17 +62,21 @@ Public Class ModificarStock
 
         xTabla.Clear()
         xTabla.Rows.Count = 1
-        xTabla.Cols.Count = 4
+        xTabla.Cols.Count = 6
 
         xTabla.Cols(T_LOCAL).Width = 180
         xTabla.Cols(T_CODIGO).Width = 60
         xTabla.Cols(T_BODEGA).Width = 200
         xTabla.Cols(T_STOCK).Width = 80
+        xTabla.Cols(T_FECHA).Width = 130
+        xTabla.Cols(T_USUARIO).Width = 80
 
         xTabla.Cols(T_LOCAL).Caption = "Local"
         xTabla.Cols(T_CODIGO).Caption = "Código"
         xTabla.Cols(T_BODEGA).Caption = "Bodega"
         xTabla.Cols(T_STOCK).Caption = "Stock"
+        xTabla.Cols(T_FECHA).Caption = "Última Modificación"
+        xTabla.Cols(T_USUARIO).Caption = "Usuario"
 
         xTabla.Redraw = True
     End Sub
@@ -93,6 +99,7 @@ Public Class ModificarStock
             Filtro = "Bodega = " + Num(BuscarCampo("Bodegas", "Bodega", "NombreBodega", cBodega.Text.Trim))
         End If
 
+        Me.Cursor = Cursors.WaitCursor
         Titulos()
         Bod = SQL("SELECT * FROM Bodegas WHERE Bodega > 0 and " + Filtro + " Order by Bodega")
         If Bod.RecordCount > 0 Then
@@ -106,6 +113,8 @@ Public Class ModificarStock
                     Stk.Fields("stockmin").Value = 0
                     Stk.Fields("StockMax").Value = 100
                     Stk.Fields("Stock").Value = 0
+                    Stk.Fields("Fecha").Value = CDate("01/01/2000")
+                    Stk.Fields("Usuario").Value = ""
                     Stk.Update()
                 End If
 
@@ -114,11 +123,14 @@ Public Class ModificarStock
                 xTabla.SetData(wfila, T_CODIGO, Stk.Fields("Bodega").Text)
                 xTabla.SetData(wfila, T_BODEGA, BuscarCampo("Bodegas", "NombreBodega", "Bodega", Stk.Fields("Bodega").Text))
                 xTabla.SetData(wfila, T_STOCK, Stk.Fields("Stock").Text)
+                xTabla.SetData(wfila, T_FECHA, Stk.Fields("Fecha").Text)
+                xTabla.SetData(wfila, T_USUARIO, Stk.Fields("Usuario").Text)
 
                 wfila += 1
                 Bod.MoveNext()
             End While
         End If
+        Me.Cursor = Cursors.Default
         xTabla.Focus()
     End Sub
 
@@ -160,10 +172,13 @@ Public Class ModificarStock
                     End If
 
                     Stk = SQL("SELECT * FROM Stocks WHERE Articulo = '" & xArticulo.Text.Trim & "' AND Local ='" & wLocal & "' AND Bodega = '" & wBodega & "'")
-
                     If Stk.RecordCount > 0 Then
-                        Stk.Fields("Stock").Value = xTabla.GetData(wFila, T_STOCK)
-                        Stk.Update()
+                        If Stk.Fields("Stock").Value <> xTabla.GetData(wFila, T_STOCK) Then
+                            Stk.Fields("Stock").Value = xTabla.GetData(wFila, T_STOCK)
+                            Stk.Fields("Fecha").Value = Now
+                            Stk.Fields("Usuario").Value = UsuarioActual
+                            Stk.Update()
+                        End If
                     End If
                 Next
                 MsgBox("Stocks modificado correctamente")

@@ -88,6 +88,23 @@ Public Class Documentos
             Exit Sub
         End If
 
+        'Validar Stocks
+        Dim HayStock As Boolean
+        For i = 1 To xTabla.Rows.Count - 1
+
+            If xTabla.GetData(i, T_CANTIDAD) = 0 Then
+                MsgError("Artículo sin Cantidad: " + Num(xTabla.GetData(i, T_ARTICULO)) + vbCrLf + xTabla.GetData(i, T_DESCRIPCION))
+                Exit Sub
+            End If
+
+            HayStock = Validar_Stocks(BodegaActual, xTabla.GetData(i, T_ARTICULO), xTabla.GetData(i, T_CANTIDAD))
+            If Not HayStock Then
+                MsgError("No hay stock para el Artículo: " + Num(xTabla.GetData(i, T_ARTICULO)) + vbCrLf + xTabla.GetData(i, T_DESCRIPCION))
+                Exit Sub
+            End If
+        Next
+
+
         If ValidarDeuda Then
             Exit Sub
         End If
@@ -107,7 +124,7 @@ Public Class Documentos
             End If
 
             Swap = SQL("Select * from  Motivos where DescMotivo = '" + cMotivo.Text + "' and TipoDoc = '" + xTipoDoc + "'")
-            If Swap.RecordCount > 0 Then
+                If Swap.RecordCount > 0 Then
                 xMotivo = Swap("Motivo").Value
             Else
                 MsgError("Motivo de " + cTipoDoc.Text.Trim + " incorrecto.")
@@ -214,7 +231,7 @@ Public Class Documentos
         DocG("Electronica").Value = oElectronica.Checked
         DocG("Fecha").Value = xFecha.Value
         DocG("Estado").Value = "A"
-        DocG("Bodega").Value = BodegaParcial
+        DocG("Bodega").Value = BodegaActual
         DocG("Cliente").Value = Val(xCliente.Text)
         DocG("Rut").Value = xRut.Text
         DocG("Aprobado").Value = True
@@ -1072,6 +1089,10 @@ Public Class Documentos
                 xTabla.SetData(xTabla.Row, xTabla.Col, 0)
                 Exit Sub
             End If
+            If Not Validar_Stocks(BodegaActual, xTabla.GetData(xTabla.Row, T_ARTICULO), xTabla.GetData(xTabla.Row, T_CANTIDAD)) Then
+                MsgError("No hay Stock")
+                Exit Sub
+            End If
             If xTabla.Col = T_NETO And xTabla.GetData(xTabla.Row, T_ARTICULO) = "0" Then
                 xTabla.SetData(xTabla.Row, T_PVENTA, Math.Round(xTabla.GetData(xTabla.Row, T_NETO) * (1 + (gIVA / 100)), 0))
             End If
@@ -1210,12 +1231,10 @@ Public Class Documentos
         End If
         If Buscar("Usuarios", "Usuario", Trim(xVendedor.Text), "NombreUsr,Bodega") Then
             xNomVen.Text = Trim(Swap("NombreUsr").Value)
-            BodegaParcial = Swap("Bodega").Value
         Else
             xNomVen.Text = ""
-            BodegaParcial = BodegaActual
         End If
-
+        BodegaParcial = BodegaActual
     End Sub
 
     Sub Cargar_Ticket()
@@ -1343,5 +1362,9 @@ Public Class Documentos
 
     Private Sub bDirectorio_Click(sender As Object, e As EventArgs) Handles bDirectorio.Click
         Abrir_Documento(Directorio_PDF)
+    End Sub
+
+    Private Sub xTabla_BeforeResizeColumn(sender As Object, e As RowColEventArgs) Handles xTabla.BeforeResizeColumn
+
     End Sub
 End Class

@@ -145,12 +145,6 @@ Public Class ManMaquinas
             cUbicacion.Focus()
             Exit Sub
         End If
-
-        If xTerritorio.Text.Trim = "" Then
-            MsgError("Falta Territorio")
-            xTerritorio.Focus()
-            Exit Sub
-        End If
         If cEstado.Text.Trim = "" Then
             MsgError("Falta Estado")
             cEstado.Focus()
@@ -308,14 +302,14 @@ Public Class ManMaquinas
     End Sub
 
     Sub Verificar_Cliente()
-        If xCliente.Text.Trim = "" Or xCliente.Text.Trim = "0" Then
+        If xCliente.Text.Trim = "" Or Num(xCliente.Text.Trim) = "0" Then
             xCliente.Text = ""
             xNombre.Text = ""
             xRut.Text = ""
             xSucursal.Text = ""
             Exit Sub
         End If
-        Dim cl = SQL("SELECT Nombre,Rut FROM Clientes WHERE Cliente = " & xCliente.Text)
+        Dim cl = SQL("SELECT Nombre,Rut FROM Clientes WHERE Cliente = " & Num(xCliente.Text))
         If cl.RecordCount > 0 Then
             xNombre.Text = cl.Fields("Nombre").Text.Trim
             xRut.Text = cl.Fields("Rut").Text.Trim

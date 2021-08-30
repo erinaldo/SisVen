@@ -51,7 +51,7 @@ Partial Class ModificarStock
         Me.WinDeco1.Location = New System.Drawing.Point(0, 0)
         Me.WinDeco1.MuestraBordeExterior = -1
         Me.WinDeco1.Name = "WinDeco1"
-        Me.WinDeco1.Size = New System.Drawing.Size(594, 50)
+        Me.WinDeco1.Size = New System.Drawing.Size(823, 50)
         Me.WinDeco1.TabIndex = 0
         Me.WinDeco1.TituloVentana = "Stock de Artículos de Bodegas"
         Me.WinDeco1.VerCerrar = True
@@ -66,7 +66,7 @@ Partial Class ModificarStock
         Me.bCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.bCancelar.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.bCancelar.Image = Global.SisVen.My.Resources.Resources.cancel24
-        Me.bCancelar.Location = New System.Drawing.Point(488, 450)
+        Me.bCancelar.Location = New System.Drawing.Point(716, 450)
         Me.bCancelar.Name = "bCancelar"
         Me.bCancelar.Size = New System.Drawing.Size(94, 36)
         Me.bCancelar.TabIndex = 3
@@ -87,7 +87,7 @@ Partial Class ModificarStock
         Me.xTabla.Name = "xTabla"
         Me.xTabla.Rows.Count = 1
         Me.xTabla.Rows.DefaultSize = 22
-        Me.xTabla.Size = New System.Drawing.Size(569, 257)
+        Me.xTabla.Size = New System.Drawing.Size(798, 257)
         Me.xTabla.StyleInfo = resources.GetString("xTabla.StyleInfo")
         Me.xTabla.TabIndex = 1
         Me.xTabla.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Silver
@@ -113,7 +113,7 @@ Partial Class ModificarStock
         Me.bActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.bActualizar.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.bActualizar.Image = Global.SisVen.My.Resources.Resources.refresh_update24
-        Me.bActualizar.Location = New System.Drawing.Point(338, 450)
+        Me.bActualizar.Location = New System.Drawing.Point(566, 450)
         Me.bActualizar.Name = "bActualizar"
         Me.bActualizar.Size = New System.Drawing.Size(147, 36)
         Me.bActualizar.TabIndex = 46
@@ -190,9 +190,9 @@ Partial Class ModificarStock
         Me.bConsultar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.bConsultar.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.bConsultar.Image = Global.SisVen.My.Resources.Resources.find32
-        Me.bConsultar.Location = New System.Drawing.Point(481, 33)
+        Me.bConsultar.Location = New System.Drawing.Point(688, 13)
         Me.bConsultar.Name = "bConsultar"
-        Me.bConsultar.Size = New System.Drawing.Size(74, 58)
+        Me.bConsultar.Size = New System.Drawing.Size(104, 82)
         Me.bConsultar.TabIndex = 4
         Me.bConsultar.Text = "Consultar"
         Me.bConsultar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
@@ -211,7 +211,7 @@ Partial Class ModificarStock
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 56)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(569, 107)
+        Me.GroupBox1.Size = New System.Drawing.Size(798, 107)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
@@ -227,7 +227,7 @@ Partial Class ModificarStock
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(594, 498)
+        Me.ClientSize = New System.Drawing.Size(823, 498)
         Me.Controls.Add(Me.bActualizar)
         Me.Controls.Add(Me.bLimpiar)
         Me.Controls.Add(Me.xTabla)
