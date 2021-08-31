@@ -1,5 +1,6 @@
 ﻿Imports ADODB
 Public Class AnularDocumentoElectronico
+    Dim ModoBodega As String = "+"
     Private Sub AnulacionDoc_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Loc = SQL("Select NombreLocal from Locales WHERE FElectronica = 1 Order by Local")
         While Not Loc.EOF
@@ -34,10 +35,9 @@ Public Class AnularDocumentoElectronico
     End Sub
 
     Sub Anular_Doc()
-        Dim CorrelativoNuevo As Double, xDescripcion As String
+        Dim CorrelativoNuevo As Double, xDescripcion As String, BodegaDestino As Double, LocalDestino As Double
         Dim DocO As New ADODB.Recordset
         Dim DocR As New ADODB.Recordset
-
 
         If cLocal.Text.Trim = "" Then
             MsgError("Falta Local")
@@ -101,6 +101,9 @@ Public Class AnularDocumentoElectronico
             End If
         Next i
 
+        LocalDestino = DocO.Fields("Local").Value
+        BodegaDestino = DocO.Fields("Bodega").Value
+
         DocO.Fields("TipoDoc").Value = xDoc2.Text
         DocO.Fields("Numero").Value = CorrelativoNuevo
         DocO.Fields("Fecha").Value = CDate(Format(cFecha.Value, "dd/MM/yyyy"))
@@ -115,7 +118,7 @@ Public Class AnularDocumentoElectronico
 
         'Detalles
         DocD = SQL("Select * from DocumentosD where Local = " + Num(xLocal.Text) + " And TipoDoc = '" + xDoc1.Text + "' and Numero = " + Num(xNumero.Text))
-            If DocD.RecordCount = 0 Then
+        If DocD.RecordCount = 0 Then
             MsgError("Documento a Anular sin detalles")
             Exit Sub
         End If
@@ -133,6 +136,12 @@ Public Class AnularDocumentoElectronico
             DocR.Fields("TipoDoc").Value = xDoc2.Text
             DocR.Fields("Numero").Value = CorrelativoNuevo
             If xDescripcion = "" Then xDescripcion = DocR.Fields("Glosa").Value
+
+            'Actualizar Stocks
+            If DocR.Fields("Articulo").Value <> "0" Then
+                Stocks(DocR.Fields("Articulo").Value, BodegaDestino, Val(LocalDestino), DocR.Fields("Cantidad").Value, ModoBodega)
+            End If
+
             DocR.Update()
             DocD.MoveNext()
         End While
@@ -225,6 +234,7 @@ Public Class AnularDocumentoElectronico
             cTipoDoc.Text = ""
             xAnula.Text = ""
             xDoc2.Text = ""
+            ModoBodega = "+"
             Exit Sub
         End If
 
@@ -237,6 +247,7 @@ Public Class AnularDocumentoElectronico
 
         xDoc2.Text = Doc.Fields("TipoDoc").Value
         xAnula.Text = Doc.Fields("DescTipoDoc").Value
+        ModoBodega = Doc.Fields("Modo").Value
 
         xFolio.Text = Correlativo(0, LocalActual, xDoc2.Text, cFecha.Value, 0, True)
     End Sub

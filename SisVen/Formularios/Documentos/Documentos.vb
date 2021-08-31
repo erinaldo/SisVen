@@ -301,10 +301,9 @@ Public Class Documentos
             If Trim(xTabla.GetData(i, T_ARTICULO)) <> "0" Then
                 Stocks(Trim(xTabla.GetData(i, T_ARTICULO)), Val(BodegaActual), Val(LocalActual), CDbl(xTabla.GetData(i, T_CANTIDAD)), ModoBodega)
                 Dim wBodD = SQL("SELECT * FROM Bodegas  WHERE Local = " & LocalActual & " AND Despacho = 1")
-                If wBodD.RecordCount > 0 Then
-                    Stocks(Trim(xTabla.GetData(i, T_ARTICULO)), Val(wBodD.Fields("Bodega").Text), Val(LocalActual), CDbl(xTabla.GetData(i, T_CANTIDAD)), "+")
-                End If
-
+                'If wBodD.RecordCount > 0 Then
+                '    Stocks(Trim(xTabla.GetData(i, T_ARTICULO)), Val(wBodD.Fields("Bodega").Text), Val(LocalActual), CDbl(xTabla.GetData(i, T_CANTIDAD)), "+")
+                'End If
             End If
         Next i
 
