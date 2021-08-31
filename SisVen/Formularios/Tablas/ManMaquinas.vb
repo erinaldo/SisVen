@@ -81,7 +81,7 @@ Public Class ManMaquinas
                     cUbicacion.Text = "Taller de Reparaciones"
                 End If
                 xCliente.Text = mq.Fields("Cliente").Text.Trim
-                Dim cl = SQL("SELECT Nombre,Rut FROM Clientes WHERE Cliente = " & xCliente.Text)
+                Dim cl = SQL("SELECT Cliente,Nombre,Rut,Glosa FROM Clientes WHERE Cliente = " & xCliente.Text)
                 If cl.RecordCount > 0 Then
                     xNombre.Text = cl.Fields("Nombre").Text.Trim
                     xRut.Text = cl.Fields("Rut").Text.Trim
@@ -203,11 +203,11 @@ Public Class ManMaquinas
         If xGuia.Text = "" Then xGuia.Text = "0"
 
         If bGuardar.Text = "Guardar" Then
-            SQL("INSERT INTO MAQUINAS (ID, Marca, Modelo, Ubicacion, Cliente, Sucursal, Garantia, Guia, FechaAsignacion, Territorio, Estado, FechaRecuperacion) VALUES ('" & xID.Text.Trim & "','" & xMarca.Text.Trim & "','" & xModelo.Text.Trim & "'," & xUbicacion & "," & xCliente.Text.Trim & ",'" & xSucursal.Text.Trim & "'," & xGarantia.Text.Trim & "," & xGuia.Text.Trim & ",'" & Format(dFechaA.Value, "dd/MM/yyyy") & "','" & xTerritorio.Text.Trim & "'," & xEstado & ",'" & Format(dFechaR.Value, "dd/MM/yyyy") & "')")
+            SQL("INSERT INTO MAQUINAS (ID, Marca, Modelo, Ubicacion, Cliente, Sucursal, Garantia, Guia, FechaAsignacion, Territorio, Estado, FechaRecuperacion) VALUES ('" & xID.Text.Trim & "','" & xMarca.Text.Trim & "','" & xModelo.Text.Trim & "','" & xUbicacion & "'," & Num(xCliente.Text) & ",'" & xSucursal.Text.Trim & "'," & Num(xGarantia.Text) & "," & Num(xGuia.Text) & ",'" & Format(dFechaA.Value, "dd/MM/yyyy") & "','" & xTerritorio.Text.Trim & "'," & xEstado & ",'" & Format(dFechaR.Value, "dd/MM/yyyy") & "')")
             MsgBox("Máquina agregada correctamente")
             Auditoria(Me.Text, PR_GUARDAR, "", 0)
         Else
-            SQL("UPDATE MAQUINAS SET Marca = '" & xMarca.Text.Trim & "', Modelo = '" & xModelo.Text.Trim & "', Ubicacion = " & xUbicacion & ", Cliente = " & xCliente.Text.Trim & ", Sucursal = '" & xSucursal.Text.Trim & "', Garantia = " & xGarantia.Text.Trim & ", Guia = " & xGuia.Text.Trim & ", FechaAsignacion = '" & Format(dFechaA.Value, "dd/MM/yyyy") & "', Territorio = '" & xTerritorio.Text.Trim & "', Estado = " & xEstado & ", FechaRecuperacion = '" & Format(dFechaR.Value, "dd/MM/yyyy") & "' WHERE Id = " & xID.Text & "")
+            SQL("UPDATE MAQUINAS SET Marca = '" & xMarca.Text.Trim & "', Modelo = '" & xModelo.Text.Trim & "', Ubicacion = '" & xUbicacion & "', Cliente = " & xCliente.Text.Trim & ", Sucursal = '" & xSucursal.Text.Trim & "', Garantia = " & Num(xGarantia.Text) & ", Guia = " & Num(xGuia.Text.Trim) & ", FechaAsignacion = '" & Format(dFechaA.Value, "dd/MM/yyyy") & "', Territorio = '" & xTerritorio.Text.Trim & "', Estado = " & xEstado & ", FechaRecuperacion = '" & Format(dFechaR.Value, "dd/MM/yyyy") & "' WHERE Id = '" & xID.Text & "'")
             MsgBox("Máquina modificada correctamente")
             Auditoria(Me.Text, PR_MODIFICAR, "", 0)
         End If
@@ -231,7 +231,7 @@ Public Class ManMaquinas
     Private Sub bEliminar_Click(sender As Object, e As EventArgs) Handles bEliminar.Click
         Try
             If IsNumeric(xID.Text) Then
-                SQL("DELETE FROM Maquinas WHERE ID = " & xID.Text.Trim)
+                SQL("DELETE FROM Maquinas WHERE ID = '" & xID.Text.Trim & "'")
                 MsgBox("Máquina Eliminada")
                 Auditoria(Me.Text, PR_ELIMINAR, "", 0)
                 Limpiar()
@@ -309,7 +309,7 @@ Public Class ManMaquinas
             xSucursal.Text = ""
             Exit Sub
         End If
-        Dim cl = SQL("SELECT Nombre,Rut FROM Clientes WHERE Cliente = " & Num(xCliente.Text))
+        Dim cl = SQL("SELECT Cliente,Nombre,Rut,Glosa FROM Clientes WHERE Cliente = " & Num(xCliente.Text))
         If cl.RecordCount > 0 Then
             xNombre.Text = cl.Fields("Nombre").Text.Trim
             xRut.Text = cl.Fields("Rut").Text.Trim
