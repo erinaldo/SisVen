@@ -48,7 +48,7 @@ Public Class GeneracionArchivos
         Dim wCiudades = wDC.T_Ciudades.ToList()
         Dim wComunas = wDC.T_Comunas.ToList()
 
-        Dim wEncabezado = wDC.T_DocumentosG.Where(Function(x) x.Fecha >= dDesde.Value And x.Fecha <= dHasta.Value).OrderBy(Function(x) x.Numero).Select(Function(x) New CabeceraVentas With
+        Dim wEncabezado = wDC.T_DocumentosG.Where(Function(x) x.TipoDoc <> "GD" And x.Fecha >= dDesde.Value And x.Fecha <= dHasta.Value).OrderBy(Function(x) x.Numero).Select(Function(x) New CabeceraVentas With
         {
             .Cliente = x.Cliente,
             .TipoDoc = Tipo_Documento(x.TipoDoc),
@@ -74,7 +74,7 @@ Public Class GeneracionArchivos
             .ComunaSuc = "",
             .CiudadSuc = "",
             .Direccion = "",
-            .NombreVendedor = x.Vendedor
+            .NombreVendedor = x.Vendedor.ToUpper
         }).ToList()
 
         If Not wEncabezado.Any() Then
@@ -93,19 +93,20 @@ Public Class GeneracionArchivos
                                 Dim wUsr = wUsuarios.FirstOrDefault(Function(u) u.Usuario = x.Vendedor)
                                 If wUsr IsNot Nothing Then
                                     x.NombreVendedor = wUsr.NombreUsr.ToUpper
+                                    x.Vendedor = wUsr.Codigo
                                 End If
                             End Sub)
 
         wEncabezado.ForEach(Sub(x)
                                 Dim wCliente = wClientes.FirstOrDefault(Function(c) c.Cliente = x.Cliente)
                                 If wCliente IsNot Nothing Then
-                                    x.Rut = wCliente.Rut.Replace(".", "").ToUpper
+                                    x.Rut = Corrige_Rut(wCliente.Rut)
                                     x.Nombre = wCliente.Nombre.ToUpper
                                     x.Comuna = Saca_Comuna(wCliente.Comuna).ToUpper
                                     x.Ciudad = Saca_Ciudad(wCliente.Ciudad).ToUpper
                                     x.Giro = wCliente.Giro.ToUpper
                                     x.Telefonos = wCliente.Telefonos
-                                    x.Fantasia = wCliente.Fantasia.ToUpper
+                                    x.Fantasia = "GIANTCOLD"
                                     x.Sucursal = wCliente.Glosa
                                     x.DireccionSuc = If(x.Sucursal.Trim = "" Or x.Sucursal = "0000", "", wCliente.Direccion.ToUpper)
                                     x.CiudadSuc = If(x.Sucursal.Trim = "" Or x.Sucursal = "0000", "", x.Ciudad)
@@ -133,7 +134,7 @@ Public Class GeneracionArchivos
         Dim wArticulos = wDC.T_Articulos.ToList()
         Dim wUnidades = wDC.T_Unidades.ToList()
 
-        Dim wDetallesVentas = wDC.V_DetalleDocumentos.Where(Function(x) x.Fecha >= dDesde.Value And x.Fecha <= dHasta.Value).OrderBy(Function(x) x.Numero).ToList()
+        Dim wDetallesVentas = wDC.V_DetalleDocumentos.Where(Function(x) x.TipoDoc <> "GD" And x.Fecha >= dDesde.Value And x.Fecha <= dHasta.Value).OrderBy(Function(x) x.Numero).ToList()
 
         Dim wDetalles = wDetallesVentas.Select(Function(x) New DetalleVentas With
         {
@@ -176,7 +177,9 @@ Public Class GeneracionArchivos
             .Descripcion = "",
             .Bodega = x.Bodega,
             .Cantidad = x.Stock,
-            .Neto = 0
+            .Neto = 0,
+            .Unidades = 1,
+            .Negocio = 1
         }).ToList()
 
         If Not wStocks.Any() Then
@@ -235,7 +238,7 @@ Public Class GeneracionArchivos
         wMaquinas.ForEach(Sub(x)
                               Dim wCliente = wClientes.FirstOrDefault(Function(c) c.Cliente = x.Cliente)
                               If wCliente IsNot Nothing Then
-                                  x.Rut = wCliente.Rut
+                                  x.Rut = Corrige_Rut(wCliente.Rut)
                                   x.NombreSucursal = wCliente.Nombre
                               End If
                           End Sub)
@@ -277,4 +280,16 @@ Public Class GeneracionArchivos
     Function Nombre_Archivo(wNombre As String) As String
         Nombre_Archivo = wNombre + "_" + Format(Now, "ddMMyyyy") + ".xlsx"
     End Function
+
+    Function Corrige_Rut(wRut As String) As String
+        wRut = wRut.Replace(".", "").ToUpper
+        If Mid(wRut, 1, 1) = "0" Then
+            wRut = Mid(wRut, 2, 12)
+        End If
+        Return wRut.Trim
+    End Function
+
+    Private Sub bCancelar_Click(sender As Object, e As EventArgs) Handles bCancelar.Click
+        Me.Close()
+    End Sub
 End Class

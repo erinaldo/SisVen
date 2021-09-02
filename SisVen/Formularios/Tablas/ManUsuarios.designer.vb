@@ -50,12 +50,16 @@ Partial Class ManUsuarios
         Me.Eliminar = New System.Windows.Forms.Button()
         Me.WinDeco1 = New SisVen.WinDeco()
         Me.bLimpiar = New System.Windows.Forms.Button()
+        Me.xNumero = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.Transparent
+        Me.GroupBox1.Controls.Add(Me.xNumero)
+        Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.zClave)
         Me.GroupBox1.Controls.Add(Me.Ver)
         Me.GroupBox1.Controls.Add(Me.xNombreCliente)
@@ -79,7 +83,7 @@ Partial Class ManUsuarios
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 56)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(576, 252)
+        Me.GroupBox1.Size = New System.Drawing.Size(576, 294)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
@@ -87,7 +91,7 @@ Partial Class ManUsuarios
         '
         Me.zClave.AutoSize = True
         Me.zClave.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.zClave.Location = New System.Drawing.Point(481, 224)
+        Me.zClave.Location = New System.Drawing.Point(375, 121)
         Me.zClave.Name = "zClave"
         Me.zClave.Size = New System.Drawing.Size(0, 16)
         Me.zClave.TabIndex = 116
@@ -117,7 +121,7 @@ Partial Class ManUsuarios
         Me.xNombreCliente.Location = New System.Drawing.Point(179, 174)
         Me.xNombreCliente.Name = "xNombreCliente"
         Me.xNombreCliente.ReadOnly = True
-        Me.xNombreCliente.Size = New System.Drawing.Size(309, 23)
+        Me.xNombreCliente.Size = New System.Drawing.Size(302, 23)
         Me.xNombreCliente.TabIndex = 104
         Me.xNombreCliente.TabStop = False
         '
@@ -134,7 +138,7 @@ Partial Class ManUsuarios
         Me.oFuncionario.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.oFuncionario.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.oFuncionario.ForeColor = System.Drawing.Color.Black
-        Me.oFuncionario.Location = New System.Drawing.Point(108, 203)
+        Me.oFuncionario.Location = New System.Drawing.Point(98, 251)
         Me.oFuncionario.Name = "oFuncionario"
         Me.oFuncionario.Size = New System.Drawing.Size(150, 37)
         Me.oFuncionario.TabIndex = 115
@@ -169,7 +173,7 @@ Partial Class ManUsuarios
         'xClave
         '
         Me.xClave.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.xClave.Location = New System.Drawing.Point(98, 114)
+        Me.xClave.Location = New System.Drawing.Point(98, 118)
         Me.xClave.MaxLength = 4
         Me.xClave.Name = "xClave"
         Me.xClave.Size = New System.Drawing.Size(168, 23)
@@ -257,7 +261,7 @@ Partial Class ManUsuarios
         '
         Me.Label11.AutoSize = True
         Me.Label11.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.Location = New System.Drawing.Point(9, 181)
+        Me.Label11.Location = New System.Drawing.Point(9, 177)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(52, 16)
         Me.Label11.TabIndex = 86
@@ -267,7 +271,7 @@ Partial Class ManUsuarios
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label7.Location = New System.Drawing.Point(9, 147)
+        Me.Label7.Location = New System.Drawing.Point(9, 148)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(42, 16)
         Me.Label7.TabIndex = 82
@@ -320,7 +324,7 @@ Partial Class ManUsuarios
         Me.Cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Cancelar.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Cancelar.Image = Global.SisVen.My.Resources.Resources.cancel24
-        Me.Cancelar.Location = New System.Drawing.Point(489, 331)
+        Me.Cancelar.Location = New System.Drawing.Point(489, 374)
         Me.Cancelar.Name = "Cancelar"
         Me.Cancelar.Size = New System.Drawing.Size(99, 36)
         Me.Cancelar.TabIndex = 4
@@ -337,7 +341,7 @@ Partial Class ManUsuarios
         Me.Aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Aceptar.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Aceptar.Image = Global.SisVen.My.Resources.Resources.save24
-        Me.Aceptar.Location = New System.Drawing.Point(271, 331)
+        Me.Aceptar.Location = New System.Drawing.Point(271, 374)
         Me.Aceptar.Name = "Aceptar"
         Me.Aceptar.Size = New System.Drawing.Size(114, 36)
         Me.Aceptar.TabIndex = 2
@@ -354,7 +358,7 @@ Partial Class ManUsuarios
         Me.Eliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.Eliminar.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Eliminar.Image = Global.SisVen.My.Resources.Resources.delete24
-        Me.Eliminar.Location = New System.Drawing.Point(390, 331)
+        Me.Eliminar.Location = New System.Drawing.Point(390, 374)
         Me.Eliminar.Name = "Eliminar"
         Me.Eliminar.Size = New System.Drawing.Size(93, 36)
         Me.Eliminar.TabIndex = 3
@@ -389,7 +393,7 @@ Partial Class ManUsuarios
         Me.bLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.bLimpiar.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.bLimpiar.Image = Global.SisVen.My.Resources.Resources.clean24
-        Me.bLimpiar.Location = New System.Drawing.Point(12, 331)
+        Me.bLimpiar.Location = New System.Drawing.Point(12, 374)
         Me.bLimpiar.Name = "bLimpiar"
         Me.bLimpiar.Size = New System.Drawing.Size(88, 36)
         Me.bLimpiar.TabIndex = 106
@@ -398,11 +402,30 @@ Partial Class ManUsuarios
         Me.bLimpiar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.bLimpiar.UseVisualStyleBackColor = False
         '
+        'xNumero
+        '
+        Me.xNumero.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.xNumero.Location = New System.Drawing.Point(98, 203)
+        Me.xNumero.MaxLength = 4
+        Me.xNumero.Name = "xNumero"
+        Me.xNumero.Size = New System.Drawing.Size(75, 23)
+        Me.xNumero.TabIndex = 117
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(9, 207)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(57, 16)
+        Me.Label3.TabIndex = 118
+        Me.Label3.Text = "Número"
+        '
         'ManUsuarios
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(600, 379)
+        Me.ClientSize = New System.Drawing.Size(600, 422)
         Me.ControlBox = False
         Me.Controls.Add(Me.bLimpiar)
         Me.Controls.Add(Me.Cancelar)
@@ -448,4 +471,6 @@ Partial Class ManUsuarios
     Public WithEvents bLimpiar As Button
     Friend WithEvents oFuncionario As CheckBox
     Friend WithEvents zClave As Label
+    Friend WithEvents xNumero As TextBox
+    Friend WithEvents Label3 As Label
 End Class

@@ -24,6 +24,7 @@ Public Class ManUsuarios
         cLocal.Text = ""
         oFuncionario.Checked = False
         xCliente.Clear()
+        xNumero.Clear()
         xNombreCliente.Clear()
         Aceptar.Enabled = True
         Eliminar.Enabled = False
@@ -228,6 +229,12 @@ Public Class ManUsuarios
             xCliente.Text = 0
         End If
 
+        If Val(xNumero.Text) = 0 Then
+            MsgError("Debe ingresar un Código de Vendedor")
+            xNumero.Focus()
+            Exit Sub
+        End If
+
         If Not Buscar("Clientes", "Cliente", Trim(xCliente.Text), "*", "") Then
             xCliente.Focus()
             xCliente.SelectAll()
@@ -258,6 +265,7 @@ Public Class ManUsuarios
                     Usr.Fields("Cargas").Value = "0"
                     Usr.Fields("Pactado").Value = "0"
                     Usr.Fields("Empresa").Value = Val(xCliente.Text)
+                    Usr.Fields("Codigo").Value = Val(xNumero.Text)
                     Usr.Update()
 
                     ActualizarPermisosUsuario(Usr.Fields("Usuario").Value, Val(Usr.Fields("Acceso").Value))
@@ -290,6 +298,7 @@ Public Class ManUsuarios
                     Usr.Fields("Cargas").Value = "0"
                     Usr.Fields("Pactado").Value = "0"
                     Usr.Fields("Empresa").Value = Val(xCliente.Text)
+                    Usr.Fields("Codigo").Value = Val(xNumero.Text)
                     Usr.Update()
                     Mensaje("Datos Modificados")
                     Auditoria(Text, "Modificación de Usuario", "", 0)
@@ -356,6 +365,7 @@ Public Class ManUsuarios
                 If Buscar("Accesos", "Acceso", xAcceso.Text, "*", "") Then
                     cAcceso.Text = Swap("NombreAcceso").Value
                 End If
+                xNumero.Text = Trim(Usr("Codigo").Value)
                 xClave.Text = Trim(Descripta(Usr("Clave").Value))
                 zClave.Text = Trim(Descripta(Usr("Clave").Value))
                 If Not IsDBNull(Usr("Local").Value) Then
@@ -487,5 +497,9 @@ Public Class ManUsuarios
     Public Sub CargarRegistro(ByVal wControl As Control, ByVal wValor As String) Implements iFormulario.CargarRegistro
         wControl.Text = wValor
         wControl.Validate
+    End Sub
+
+    Private Sub xAcceso_Validating(sender As Object, e As CancelEventArgs) Handles xAcceso.Validating
+
     End Sub
 End Class

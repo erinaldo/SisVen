@@ -62,12 +62,6 @@
         <elementListCompartment Id="1ff94cdf-48d4-426d-99f7-0ded6ac83b0f" absoluteBounds="9.265, 6.085, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="6645a06f-1312-4e51-b96e-3e37130fa5f8" absoluteBounds="4.75, 6.625, 2, 6.0015283203125">
-      <DataClassMoniker Name="/SisVenDataContext/T_Usuarios" />
-      <nestedChildShapes>
-        <elementListCompartment Id="0100246f-083e-4858-9b54-c4111855fd5c" absoluteBounds="4.765, 7.085, 1.9700000000000002, 5.4415283203125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="69af3f8a-c544-4e23-a353-886f0125825f" absoluteBounds="2.625, 7, 2, 6.9630354817708326">
       <DataClassMoniker Name="/SisVenDataContext/T_Articulos" />
       <nestedChildShapes>
@@ -84,6 +78,12 @@
       <DataClassMoniker Name="/SisVenDataContext/V_DetalleDocumentos" />
       <nestedChildShapes>
         <elementListCompartment Id="86ec51a8-ef66-44a4-84fe-f11cdf1e9b2c" absoluteBounds="9.265, 7.8350000000000009, 1.9700000000000002, 5.0569254557291661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f303a19f-4597-4d8e-a98f-d942912f37de" absoluteBounds="4.75, 6.625, 2, 6.1938297526041657">
+      <DataClassMoniker Name="/SisVenDataContext/T_Usuarios" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d1292d3b-5c51-43aa-8241-853b4197352b" absoluteBounds="4.765, 7.085, 1.9700000000000002, 5.6338297526041661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

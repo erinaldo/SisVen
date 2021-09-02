@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class ManArticulos
     Inherits System.Windows.Forms.Form
 
     'Form reemplaza a Dispose para limpiar la lista de componentes.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,11 +20,12 @@ Partial Class ManArticulos
     'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
     'Se puede modificar usando el Diseñador de Windows Forms.  
     'No lo modifique con el editor de código.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ManArticulos))
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.bNuevo = New System.Windows.Forms.Button()
         Me.xSKU = New System.Windows.Forms.TextBox()
         Me.Label32 = New System.Windows.Forms.Label()
         Me.bBuscar = New System.Windows.Forms.Button()
@@ -90,7 +91,6 @@ Partial Class ManArticulos
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.bBarras = New System.Windows.Forms.Button()
         Me.WinDeco1 = New SisVen.WinDeco()
-        Me.bNuevo = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
@@ -128,6 +128,21 @@ Partial Class ManArticulos
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Datos del Artículo"
+        '
+        'bNuevo
+        '
+        Me.bNuevo.BackColor = System.Drawing.Color.White
+        Me.bNuevo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.bNuevo.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.bNuevo.Image = Global.SisVen.My.Resources.Resources.new16
+        Me.bNuevo.Location = New System.Drawing.Point(298, 17)
+        Me.bNuevo.Name = "bNuevo"
+        Me.bNuevo.Size = New System.Drawing.Size(79, 28)
+        Me.bNuevo.TabIndex = 91
+        Me.bNuevo.TabStop = False
+        Me.bNuevo.Text = "Nuevo"
+        Me.bNuevo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.bNuevo.UseVisualStyleBackColor = False
         '
         'xSKU
         '
@@ -805,21 +820,6 @@ Partial Class ManArticulos
         Me.WinDeco1.VerMaximizar = False
         Me.WinDeco1.VerMinimizar = True
         Me.WinDeco1.VerTitulo = True
-        '
-        'bNuevo
-        '
-        Me.bNuevo.BackColor = System.Drawing.Color.White
-        Me.bNuevo.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.bNuevo.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.bNuevo.Image = Global.SisVen.My.Resources.Resources.new16
-        Me.bNuevo.Location = New System.Drawing.Point(298, 17)
-        Me.bNuevo.Name = "bNuevo"
-        Me.bNuevo.Size = New System.Drawing.Size(79, 28)
-        Me.bNuevo.TabIndex = 91
-        Me.bNuevo.TabStop = False
-        Me.bNuevo.Text = "Nuevo"
-        Me.bNuevo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.bNuevo.UseVisualStyleBackColor = False
         '
         'ManArticulos
         '

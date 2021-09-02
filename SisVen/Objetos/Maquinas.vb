@@ -12,9 +12,8 @@ Public Class Maquinas
     Public Property Modelo As String
     <DisplayName("Ubicacion")>
     Public Property Ubicacion As String
-    <DisplayName("IDCliente")>
     Public Property Cliente As String
-    <DisplayName("Cliente")>
+    <DisplayName("Rut")>
     Public Property Rut As String
     <DisplayName("Sucursal")>
     Public Property Sucursal As String

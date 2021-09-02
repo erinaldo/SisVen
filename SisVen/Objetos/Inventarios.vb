@@ -10,4 +10,8 @@ Public Class Inventarios
     Public Property Cantidad As Decimal
     <DisplayName("Precio Neto")>
     Public Property Neto As Decimal
+    <DisplayName("Unidades por Envase")>
+    Public Property Unidades As Decimal
+    <DisplayName("Negocio")>
+    Public Property Negocio As Decimal
 End Class

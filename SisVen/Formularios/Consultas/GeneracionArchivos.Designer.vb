@@ -23,6 +23,10 @@ Partial Class GeneracionArchivos
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.oMaquinas = New System.Windows.Forms.CheckBox()
+        Me.oInventarios = New System.Windows.Forms.CheckBox()
+        Me.oDetalles = New System.Windows.Forms.CheckBox()
+        Me.oGeneral = New System.Windows.Forms.CheckBox()
         Me.dHasta = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.dDesde = New System.Windows.Forms.DateTimePicker()
@@ -30,10 +34,6 @@ Partial Class GeneracionArchivos
         Me.bGenerar = New System.Windows.Forms.Button()
         Me.bCancelar = New System.Windows.Forms.Button()
         Me.WinDeco1 = New SisVen.WinDeco()
-        Me.oGeneral = New System.Windows.Forms.CheckBox()
-        Me.oDetalles = New System.Windows.Forms.CheckBox()
-        Me.oInventarios = New System.Windows.Forms.CheckBox()
-        Me.oMaquinas = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -57,6 +57,58 @@ Partial Class GeneracionArchivos
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filtros"
+        '
+        'oMaquinas
+        '
+        Me.oMaquinas.AutoSize = True
+        Me.oMaquinas.Checked = True
+        Me.oMaquinas.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.oMaquinas.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.oMaquinas.Location = New System.Drawing.Point(11, 156)
+        Me.oMaquinas.Name = "oMaquinas"
+        Me.oMaquinas.Size = New System.Drawing.Size(186, 19)
+        Me.oMaquinas.TabIndex = 18
+        Me.oMaquinas.Text = "Generar Archivo de Máquinas"
+        Me.oMaquinas.UseVisualStyleBackColor = True
+        '
+        'oInventarios
+        '
+        Me.oInventarios.AutoSize = True
+        Me.oInventarios.Checked = True
+        Me.oInventarios.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.oInventarios.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.oInventarios.Location = New System.Drawing.Point(11, 133)
+        Me.oInventarios.Name = "oInventarios"
+        Me.oInventarios.Size = New System.Drawing.Size(192, 19)
+        Me.oInventarios.TabIndex = 17
+        Me.oInventarios.Text = "Generar Archivo de Inventarios"
+        Me.oInventarios.UseVisualStyleBackColor = True
+        '
+        'oDetalles
+        '
+        Me.oDetalles.AutoSize = True
+        Me.oDetalles.Checked = True
+        Me.oDetalles.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.oDetalles.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.oDetalles.Location = New System.Drawing.Point(11, 110)
+        Me.oDetalles.Name = "oDetalles"
+        Me.oDetalles.Size = New System.Drawing.Size(210, 19)
+        Me.oDetalles.TabIndex = 16
+        Me.oDetalles.Text = "Generar Archivo Detalles (VTAS2) "
+        Me.oDetalles.UseVisualStyleBackColor = True
+        '
+        'oGeneral
+        '
+        Me.oGeneral.AutoSize = True
+        Me.oGeneral.Checked = True
+        Me.oGeneral.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.oGeneral.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.oGeneral.Location = New System.Drawing.Point(11, 87)
+        Me.oGeneral.Name = "oGeneral"
+        Me.oGeneral.Size = New System.Drawing.Size(240, 19)
+        Me.oGeneral.TabIndex = 15
+        Me.oGeneral.Text = "Generar Archivo Encabecados (VTAS1) "
+        Me.oGeneral.UseVisualStyleBackColor = True
         '
         'dHasta
         '
@@ -147,58 +199,6 @@ Partial Class GeneracionArchivos
         Me.WinDeco1.VerMaximizar = False
         Me.WinDeco1.VerMinimizar = True
         Me.WinDeco1.VerTitulo = True
-        '
-        'oGeneral
-        '
-        Me.oGeneral.AutoSize = True
-        Me.oGeneral.Checked = True
-        Me.oGeneral.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.oGeneral.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oGeneral.Location = New System.Drawing.Point(11, 87)
-        Me.oGeneral.Name = "oGeneral"
-        Me.oGeneral.Size = New System.Drawing.Size(240, 19)
-        Me.oGeneral.TabIndex = 15
-        Me.oGeneral.Text = "Generar Archivo Encabecados (VTAS1) "
-        Me.oGeneral.UseVisualStyleBackColor = True
-        '
-        'oDetalles
-        '
-        Me.oDetalles.AutoSize = True
-        Me.oDetalles.Checked = True
-        Me.oDetalles.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.oDetalles.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oDetalles.Location = New System.Drawing.Point(11, 110)
-        Me.oDetalles.Name = "oDetalles"
-        Me.oDetalles.Size = New System.Drawing.Size(210, 19)
-        Me.oDetalles.TabIndex = 16
-        Me.oDetalles.Text = "Generar Archivo Detalles (VTAS2) "
-        Me.oDetalles.UseVisualStyleBackColor = True
-        '
-        'oInventarios
-        '
-        Me.oInventarios.AutoSize = True
-        Me.oInventarios.Checked = True
-        Me.oInventarios.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.oInventarios.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oInventarios.Location = New System.Drawing.Point(11, 133)
-        Me.oInventarios.Name = "oInventarios"
-        Me.oInventarios.Size = New System.Drawing.Size(192, 19)
-        Me.oInventarios.TabIndex = 17
-        Me.oInventarios.Text = "Generar Archivo de Inventarios"
-        Me.oInventarios.UseVisualStyleBackColor = True
-        '
-        'oMaquinas
-        '
-        Me.oMaquinas.AutoSize = True
-        Me.oMaquinas.Checked = True
-        Me.oMaquinas.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.oMaquinas.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.oMaquinas.Location = New System.Drawing.Point(11, 156)
-        Me.oMaquinas.Name = "oMaquinas"
-        Me.oMaquinas.Size = New System.Drawing.Size(186, 19)
-        Me.oMaquinas.TabIndex = 18
-        Me.oMaquinas.Text = "Generar Archivo de Máquinas"
-        Me.oMaquinas.UseVisualStyleBackColor = True
         '
         'GeneracionArchivos
         '
