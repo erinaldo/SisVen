@@ -97,10 +97,12 @@ Public Class Documentos
                 Exit Sub
             End If
 
-            HayStock = Validar_Stocks(BodegaActual, xTabla.GetData(i, T_ARTICULO), xTabla.GetData(i, T_CANTIDAD))
-            If Not HayStock Then
-                MsgError("No hay stock para el Artículo: " + Num(xTabla.GetData(i, T_ARTICULO)) + vbCrLf + xTabla.GetData(i, T_DESCRIPCION))
-                Exit Sub
+            If ModoBodega = "-" Then  'Solo si se va a descontar se valida el stocks.
+                HayStock = Validar_Stocks(BodegaActual, xTabla.GetData(i, T_ARTICULO), xTabla.GetData(i, T_CANTIDAD))
+                If Not HayStock Then
+                    MsgError("No hay stock para el Artículo: " + Num(xTabla.GetData(i, T_ARTICULO)) + vbCrLf + xTabla.GetData(i, T_DESCRIPCION))
+                    Exit Sub
+                End If
             End If
         Next
 
