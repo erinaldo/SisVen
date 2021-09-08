@@ -2,10 +2,13 @@
 Imports System.IO
 Imports System.Text.RegularExpressions
 Imports ClosedXML.Excel
+Imports SisVen
 
 Public Class ManMaquinas
+    Implements iFormulario
 
     Private Sub ManMaquinas_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         cUbicacion.Items.Add("")
         cUbicacion.Items.Add("Centro de Distribución")
         cUbicacion.Items.Add("Cliente")
@@ -157,26 +160,25 @@ Public Class ManMaquinas
                 xCliente.Focus()
                 Exit Sub
             End If
-            If xGarantia.Text.Trim = "" Then
-                MsgError("Falta Garantía")
-                xGarantia.Focus()
-                Exit Sub
+            If xGarantia.Text.Trim <> "" Then
+                If Not IsNumeric(xGarantia.Text) Then
+                    MsgError("Número de Garantía Incorrecto")
+                    xGarantia.Focus()
+                    Exit Sub
+                End If
+            Else
+                xGarantia.Text = "0"
             End If
-            If Not IsNumeric(xGarantia.Text) Then
-                MsgError("Número de Garantía Incorrecto")
-                xGarantia.Focus()
-                Exit Sub
+            If xGuia.Text.Trim <> "" Then
+                If Not IsNumeric(xGuia.Text) Then
+                    MsgError("Número de Guía Incorrecto")
+                    xGuia.Focus()
+                    Exit Sub
+                End If
+            Else
+                xGuia.Text = "0"
             End If
-            If xGuia.Text.Trim = "" Then
-                MsgError("Falta Guía")
-                xGuia.Focus()
-                Exit Sub
-            End If
-            If Not IsNumeric(xGuia.Text) Then
-                MsgError("Número de Guía Incorrecto")
-                xGuia.Focus()
-                Exit Sub
-            End If
+
         End If
 
         Dim xUbicacion As Integer = 0
@@ -246,7 +248,7 @@ Public Class ManMaquinas
     End Sub
 
     Private Sub bBuscar_Click(sender As Object, e As EventArgs) Handles bBuscar.Click
-        Dim wQuery = "SELECT * FROM Maquinas Order by ID"
+        Dim wQuery = "SELECT * FROM Maquinas"
         Buscador.Show()
         Buscador.Configurar(wQuery, "Modelo", Me, "Maquinas", xID)
     End Sub
@@ -326,5 +328,8 @@ Public Class ManMaquinas
         Verificar_Cliente()
     End Sub
 
-
+    Public Sub CargarRegistro(ByVal wControl As Control, ByVal wValor As String) Implements iFormulario.CargarRegistro
+        wControl.Text = wValor
+        wControl.Validate
+    End Sub
 End Class

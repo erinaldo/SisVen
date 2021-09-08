@@ -33,8 +33,6 @@ Public Class ManUsuarios
         Aceptar.Text = "Ingresar"
     End Sub
 
-
-
     Private Sub Buscar_Click(sender As Object, e As EventArgs) Handles Buscar_Empresa.Click
         Modulo = "Mantenedor_Usuarios"
         BuscarClientes.Show()

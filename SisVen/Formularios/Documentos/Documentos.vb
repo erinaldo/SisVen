@@ -98,7 +98,7 @@ Public Class Documentos
             End If
 
             If ModoBodega = "-" Then  'Solo si se va a descontar se valida el stocks.
-                HayStock = Validar_Stocks(BodegaActual, xTabla.GetData(i, T_ARTICULO), xTabla.GetData(i, T_CANTIDAD))
+                HayStock = Validar_Stocks(BodegaActual, Val(xTabla.GetData(i, T_ARTICULO)), CDbl(xTabla.GetData(i, T_CANTIDAD)))
                 If Not HayStock Then
                     MsgError("No hay stock para el Artículo: " + Num(xTabla.GetData(i, T_ARTICULO)) + vbCrLf + xTabla.GetData(i, T_DESCRIPCION))
                     Exit Sub
@@ -126,12 +126,19 @@ Public Class Documentos
             End If
 
             Swap = SQL("Select * from  Motivos where DescMotivo = '" + cMotivo.Text + "' and TipoDoc = '" + xTipoDoc + "'")
-                If Swap.RecordCount > 0 Then
+            If Swap.RecordCount > 0 Then
                 xMotivo = Swap("Motivo").Value
             Else
                 MsgError("Motivo de " + cTipoDoc.Text.Trim + " incorrecto.")
                 cMotivo.Focus()
                 Exit Sub
+            End If
+
+            If xTipoDoc = "NC" Or xTipoDoc = "ND" Then
+                If cTipoDocRef.Text.Trim = "" Or Val(xNumDocRef.Text) = 0 Then
+                    MsgError("Falta Datos del Documento de Referencia")
+                    Exit Sub
+                End If
             End If
         End If
 
@@ -728,6 +735,14 @@ Public Class Documentos
         Else
             xLocal.Text = ""
         End If
+
+        Bod = SQL("Select NombreBodega from Bodegas where Bodega = " + BodegaActual.ToString)
+        If Bod.RecordCount > 0 Then
+            xBodega.Text = Bod.Fields("NombreBodega").Value
+        Else
+            xBodega.Text = BodegaActual
+        End If
+
 
         If Not Supervisor Then
             xVendedor.Text = ""

@@ -169,9 +169,9 @@ Partial Class Buscador
         Me.Label2.ForeColor = System.Drawing.Color.Transparent
         Me.Label2.Location = New System.Drawing.Point(12, 469)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(143, 16)
+        Me.Label2.Size = New System.Drawing.Size(149, 16)
         Me.Label2.TabIndex = 211
-        Me.Label2.Text = "Cantidad de Artículos"
+        Me.Label2.Text = "Cantidad de Registros"
         '
         'Buscador
         '

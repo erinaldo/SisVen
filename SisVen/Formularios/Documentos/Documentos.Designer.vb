@@ -108,9 +108,11 @@ Partial Class Documentos
         Me.Limpiar = New System.Windows.Forms.Button()
         Me.nLineas = New System.Windows.Forms.TextBox()
         Me.Label28 = New System.Windows.Forms.Label()
-        Me.WinDeco1 = New SisVen.WinDeco()
         Me.Salir = New System.Windows.Forms.Button()
         Me.bDirectorio = New System.Windows.Forms.Button()
+        Me.WinDeco1 = New SisVen.WinDeco()
+        Me.xBodega = New System.Windows.Forms.TextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
         Me.fGeneral.SuspendLayout()
         Me.fDetalles.SuspendLayout()
         CType(Me.xTabla, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -124,6 +126,8 @@ Partial Class Documentos
         Me.fGeneral.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.fGeneral.BackColor = System.Drawing.Color.Transparent
+        Me.fGeneral.Controls.Add(Me.xBodega)
+        Me.fGeneral.Controls.Add(Me.Label29)
         Me.fGeneral.Controls.Add(Me.xTipoDocRef)
         Me.fGeneral.Controls.Add(Me.xNombre)
         Me.fGeneral.Controls.Add(Me.xRut)
@@ -422,7 +426,7 @@ Partial Class Documentos
         'xNomVen
         '
         Me.xNomVen.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(235, Byte), Integer))
-        Me.xNomVen.Location = New System.Drawing.Point(447, 64)
+        Me.xNomVen.Location = New System.Drawing.Point(447, 68)
         Me.xNomVen.Name = "xNomVen"
         Me.xNomVen.ReadOnly = True
         Me.xNomVen.Size = New System.Drawing.Size(147, 20)
@@ -1176,25 +1180,6 @@ Partial Class Documentos
         Me.Label28.TabIndex = 111
         Me.Label28.Text = "N° Lineas"
         '
-        'WinDeco1
-        '
-        Me.WinDeco1.AlturaFooter = 60
-        Me.WinDeco1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(205, Byte), Integer))
-        Me.WinDeco1.BordeVentana = 2
-        Me.WinDeco1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.WinDeco1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(67, Byte), Integer))
-        Me.WinDeco1.Location = New System.Drawing.Point(0, 0)
-        Me.WinDeco1.MuestraBordeExterior = -1
-        Me.WinDeco1.Name = "WinDeco1"
-        Me.WinDeco1.Size = New System.Drawing.Size(938, 50)
-        Me.WinDeco1.TabIndex = 97
-        Me.WinDeco1.TituloVentana = "Emisión de Documentos"
-        Me.WinDeco1.VerCerrar = True
-        Me.WinDeco1.VerLogo = True
-        Me.WinDeco1.VerMaximizar = True
-        Me.WinDeco1.VerMinimizar = True
-        Me.WinDeco1.VerTitulo = True
-        '
         'Salir
         '
         Me.Salir.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1226,6 +1211,44 @@ Partial Class Documentos
         Me.bDirectorio.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.bDirectorio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.bDirectorio.UseVisualStyleBackColor = False
+        '
+        'WinDeco1
+        '
+        Me.WinDeco1.AlturaFooter = 60
+        Me.WinDeco1.BackColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(102, Byte), Integer), CType(CType(205, Byte), Integer))
+        Me.WinDeco1.BordeVentana = 2
+        Me.WinDeco1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.WinDeco1.ForeColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(44, Byte), Integer), CType(CType(67, Byte), Integer))
+        Me.WinDeco1.Location = New System.Drawing.Point(0, 0)
+        Me.WinDeco1.MuestraBordeExterior = -1
+        Me.WinDeco1.Name = "WinDeco1"
+        Me.WinDeco1.Size = New System.Drawing.Size(938, 50)
+        Me.WinDeco1.TabIndex = 97
+        Me.WinDeco1.TituloVentana = "Emisión de Documentos"
+        Me.WinDeco1.VerCerrar = True
+        Me.WinDeco1.VerLogo = True
+        Me.WinDeco1.VerMaximizar = True
+        Me.WinDeco1.VerMinimizar = True
+        Me.WinDeco1.VerTitulo = True
+        '
+        'xBodega
+        '
+        Me.xBodega.BackColor = System.Drawing.Color.FromArgb(CType(CType(220, Byte), Integer), CType(CType(230, Byte), Integer), CType(CType(235, Byte), Integer))
+        Me.xBodega.Location = New System.Drawing.Point(447, 45)
+        Me.xBodega.Name = "xBodega"
+        Me.xBodega.ReadOnly = True
+        Me.xBodega.Size = New System.Drawing.Size(147, 20)
+        Me.xBodega.TabIndex = 131
+        Me.xBodega.TabStop = False
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Location = New System.Drawing.Point(397, 50)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(44, 13)
+        Me.Label29.TabIndex = 130
+        Me.Label29.Text = "Bodega"
         '
         'Documentos
         '
@@ -1355,4 +1378,6 @@ Partial Class Documentos
     Friend WithEvents xTipoDocRef As TextBox
     Public WithEvents Salir As Button
     Public WithEvents bDirectorio As Button
+    Friend WithEvents xBodega As TextBox
+    Friend WithEvents Label29 As Label
 End Class
