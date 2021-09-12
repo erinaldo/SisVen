@@ -111,7 +111,7 @@ Public Class GeneracionArchivos
                                     x.DireccionSuc = If(x.Sucursal.Trim = "" Or x.Sucursal = "0000", "", wCliente.Direccion.ToUpper)
                                     x.CiudadSuc = If(x.Sucursal.Trim = "" Or x.Sucursal = "0000", "", x.Ciudad)
                                     x.ComunaSuc = If(x.Sucursal.Trim = "" Or x.Sucursal = "0000", "", x.Comuna)
-                                    x.Direccion = wCliente.Direccion
+                                    x.Direccion = If(x.Sucursal.Trim = "" Or x.Sucursal = "0000", wCliente.Direccion.ToUpper, "")  'Solo entregar dirección csa matriz si no es sucursal
                                 End If
                             End Sub)
 

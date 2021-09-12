@@ -736,6 +736,7 @@ Public Class Documentos
             xLocal.Text = ""
         End If
 
+        BodegaActual = Retorna_TipoBodega(LocalActual, "P")
         Bod = SQL("Select NombreBodega from Bodegas where Bodega = " + BodegaActual.ToString)
         If Bod.RecordCount > 0 Then
             xBodega.Text = Bod.Fields("NombreBodega").Value
