@@ -17,4 +17,6 @@ Public Class DetalleVentas
     Public Property PVenta As Decimal
     <DisplayName("Total")>
     Public Property Total As Decimal
+    <DisplayName("Negocio")>
+    Public Property Negocio As Decimal
 End Class

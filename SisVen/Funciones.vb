@@ -23,7 +23,7 @@ Module Funciones
     Public Const W_SELECCIONAR As String = "Seleccionar"
     Public Const c_Empresa As String = "Wikets Software"
     Public Const c_Sistema As String = "SisVen"
-    Public Const Version As String = "1.55 12/09/2021"
+    Public Const Version As String = "1.56 14/09/2021"
 
     Public gProgramador As Boolean = False
     Public gMonoLocal As Boolean = True

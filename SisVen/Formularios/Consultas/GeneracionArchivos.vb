@@ -145,7 +145,8 @@ Public Class GeneracionArchivos
             .Unidad = x.DescUnidad.ToUpper,
             .Cantidad = x.Cantidad,
             .PVenta = x.Neto,
-            .Total = (x.Neto * x.Cantidad)
+            .Total = (x.Neto * x.Cantidad),
+            .Negocio = 1
         }).ToList()
 
         If Not wDetalles.Any() Then
